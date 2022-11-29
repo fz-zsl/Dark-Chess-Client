@@ -4,6 +4,7 @@ import Piece.ChessPiece;
 import algorithm.ClickOnBoard;
 import algorithm.GeneralInit;
 import algorithm.UndoPreviousOperation;
+import autoPlayer.Greedy;
 import datum.ChessBoardStatus;
 import datum.UserStatus;
 import javafx.event.ActionEvent;
@@ -28,8 +29,15 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import oop.GameEndsException;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static Properties.Property.version;
 
@@ -40,16 +48,16 @@ public class Board
     static public double boardW = 4 * gird + 1f / 3 * gird;
     static public double boardH = 8 * gird + 1f / 3 * gird;
     static Canvas canvas = new Canvas(boardW + 2 * 41.65, boardH + 41.65);
-    public static AnchorPane anchorPane = new AnchorPane();
+    static public AnchorPane anchorPane = new AnchorPane();
     static public GraphicsContext gc = canvas.getGraphicsContext2D();
-    static private Text bTurn = new Text("先手翻棋");
+    static protected Text bTurn = new Text("先手翻棋");
     static public ArrayList<ChessPiece> chessPieceArrayList = new ArrayList<>();
-    static private Text r = new Text("红方");
-    static private Text b = new Text("黑方");
-    static private Text rText = new Text("分数 0");
-    static private Text bText = new Text("分数 0");
+    static protected Text r = new Text("红方");
+    static protected Text b = new Text("黑方");
+    static protected Text rText = new Text("分数 0");
+    static protected Text bText = new Text("分数 0");
 
-    public static void startGame() throws IOException
+    public static void startGame(int mode) throws IOException
     {
         Stage stage = new Stage();
         Group group = new Group();
@@ -118,9 +126,9 @@ public class Board
             rText.setText("分数 " + redScore.toString());
             Integer blackScore = UserStatus.getBlackScore();
             bText.setText("分数 " + blackScore.toString());
-            if(UserStatus.currentSide == 0)
+            if (UserStatus.currentSide == 0)
                 bTurn.setText("轮到红方");
-            else if(UserStatus.currentSide == 1)
+            else if (UserStatus.currentSide == 1)
                 bTurn.setText("轮到黑方");
         };
 
@@ -140,12 +148,23 @@ public class Board
             rText.setText("分数 " + redScore.toString());
             Integer blackScore = UserStatus.getBlackScore();
             bText.setText("分数 " + blackScore.toString());
-            if (UserStatus.currentSide == 0)
-                bTurn.setText("轮到红方");
-            else if (UserStatus.currentSide == 1)
-                bTurn.setText("轮到黑方");
-            else
+            if(mode == 1)
+            {
+                r.setText("红方");
+                r.setFill(Color.RED);
+                b.setText("黑方");
+                rText.setFill(Color.RED);
                 bTurn.setText("先手翻棋");
+            }
+
+            else if (mode == 3)
+            {
+                r.setText("玩家");
+                r.setFill(Color.BLACK);
+                b.setText("机器");
+                rText.setFill(Color.BLACK);
+                bTurn.setText("玩家翻棋");
+            }
         };
 
         menuItem1.setOnAction(eventHandler2);
@@ -224,19 +243,28 @@ public class Board
         stage.setTitle("游戏界面");
         stage.setScene(scene);
         stage.show();
-        
+
+        //设置棋盘，画出棋子
+        if (mode == 1)
+            offlineAction(group);
+        else if (mode == 3)
+            aiAction(group);
+    }
+
+    static private void offlineAction(Group group)
+    {
         //设置棋盘，画出棋子
         GeneralInit.generalInit();
         EventHandler<MouseEvent> eventHandler = mouseEvent ->
         {
-            int y = (int) ((mouseEvent.getX() - 341.65 - 1f / 6 * gird)/gird + 1);
-            int x = (int) ((mouseEvent.getY() - 41.65 -1f / 6 * gird)/gird + 1);
+            int y = (int) ((mouseEvent.getX() - 341.65 - 1f / 6 * gird) / gird + 1);
+            int x = (int) ((mouseEvent.getY() - 41.65 - 1f / 6 * gird) / gird + 1);
             //Showing.Info(mouseEvent.getX()+" "+mouseEvent.getY());
-            System.out.println(mouseEvent.getX()+" "+mouseEvent.getY());
+            System.out.println(mouseEvent.getX() + " " + mouseEvent.getY());
 
             MouseButton button = mouseEvent.getButton();
 
-            if(button == MouseButton.PRIMARY)//左击
+            if (button == MouseButton.PRIMARY)//左击
             {
                 //调用控制程序，判断棋子的类型
                 if (x > 0 && x < 9 && y > 0 && y < 9)
@@ -247,6 +275,7 @@ public class Board
                     }
                     catch (GameEndsException e)
                     {
+                        flip();
                         Showing.Info(e.toString());
                     }
                 }
@@ -260,10 +289,90 @@ public class Board
                 else if (UserStatus.currentSide == 1)
                     bTurn.setText("轮到黑方");
             }
-            else if(button == MouseButton.SECONDARY)
-                chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(x,y)).cheatingFlip();
+            else if (button == MouseButton.SECONDARY)
+                chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(x, y)).cheatingFlip();
         };
         group.setOnMouseClicked(eventHandler);
     }
+
+    static private void aiAction(Group group)
+    {
+        r.setText("玩家");
+        r.setFill(Color.BLACK);
+        b.setText("机器");
+        rText.setFill(Color.BLACK);
+        bTurn.setText("玩家翻棋");
+        //设置棋盘，画出棋子
+        GeneralInit.generalInit();
+        EventHandler<MouseEvent> eventHandler = mouseEvent ->
+        {
+            int y = (int) ((mouseEvent.getX() - 341.65 - 1f / 6 * gird) / gird + 1);
+            int x = (int) ((mouseEvent.getY() - 41.65 - 1f / 6 * gird) / gird + 1);
+            //Showing.Info(mouseEvent.getX()+" "+mouseEvent.getY());
+            System.out.println(mouseEvent.getX() + " " + mouseEvent.getY());
+
+            MouseButton button = mouseEvent.getButton();
+
+            if (button == MouseButton.PRIMARY)//左击
+            {
+                //调用控制程序，判断棋子的类型
+                if (x > 0 && x < 9 && y > 0 && y < 9)
+                {
+                    try
+                    {
+                        //这里是GUI
+                        if(UserStatus.AISide == 1)
+                        {
+                            r.setFill(Color.RED);
+                            rText.setFill(Color.RED);
+                        }
+                        else if (UserStatus.AISide == 0)
+                        {
+                            b.setFill(Color.RED);
+                            bText.setFill(Color.RED);
+                        }
+                        ClickOnBoard.clickOnBoard(x, y);
+                        if (UserStatus.AISide == UserStatus.currentSide)
+                            Greedy.greedy(4, true);
+                    }
+                    catch (GameEndsException e)
+                    {
+                        flip();
+                        Showing.Info(e.toString());
+                    }
+                }
+                //重新设定计分板
+                if(UserStatus.AISide == 0)
+                {
+                    Integer redScore = UserStatus.getRedScore();
+                    Integer blackScore = UserStatus.getBlackScore();
+                    rText.setText("分数 " + blackScore.toString());
+                    bText.setText("分数 " + redScore.toString());
+                }
+                else if (UserStatus.AISide == 1)
+                {
+                    Integer redScore = UserStatus.getRedScore();
+                    rText.setText("分数 " + redScore.toString());
+                    Integer blackScore = UserStatus.getBlackScore();
+                    bText.setText("分数 " + blackScore.toString());
+                }
+
+                if (UserStatus.AISide == UserStatus.currentSide)
+                    bTurn.setText("轮到机器");
+                else
+                    bTurn.setText("轮到玩家");
+            }
+            else if (button == MouseButton.SECONDARY)
+                chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(x, y)).cheatingFlip();
+        };
+        group.setOnMouseClicked(eventHandler);
+    }
+
+     private static void flip()
+    {
+        for(ChessPiece c: chessPieceArrayList)
+            c.flipAChess();
+    }
+
 
 }

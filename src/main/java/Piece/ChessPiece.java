@@ -37,6 +37,8 @@ public class ChessPiece extends ImageView
         return eatenY;
     }
 
+    private Boolean status = false;
+
     public static void setTime(double peakingTime)
     {
         time = peakingTime;
@@ -70,6 +72,7 @@ public class ChessPiece extends ImageView
 
     public void removeAChess(double initialX, double initialY)
     {
+        this.status = true;
         Timeline timeline = new Timeline();
         KeyValue keyValue1 = new KeyValue(this.translateXProperty(),this.getEatenX());
         KeyValue keyValue2 = new KeyValue(this.translateYProperty(),this.getEatenY());
@@ -93,6 +96,7 @@ public class ChessPiece extends ImageView
 
     public void reRemoveAChess(double finalX, double finalY)
     {
+        this.status = true;
         TranslateTransition tt= new TranslateTransition();
         tt.setDuration(Duration.seconds(0.8));
         tt.setNode(this);
@@ -105,6 +109,8 @@ public class ChessPiece extends ImageView
 
     public void cheatingFlip()
     {
+        if(this.status)
+            return;
         ChessPiece chessPiece = this;
         Timeline timeline = new Timeline();
         KeyValue keyValue1 = new KeyValue(this.scaleXProperty(),1.1);
@@ -149,6 +155,9 @@ public class ChessPiece extends ImageView
     }
     public void flipAChess()
     {
+        if(status)
+            return;
+        this.status = true;
         ChessPiece chessPiece = this;
         double time = 0.1;
         Timeline timeline = new Timeline();
@@ -160,7 +169,7 @@ public class ChessPiece extends ImageView
             public void handle(ActionEvent actionEvent)
             {
                 chessPiece.setImage(new Image(chessPiece.pieceType.getAddress()));
-                System.out.println("SLGG YYDS!");
+                System.out.println("SLGG YYDS 1!");
             }
         }, keyValue1,keyValue2);//放大
 
@@ -171,7 +180,7 @@ public class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                System.out.println("SLGG YYDS!");
+                System.out.println("SLGG YYDS 3!");
             }
         }, keyValue3,keyValue4);//缩小
 
@@ -182,7 +191,7 @@ public class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                System.out.println("SLGG YYDS!");
+                System.out.println("SLGG YYDS 2!");
             }
         },keyValue, keyValue5);//显示
 

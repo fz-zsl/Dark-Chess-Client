@@ -30,7 +30,7 @@ public class StartGame
     @FXML
     void cComputer(MouseEvent event)throws IOException
     {
-        AIBoard.startGame();
+        Board.startGame(3);
         LogIn.theStartGameStage.close();
     }
 
@@ -61,7 +61,7 @@ public class StartGame
     @FXML
     void cOffline(MouseEvent event) throws IOException
     {
-        Board.startGame();
+        Board.startGame(1);
         LogIn.theStartGameStage.close();
     }
 
