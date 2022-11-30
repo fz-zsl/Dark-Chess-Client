@@ -72,11 +72,11 @@ public class UserStatus {
 //		eatenChessStack.add(chessIndex);
 		if (chessIndex<10) {//black eats red
 			blackScore+=scorePerChess[chessIndex];
-			if (blackScore>59) throw new GameEndsException("The black side");
+			if (blackScore>59) throw new GameEndsException("1");
 		}
 		else {//red eats black
 			redScore+=scorePerChess[chessIndex-10];
-			if (redScore>59) throw new GameEndsException("The red side");
+			if (redScore>59) throw new GameEndsException("0");
 		}
 	}
 

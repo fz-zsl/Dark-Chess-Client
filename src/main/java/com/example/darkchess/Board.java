@@ -374,7 +374,11 @@ public class Board
                     catch (GameEndsException e)
                     {
                         flip();
-                        Showing.Info(e.toString());
+                        if(e.getInfo() == UserStatus.AISide)
+                            Showing.Info("菜狗，回去多积淀积淀再来挑战爷！");
+                        else
+                            Showing.Info("厉害啊，小子！居然把爷战胜了？！");
+                       // Showing.Info(e.toString());
                     }
                 }
                 //重新设定计分板
