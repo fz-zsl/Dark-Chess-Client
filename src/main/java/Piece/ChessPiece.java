@@ -37,7 +37,7 @@ public class ChessPiece extends ImageView
         return eatenY;
     }
 
-    private Boolean status = false;
+    private Boolean status = false;//false代表没有翻开
 
     public static void setTime(double peakingTime)
     {
@@ -67,12 +67,11 @@ public class ChessPiece extends ImageView
         tt.setToX(destinationX);
         tt.setToY(destinationY);
         tt.play();
-        System.out.println("bwgg txdy!");
+        System.out.println("slgg txdy!");
     }
 
     public void removeAChess(double initialX, double initialY)
     {
-        this.status = true;
         Timeline timeline = new Timeline();
         KeyValue keyValue1 = new KeyValue(this.translateXProperty(),this.getEatenX());
         KeyValue keyValue2 = new KeyValue(this.translateYProperty(),this.getEatenY());
@@ -89,14 +88,25 @@ public class ChessPiece extends ImageView
             public void handle(ActionEvent actionEvent)
             {}
         },keyValue3);
-        timeline.getKeyFrames().addAll(keyFrame,keyFrame1);
+
+        KeyValue keyValue = new KeyValue(this.scaleXProperty(), 1.2);
+        KeyValue keyValue5 = new KeyValue(this.scaleYProperty(), 1.2);
+        KeyFrame keyFrame3 = new KeyFrame(Duration.seconds(0.1 + time), "reaction", new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                System.out.println("SLGG YYDS 2!");
+            }
+        },keyValue, keyValue5);//显示
+
+        timeline.getKeyFrames().addAll(keyFrame,keyFrame1,keyFrame3);
         timeline.setDelay(Duration.seconds(0.8));
         timeline.play();
     }
 
     public void reRemoveAChess(double finalX, double finalY)
     {
-        this.status = true;
         TranslateTransition tt= new TranslateTransition();
         tt.setDuration(Duration.seconds(0.8));
         tt.setNode(this);
@@ -105,6 +115,8 @@ public class ChessPiece extends ImageView
         tt.setToX(finalX);
         tt.setToY(finalY);
         tt.play();
+        if(!status)
+            this.reFlipAChess();
     }
 
     public void cheatingFlip()
@@ -157,7 +169,6 @@ public class ChessPiece extends ImageView
     {
         if(status)
             return;
-        this.status = true;
         ChessPiece chessPiece = this;
         double time = 0.1;
         Timeline timeline = new Timeline();
@@ -198,6 +209,7 @@ public class ChessPiece extends ImageView
 
         timeline.getKeyFrames().addAll(keyFrame1,keyFrame3,keyFrame2);
         timeline.play();
+        this.status = true;
     }
 
     public void reFlipAChess()
@@ -217,6 +229,7 @@ public class ChessPiece extends ImageView
         scaleTransition.setToX(1);
         scaleTransition.setToY(1);
         scaleTransition.play();
+        this.status = false;
     }
 
     static public double getChessXFx(int x)
@@ -234,4 +247,5 @@ public class ChessPiece extends ImageView
         setEatenX(x);
         setEatenY(y);
     }
+
 }

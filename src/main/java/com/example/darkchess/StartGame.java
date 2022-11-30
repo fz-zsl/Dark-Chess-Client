@@ -1,12 +1,15 @@
 package com.example.darkchess;
 
 
+import algorithm.GeneralInit;
+import datum.UserStatus;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,6 +17,7 @@ import java.io.IOException;
 public class StartGame
 {
 
+    private static Boolean judge = true;
     public static Stage thePreferenceStageSG;
     @FXML
     private MenuItem contectUs;
@@ -30,8 +34,32 @@ public class StartGame
     @FXML
     void cComputer(MouseEvent event)throws IOException
     {
-        Board.startGame(3);
-        LogIn.theStartGameStage.close();
+        if(judge)
+        {
+            Board.startGame(3);
+            LogIn.theStartGameStage.close();
+        }
+        else
+        {
+            System.out.println("restart");
+            Board.anchorPane.getChildren().removeAll(Board.chessPieceArrayList);
+            Board.chessPieceArrayList = CanvasUtils.setAllChess(3);
+            GeneralInit.generalInit();
+            //重新设定计分板
+            Integer redScore = UserStatus.getRedScore();
+            Board.rText.setText("分数 " + redScore.toString());
+            Integer blackScore = UserStatus.getBlackScore();
+            Board.bText.setText("分数 " + blackScore.toString());
+            Board.r.setText("玩家");
+            Board.r.setFill(Color.BLACK);
+            Board.b.setText("机器");
+            Board.rText.setFill(Color.BLACK);
+            Board.bTurn.setText("玩家翻棋");
+            Board.theBoardStage.show();
+            LogIn.theStartGameStage.close();
+            Board.aiAction(Board.group);
+        }
+        judge = false;
     }
 
     @FXML
@@ -43,7 +71,9 @@ public class StartGame
     @FXML
     void cHalf(MouseEvent event)
     {
+
         // TODO: 2022/11/15
+        judge = false;
     }
 
     @FXML
@@ -55,20 +85,44 @@ public class StartGame
         stage.setTitle("退出");
         stage.setScene(scene);
         stage.show();
-
     }
 
     @FXML
     void cOffline(MouseEvent event) throws IOException
     {
-        Board.startGame(1);
-        LogIn.theStartGameStage.close();
+        if(judge)
+        {
+            Board.startGame(1);
+            LogIn.theStartGameStage.close();
+        }
+        else
+        {
+            System.out.println("restart");
+            Board.anchorPane.getChildren().removeAll(Board.chessPieceArrayList);
+            Board.chessPieceArrayList = CanvasUtils.setAllChess(1);
+            GeneralInit.generalInit();
+            //重新设定计分板
+            Integer redScore = UserStatus.getRedScore();
+            Board.rText.setText("分数 " + redScore.toString());
+            Integer blackScore = UserStatus.getBlackScore();
+            Board.bText.setText("分数 " + blackScore.toString());
+            Board.r.setText("红方");
+            Board.r.setFill(Color.RED);
+            Board.b.setText("黑方");
+            Board.rText.setFill(Color.RED);
+            Board.bTurn.setText("先手翻棋");
+            Board.theBoardStage.show();
+            LogIn.theStartGameStage.close();
+            Board.offlineAction(Board.group);
+        }
+        judge = false;
     }
 
     @FXML
     void cOnline(MouseEvent event)
     {
         // TODO: 2022/11/15 在线开发
+        judge = false;
     }
 
     @FXML
@@ -86,7 +140,7 @@ public class StartGame
     @FXML
     void cVersion(ActionEvent event)
     {
-        Showing.Info("1.0.0");
+        Showing.Info(Preference.version);
     }
 
 }

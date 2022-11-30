@@ -6,6 +6,7 @@ import datum.UserStatus;
 
 public class GeneralInit {
 	public static void generalInit() {
+		UserStatus.AISide = -1;
 		//restart a game, which won't change the name and password of the game
 		ChessBoardStatus.flipCounter=0;
 		ChessBoardStatus.clearPossibleMoves();
