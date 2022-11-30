@@ -39,7 +39,7 @@ public class Greedy {
 					nxt[i][j]=-1;
 					continue;
 				}
-				ArrayList<Integer> APM=new ArrayList<>(ChessBoardStatus.calcPossibleMoves(i,j));
+				ArrayList<Integer> APM=new ArrayList<>(ChessBoardStatus.calcPossibleMovesForAI(i,j));
 				ChessBoardStatus.clearPossibleMoves();
 				for (int k=1;k<APM.size();++k) {
 					int posX=APM.get(k)/10,posY=APM.get(k)%10;
@@ -79,9 +79,10 @@ public class Greedy {
 		if (!directUse) return ans;
 		Random rand=new Random(System.currentTimeMillis());
 		cnt=rand.nextInt(cnt);
-		for (int i=1;i<=8;++i)
+		for (int i=1;i<=8;i=(i==8?1:i+1))
 			for (int j=1;j<=4;++j)
-				if (val[i][j]==ans) {
+				if (val[i][j]==ans||(val[i][j]>0&&rand.nextInt()%4==0)) {
+					rand=new Random(System.currentTimeMillis());
 					if (cnt<1) {
 						System.out.print("[AI]");
 						ClickOnBoard.clickOnBoard(i,j);

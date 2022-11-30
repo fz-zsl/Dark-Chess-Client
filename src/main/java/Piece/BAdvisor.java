@@ -5,7 +5,7 @@ import javafx.scene.text.Text;
 
 import static com.example.darkchess.Board.anchorPane;
 
-public class General extends ChessPiece
+public class BAdvisor extends ChessPiece
 {
     public static Circle circle = new Circle();
     public static Text text = new Text();
@@ -14,7 +14,7 @@ public class General extends ChessPiece
     {
         judge = judge1;
     }
-    public General(PieceType pieceType)
+    public BAdvisor(PieceType pieceType)
     {
         super(pieceType);
         if(judge)
@@ -26,6 +26,7 @@ public class General extends ChessPiece
         }
         judge = false;
     }
+
     public void re()
     {
         if(!status)
@@ -40,6 +41,7 @@ public class General extends ChessPiece
             text.setText(i.toString());
         }
     }
+
     public Circle getCircle()
     {
         return circle;

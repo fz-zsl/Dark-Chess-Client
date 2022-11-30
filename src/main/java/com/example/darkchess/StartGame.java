@@ -1,6 +1,7 @@
 package com.example.darkchess;
 
 
+import Piece.ChessPiece;
 import algorithm.GeneralInit;
 import datum.UserStatus;
 import javafx.event.ActionEvent;
@@ -13,6 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+import static com.example.darkchess.Board.anchorPane;
+import static com.example.darkchess.Board.chessPieceArrayList;
 
 public class StartGame
 {
@@ -41,9 +45,8 @@ public class StartGame
         }
         else
         {
-            System.out.println("restart");
-            Board.anchorPane.getChildren().removeAll(Board.chessPieceArrayList);
-            Board.chessPieceArrayList = CanvasUtils.setAllChess(3);
+            chessPieceArrayList = CanvasUtils.setAllChess();
+            CanvasUtils.set(3);
             GeneralInit.generalInit();
             //重新设定计分板
             Integer redScore = UserStatus.getRedScore();
@@ -97,9 +100,8 @@ public class StartGame
         }
         else
         {
-            System.out.println("restart");
-            Board.anchorPane.getChildren().removeAll(Board.chessPieceArrayList);
-            Board.chessPieceArrayList = CanvasUtils.setAllChess(1);
+            chessPieceArrayList = CanvasUtils.setAllChess();
+            CanvasUtils.set(1);
             GeneralInit.generalInit();
             //重新设定计分板
             Integer redScore = UserStatus.getRedScore();

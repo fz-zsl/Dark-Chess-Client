@@ -130,6 +130,57 @@ public class ChessBoardStatus {
 		return allPossibleMoves;
 	}
 
+	public static ArrayList<Integer> calcPossibleMovesForAI(int clickX,int clickY) {
+		//the first element will be itself
+		allPossibleMoves.clear();
+		allPossibleMoves.add(clickX*10+clickY);
+		final int[] moveX=new int[]{-1,0,0,1};
+		final int[] moveY=new int[]{0,-1,1,0};
+		int curIndex=chessIndex[clickX][clickY];
+		if (curIndex%10!=6) {
+			//not a cannon
+			for (int i=0;i<4;++i) {
+				int xx=clickX+moveX[i];
+				int yy=clickY+moveY[i];
+				if (xx<1||xx>8||yy<1||yy>4) continue;
+				if (chessIndex[xx][yy]<0) allPossibleMoves.add(xx*10+yy);//move
+				else if (canEat(curIndex,chessIndex[xx][yy])&&chessFlipped[xx][yy])
+					allPossibleMoves.add(xx*10+yy);//move and eat
+			}
+		}
+		else {
+			//is a cannon
+			for (int i=0;i<4;++i) {
+				int xx=clickX+moveX[i];
+				int yy=clickY+moveY[i];
+				boolean screen=false;
+				if (xx<1||xx>8||yy<1||yy>4) continue;
+				if (chessIndex[xx][yy]>=0) {
+					//eat near: an empty chess or a chess of another side
+					if ((!chessFlipped[xx][yy])||chessIndex[xx][yy]/10!=curIndex/10)
+						if (chessIndex[xx][yy]/10!=UserStatus.AISide) allPossibleMoves.add(xx*10+yy);
+					screen=true;
+				}
+				while (true) {
+					xx+=moveX[i];
+					yy+=moveY[i];
+					if (xx<1||xx>8||yy<1||yy>4) break;//out of boarder
+					if (chessIndex[xx][yy]<0) continue;//no chess, no problem
+					//then there's a chess
+					if (!screen) {//the chess will be a screen
+						screen=true;
+						continue;
+					}
+					//jump and eat: an empty chess or a chess of another side
+					if ((!chessFlipped[xx][yy])||chessIndex[xx][yy]/10!=curIndex/10)
+						if (chessIndex[xx][yy]/10!=UserStatus.AISide) allPossibleMoves.add(xx*10+yy);
+					break;
+				}
+			}
+		}
+		return allPossibleMoves;
+	}
+
 	public static void clearPossibleMoves() {
 		allPossibleMoves=new ArrayList<>();
 	}

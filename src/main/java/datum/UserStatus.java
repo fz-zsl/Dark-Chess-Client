@@ -42,6 +42,10 @@ public class UserStatus {
 		return blackScore;
 	}
 
+	public static void resetEatChessCount() {
+		for (int i=0;i<17;++i) eatenChessCount[i]=0;
+	}
+
 	public static ArrayList<Integer> getEatenChess() {
 		ArrayList<Integer> copyOfEatenChessCount=new ArrayList<>();
 		for (int i=0;i<17;++i) copyOfEatenChessCount.add(eatenChessCount[i]);

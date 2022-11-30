@@ -11,13 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
-public class StartPage
-{
-
-    public static Stage theRegisterStage;
-    public static Stage theLogInStage;
-    public static Stage thePreferenceStageSP;
+public class StartPage {
     @FXML
     private MenuItem contectUs;
 
@@ -35,6 +29,11 @@ public class StartPage
 
     @FXML
     private MenuItem version;
+
+    public static Stage theRegisterStage;
+    public static Stage theLogInStage;
+    public static Stage thePreferenceStageSP;
+
 
     @FXML
     void cContactUs(ActionEvent event)

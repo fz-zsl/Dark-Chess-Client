@@ -93,12 +93,6 @@ public class LogIn
         }
 
         */
-        middle();
-
-    }
-
-    public static void middle() throws IOException
-    {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(InitializationApplication.class.getResource("startGame.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
@@ -107,7 +101,10 @@ public class LogIn
         stage.show();
         LogIn.theStartGameStage = stage;
         StartPage.theLogInStage.close();
+
     }
+
+
 
 
     @FXML

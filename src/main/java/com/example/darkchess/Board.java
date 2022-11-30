@@ -65,8 +65,9 @@ public class Board
         anchorPane.setMinHeight(boardH * 1.5);
 
         //页面背景
-        ImageView imageView1 = new ImageView("file:/D:/DarkChess/1.jpg");
+        ImageView imageView1 = new ImageView("file:/D:/backgrounds/1.jpg");
         anchorPane.getChildren().add(imageView1);
+
         //菜单
         {
             MenuBar menuBar = new MenuBar();
@@ -121,6 +122,8 @@ public class Board
             EventHandler<ActionEvent> eventHandler5 = e ->
             {
                 System.out.println("按下了悔棋按钮");
+                if (ChessBoardStatus.flipCounter<1)
+                    return;
                 UndoPreviousOperation.undoPreviousOperation();
                 //重新设定计分板
                 Integer redScore = UserStatus.getRedScore();
@@ -141,8 +144,15 @@ public class Board
             EventHandler<ActionEvent> eventHandler7 = e ->
             {
                 System.out.println("restart");
+                for (ChessPiece c:chessPieceArrayList)
+                {
+                    anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
+                    c.setJudge(true);
+                    //System.out.println(c + "removed");
+                }
                 anchorPane.getChildren().removeAll(chessPieceArrayList);
-                chessPieceArrayList = CanvasUtils.setAllChess(mode);
+                chessPieceArrayList = CanvasUtils.setAllChess();
+                CanvasUtils.set(mode);
                 GeneralInit.generalInit();
                 //重新设定计分板
                 Integer redScore = UserStatus.getRedScore();
@@ -151,6 +161,7 @@ public class Board
                 bText.setText("分数 " + blackScore.toString());
                 if (mode == 1)
                 {
+                    System.out.println("mode1");
                     r.setText("红方");
                     r.setFill(Color.RED);
                     b.setText("黑方");
@@ -160,17 +171,27 @@ public class Board
 
                 else if (mode == 3)
                 {
+                    System.out.println("mode3");
                     r.setText("玩家");
                     r.setFill(Color.BLACK);
                     b.setText("机器");
+                    b.setFill(Color.BLACK);
                     rText.setFill(Color.BLACK);
+                    bText.setFill(Color.BLACK);
                     bTurn.setText("玩家翻棋");
                 }
+
             };
 
             EventHandler<ActionEvent> eventHandler = e ->
             {
                 System.out.println("go back");
+                for (ChessPiece c:chessPieceArrayList)
+                {
+                    anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
+                    c.setJudge(true);
+                }
+                anchorPane.getChildren().removeAll(chessPieceArrayList);
                 LogIn.theStartGameStage.show();
                 theBoardStage.close();
             };
@@ -182,8 +203,10 @@ public class Board
             menuItem7.setOnAction(eventHandler7);
             menuItem.setOnAction(eventHandler);
             anchorPane.getChildren().add(menuBar);
-            menuBar.setTranslateX(-10.4);
-            menuBar.setTranslateY(-0.8);
+            menuBar.setLayoutX(0);
+            menuBar.setLayoutY(1);
+            menuBar.setPrefWidth(900.0);
+            menuBar.setPrefHeight(26.0);
         }
         //阵营显示
         //红方
@@ -214,7 +237,6 @@ public class Board
             bText.setY(180);
             anchorPane.getChildren().add(bText);
         }
-
         //棋盘背景
         ImageView imageView = new ImageView("file:D:/DarkChess/wood.jpg");
         imageView.setFitHeight(boardH);
@@ -223,7 +245,6 @@ public class Board
         imageView.setY(41.65);
         anchorPane.getChildren().add(imageView);
         //imageView.toBack();
-
 
         //棋盘
         CanvasUtils.drawChessBoard(gc);
@@ -234,7 +255,7 @@ public class Board
         canvas.toFront();
 
         //画出棋子
-        chessPieceArrayList = CanvasUtils.setAllChess(mode);
+        chessPieceArrayList = CanvasUtils.setAllChess();
 
         //轮到提示
         bTurn.setFill(Color.BLACK);
@@ -262,6 +283,7 @@ public class Board
     static public void offlineAction(Group group)
     {
         //设置棋盘，画出棋子
+        CanvasUtils.set(1);
         GeneralInit.generalInit();
         EventHandler<MouseEvent> eventHandler = mouseEvent ->
         {
@@ -343,6 +365,7 @@ public class Board
                             b.setFill(Color.RED);
                             bText.setFill(Color.RED);
                         }
+                        CanvasUtils.set(3);
 
                         if (UserStatus.AISide == UserStatus.currentSide)
                             Greedy.greedy(4, true);

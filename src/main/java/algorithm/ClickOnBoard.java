@@ -62,7 +62,12 @@ public class ClickOnBoard {
 				clickType=2;
 				//Todo: call GUI here
 				chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(clickX,clickY)).transportAChess(ChessPiece.getChessXFx(preY),ChessPiece.getChessYFx(preX),ChessPiece.getChessXFx(clickY),ChessPiece.getChessYFx(clickX));
-				if (preChessPiece!=null) preChessPiece.removeAChess(ChessPiece.getChessXFx(clickY),ChessPiece.getChessYFx(clickX));
+				if (preChessPiece!=null)
+				{
+					System.out.println("bwgg + "+UserStatus.getEatenChess().get(preChessPiece.getPieceType().getNum()));
+					preChessPiece.getEatenNumber(UserStatus.getEatenChess().get(preChessPiece.getPieceType().getNum()));
+					preChessPiece.removeAChess(ChessPiece.getChessXFx(clickY),ChessPiece.getChessYFx(clickX));
+				}
 			} else {
 				//cancel highlight
 				ChessBoardStatus.clearPossibleMoves();
