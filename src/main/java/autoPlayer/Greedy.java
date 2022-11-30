@@ -12,7 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Greedy {
 	//dep is the counter of remaining steps, including itself
-	public static int greedy(int dep,boolean directUse) throws GameEndsException {
+	public static int greedy(int dep,boolean directUse,int level) throws GameEndsException {
+		int[] modulo=new int[]{1,4,100};
 		int[][] val=new int[10][7];
 		int[][] nxt=new int[10][7];
 		int side=UserStatus.currentSide^(dep&1);
@@ -33,7 +34,7 @@ public class Greedy {
 					if (dep<2) val[i][j]=-1;
 					else {
 						ChessBoardStatus.flipChess(i,j);
-						val[i][j]=-Greedy.greedy(dep-1,false);
+						val[i][j]=-Greedy.greedy(dep-1,false,level);
 						ChessBoardStatus.flipBackChess(i,j);
 					}
 					nxt[i][j]=-1;
@@ -47,7 +48,7 @@ public class Greedy {
 					if (chessStatus<0) {
 						ChessBoardStatus.moveChess(i,j,posX,posY);
 						int curVal=0;
-						if (dep>1) curVal=-Greedy.greedy(dep-1,false);
+						if (dep>1) curVal=-Greedy.greedy(dep-1,false,level);
 						if (val[i][j]<curVal) {
 							val[i][j]=curVal;
 							nxt[i][j]=posX*10+posY;
@@ -57,7 +58,8 @@ public class Greedy {
 					}
 					int posStatus=ChessBoardStatus.getWholeChessStatus(posX,posY);
 					ChessBoardStatus.moveChess(i,j,posX,posY);
-					int curVal=(dep%2==1?UserStatus.scorePerChessGreedyB[ChessBoardInit.indexToChess[chessStatus>>1]%10]:UserStatus.scorePerChessGreedyA[ChessBoardInit.indexToChess[chessStatus>>1]%10])-(dep>1?Greedy.greedy(dep-1,false):0);
+					int curVal=(dep%2==1?UserStatus.scorePerChessGreedyB[ChessBoardInit.indexToChess[chessStatus>>1]%10]:UserStatus.scorePerChessGreedyA[ChessBoardInit.indexToChess[chessStatus>>1]%10])
+							-(dep>1?Greedy.greedy(dep-1,false,level):0);
 					if (val[i][j]<curVal) {
 						val[i][j]=curVal;
 						nxt[i][j]=posX*10+posY;
@@ -79,9 +81,9 @@ public class Greedy {
 		if (!directUse) return ans;
 		Random rand=new Random(System.currentTimeMillis());
 		cnt=rand.nextInt(cnt);
-		for (int i=1;i<=8;i=(i==8?1:i+1))
+		for (int i=1;i<=8;++i)
 			for (int j=1;j<=4;++j)
-				if (val[i][j]==ans||(val[i][j]>0&&rand.nextInt()%4==0)) {
+				if (val[i][j]==ans||(val[i][j]>0&&rand.nextInt()%modulo[level]==0)) {
 					rand=new Random(System.currentTimeMillis());
 					if (cnt<1) {
 						System.out.print("[AI]");
