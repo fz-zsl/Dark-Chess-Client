@@ -95,7 +95,7 @@ public class StartPage {
     @FXML
     void cVersion(ActionEvent event)
     {
-        Showing.Info("1.0.0");
+        Showing.Info(Preference.version);
     }
 
 }
