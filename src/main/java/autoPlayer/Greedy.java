@@ -8,7 +8,6 @@ import oop.GameEndsException;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class Greedy {
 	//dep is the counter of remaining steps, including itself
