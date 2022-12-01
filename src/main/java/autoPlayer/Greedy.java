@@ -12,7 +12,8 @@ import java.util.Random;
 public class Greedy {
 	//dep is the counter of remaining steps, including itself
 	public static int greedy(int dep,boolean directUse,int level) throws GameEndsException {
-		int[] modulo=new int[]{1,4,100};
+		int[] modulo=new int[]{1,10,100};
+		int[] randomSteps=new int[]{10000,10,5};
 		int[][] val=new int[10][7];
 		int[][] nxt=new int[10][7];
 		int side=UserStatus.currentSide^(dep&1);
@@ -82,7 +83,7 @@ public class Greedy {
 		cnt=rand.nextInt(cnt);
 		for (int i=1;i<=8;++i)
 			for (int j=1;j<=4;++j)
-				if (val[i][j]==ans||(val[i][j]>0&&rand.nextInt()%modulo[level]==0)) {
+				if (val[i][j]==ans||(val[i][j]>-3&&(rand.nextInt()%modulo[level]==0||ChessBoardStatus.flipCounter<randomSteps[level]))) {
 					rand=new Random(System.currentTimeMillis());
 					if (cnt<1) {
 						System.out.print("[AI]");

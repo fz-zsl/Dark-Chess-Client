@@ -1,6 +1,7 @@
 package datum;
 
 import algorithm.ChessBoardInit;
+import com.example.darkchess.Showing;
 
 public class Operations {
 	public static String gameName;
@@ -29,6 +30,8 @@ public class Operations {
 		} else if (op==2) {//eat a chess
 			srcPosition[sizeOfStack]=positions[0];
 			destPosition[sizeOfStack]=positions[1];
+			if (positions[1]==0) Showing.Info("吃帅");
+			if (positions[1]==16) Showing.Info("吃将");
 			if (ChessBoardStatus.getFlipped(positions[0]/10,positions[0]%10))
 				destPosition[sizeOfStack]+=50;
 			//+50 for uncovered pieces
