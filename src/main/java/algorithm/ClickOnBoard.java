@@ -5,12 +5,14 @@ import com.example.darkchess.CanvasUtils;
 import datum.*;
 import oop.*;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import static com.example.darkchess.Board.chessPieceArrayList;
 
 public class ClickOnBoard {
-	public static int clickOnBoard(int clickX, int clickY) throws GameEndsException {
+	public static int clickOnBoard(int clickX, int clickY) throws GameEndsException, MalformedURLException
+	{
 		System.out.println("A click on"+clickX+" "+clickY);
 		/*
 		values of clickType:

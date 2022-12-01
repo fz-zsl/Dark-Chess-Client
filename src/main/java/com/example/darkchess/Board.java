@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 import oop.GameEndsException;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import static Properties.Property.version;
@@ -308,6 +309,10 @@ public class Board
                         flip();
                         Showing.Info(e.toString());
                     }
+                    catch (MalformedURLException e)
+                    {
+                        throw new RuntimeException(e);
+                    }
                 }
                 //重新设定计分板
                 Integer redScore = UserStatus.getRedScore();
@@ -379,6 +384,10 @@ public class Board
                         else
                             Showing.Info("厉害啊，小子！居然把爷战胜了？！");
                        // Showing.Info(e.toString());
+                    }
+                    catch (MalformedURLException e)
+                    {
+                        throw new RuntimeException(e);
                     }
                 }
                 //重新设定计分板

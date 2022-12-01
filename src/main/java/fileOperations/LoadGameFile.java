@@ -10,10 +10,12 @@ import oop.LoadFileException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.util.Scanner;
 
 public class LoadGameFile {
-	public static void loadGameFile(String name) throws LoadFileException, GameEndsException {
+	public static void loadGameFile(String name) throws LoadFileException, GameEndsException, MalformedURLException
+	{
 		//name should include the suffix
 		Operations.gameName=name;
 		String gameFileName="database/"+name;

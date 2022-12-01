@@ -15,6 +15,7 @@ public class Preference
 {
     public static double time = 0.1;
     public static String version = "v 1.0.7";
+    public static double volume = 0.3;
 
     @FXML
     private MenuItem contectUs;

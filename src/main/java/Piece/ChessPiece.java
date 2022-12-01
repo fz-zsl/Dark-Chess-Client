@@ -1,10 +1,13 @@
 package Piece;
 
+import com.example.darkchess.Preference;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -13,6 +16,10 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import static com.example.darkchess.Board.anchorPane;
 import static com.example.darkchess.Board.gird;
@@ -79,7 +86,7 @@ public abstract class ChessPiece extends ImageView
         System.out.println("slgg txdy!");
     }
 
-    public void removeAChess(double initialX, double initialY)
+    public void removeAChess(double initialX, double initialY) throws MalformedURLException
     {
         ChessPiece chessPiece = this;
         Timeline timeline = new Timeline();
@@ -151,7 +158,7 @@ public abstract class ChessPiece extends ImageView
         timeline.play();
         this.getCircle().toFront();
         this.getText().toFront();
-
+        sound();
     }
 
     public void reRemoveAChess(double finalX, double finalY)
@@ -313,5 +320,19 @@ public abstract class ChessPiece extends ImageView
 
     public abstract void re();
     public abstract void setJudge(boolean judge1);
+
+    public void sound()
+    {
+        System.out.println("play sound begin");
+        String path = "D://CloudMusic//Ninja Tracks - Stormwind Hit Swell.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(0.3);
+        //mediaPlayer.setVolume(Preference.volume);
+        //mediaPlayer.play();
+        mediaPlayer.setCycleCount(1);
+        System.out.println("play sound end");
+    }
 
 }

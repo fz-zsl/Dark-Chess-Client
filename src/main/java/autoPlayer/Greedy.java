@@ -6,12 +6,14 @@ import datum.ChessBoardStatus;
 import datum.UserStatus;
 import oop.GameEndsException;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Greedy {
 	//dep is the counter of remaining steps, including itself
-	public static int greedy(int dep,boolean directUse,int level) throws GameEndsException {
+	public static int greedy(int dep,boolean directUse,int level) throws GameEndsException, MalformedURLException
+	{
 		int[] modulo=new int[]{1,10,100};
 		int[] randomSteps=new int[]{10000,10,5};
 		int[][] val=new int[10][7];
