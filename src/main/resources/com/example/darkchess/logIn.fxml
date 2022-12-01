@@ -38,7 +38,7 @@
             <Font size="44.0" />
          </font>
       </Text>
-      <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="900.0">
+      <MenuBar prefHeight="26.0" prefWidth="900.0">
          <menus>
             <Menu mnemonicParsing="false" text="文件">
                <items>

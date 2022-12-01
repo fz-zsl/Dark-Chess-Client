@@ -21,9 +21,9 @@
          <image>
             <Image url="@../../../../../../../backgrounds/2.jpg" />
          </image></ImageView>
-      <Button fx:id="login" layoutX="373.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#cLogIn" prefHeight="69.0" prefWidth="154.0" text="登录">
+      <Button fx:id="login" layoutX="373.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#cLogIn" prefHeight="69.0" prefWidth="154.0" style="-fx-background-color: NUll;" text="登录">
          <font>
-            <Font size="33.0" />
+            <Font name="KaiTi" size="42.0" />
          </font>
       </Button>
       <Button fx:id="register" layoutX="373.0" layoutY="435.0" mnemonicParsing="false" onMouseClicked="#cRegister" prefHeight="69.0" prefWidth="154.0" text="注册">
@@ -36,7 +36,7 @@
             <Font size="76.0" />
          </font>
       </Text>
-      <MenuBar layoutX="1.0" layoutY="1.0" prefHeight="26.0" prefWidth="900.0">
+      <MenuBar prefHeight="26.0" prefWidth="900.0">
         <menus>
           <Menu mnemonicParsing="false" text="文件">
             <items>

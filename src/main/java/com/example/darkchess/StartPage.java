@@ -32,13 +32,14 @@ public class StartPage {
 
     public static Stage theRegisterStage;
     public static Stage theLogInStage;
-    public static Stage thePreferenceStageSP;
+    public static Boolean preferenceBoolean = false;
+
 
 
     @FXML
     void cContactUs(ActionEvent event)
     {
-        Showing.Info("关注微信公众号“vitee”");
+        Showing.Info("关注微信公众号“Vitee Town”");
     }
 
     @FXML
@@ -58,12 +59,12 @@ public class StartPage {
     @FXML
     void cPreference(ActionEvent event) throws IOException
     {
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("preference.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
-        stage.setTitle("偏好设置");
-        stage.setScene(scene);
-        stage.show();
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("preference.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+            stage.setTitle("偏好设置");
+            stage.setScene(scene);
+            stage.show();
     }
 
     @FXML
