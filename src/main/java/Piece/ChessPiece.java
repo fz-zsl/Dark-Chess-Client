@@ -324,7 +324,7 @@ public abstract class ChessPiece extends ImageView
     public void sound()
     {
         System.out.println("play sound begin");
-        String path = "D://CloudMusic//Ninja Tracks - Stormwind Hit Swell.mp3";
+        String path = "D://DarkChess//demo//src//audio//a.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
