@@ -76,6 +76,7 @@ public class CanvasUtils
      */
     public static ArrayList<ChessPiece> setAllChess()
     {
+        ChessPiece.judgeSound = true;
         ArrayList<ChessPiece> chessPieceArrayList = new ArrayList<>();
         ChessPiece RHorse1 = new Horse(PieceType.RHORSE);
         ChessPiece RHorse2 = new Horse(PieceType.RHORSE);

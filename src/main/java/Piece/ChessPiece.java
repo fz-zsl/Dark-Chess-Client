@@ -32,6 +32,7 @@ public abstract class ChessPiece extends ImageView
     static public double time = 0.2;
     protected Integer i = -1;
     public static MediaPlayer mediaPlayerEnd;
+    public static Boolean judgeSound = true;
 
     public void setEatenX(double eatenX)
     {
@@ -144,7 +145,6 @@ public abstract class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
-
             }
         },keyValue9);
         KeyValue keyValue10 = new KeyValue(this.getText().fillProperty(),Color.GREEN);
@@ -267,7 +267,8 @@ public abstract class ChessPiece extends ImageView
         timeline.getKeyFrames().addAll(keyFrame1,keyFrame3,keyFrame2);
         timeline.play();
         this.status = true;
-        flipSound(this.getPieceType().getAudio());
+        if(judgeSound)
+            flipSound(this.getPieceType().getAudio());
     }
 
     public void reFlipAChess()
@@ -349,7 +350,7 @@ public abstract class ChessPiece extends ImageView
 
     public static void cheatingSound()
     {
-        //String path = "D:/CloudMusic/Gothic Storm - Chemical Slam.mp3";
+        //String path = "D:/CloudMusic/百石元 - Spilled tea.mp3";
         String path = "D://DarkChess//demo//src//audio//Gee.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);

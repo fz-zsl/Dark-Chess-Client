@@ -127,6 +127,8 @@ public class Board
             EventHandler<ActionEvent> eventHandler5 = e ->
             {
                 System.out.println("按下了悔棋按钮");
+                InitializationApplication.mediaPlayerFirst.play();
+                ChessPiece.judgeSound = true;
                 if (ChessBoardStatus.flipCounter<1)
                     return;
                 UndoPreviousOperation.undoPreviousOperation();
@@ -149,6 +151,7 @@ public class Board
             EventHandler<ActionEvent> eventHandler7 = e ->
             {
                 System.out.println("restart");
+                InitializationApplication.mediaPlayerFirst.play();
                 for (ChessPiece c:chessPieceArrayList)
                 {
                     anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
@@ -192,6 +195,7 @@ public class Board
             EventHandler<ActionEvent> eventHandler = e ->
             {
                 System.out.println("go back");
+                InitializationApplication.mediaPlayerFirst.play();
                 for (ChessPiece c:chessPieceArrayList)
                 {
                     anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
@@ -311,6 +315,7 @@ public class Board
                     }
                     catch (GameEndsException e)
                     {
+                        ChessPiece.judgeSound = false;
                         flip();
                         Showing.Info(e.toString());
                     }
@@ -383,16 +388,21 @@ public class Board
                     }
                     catch (GameEndsException e)
                     {
+                        ChessPiece.judgeSound = false;
                         flip();
+                        InitializationApplication.mediaPlayerFirst.pause();
                         if(e.getInfo() == UserStatus.AISide)
                         {
                             Showing.Info("菜狗，回去多积淀积淀再来挑战爷！");
                             ChessPiece.mediaPlayerEnd.pause();
                             youDied();
                         }
-
                         else
+                        {
                             Showing.Info("厉害啊，小子！居然把爷战胜了？！");
+                            youWin();
+                        }
+
                        // Showing.Info(e.toString());
                     }
                     catch (MalformedURLException e)
@@ -435,7 +445,18 @@ public class Board
 
     private static void youDied()
     {
-        String path = "D://DarkChess//demo//src//audio//WUHU.wav";
+        String path = "D://DarkChess//demo//src//audio//结束1.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(Preference.volume);
+        mediaPlayer.setCycleCount(1);
+        System.out.println("you died");
+    }
+
+    private static void  youWin()
+    {
+        String path = "D:/CloudMusic/百石元 - Spilled tea.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);

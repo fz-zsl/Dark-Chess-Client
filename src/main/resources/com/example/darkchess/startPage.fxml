@@ -8,34 +8,24 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.darkchess.StartPage">
    <children>
-      <ImageView fx:id="bigPic" fitHeight="600.0" fitWidth="900.0" pickOnBounds="true">
+      <ImageView fx:id="bigPic" fitHeight="615.0" fitWidth="985.0" layoutX="-42.0" layoutY="-7.0" pickOnBounds="true">
          <image>
-            <Image url="@../../../../../../../backgrounds/1.jpg" />
+            <Image url="@../../../../../../../backgrounds/3.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="smallPic" fitHeight="574.0" fitWidth="359.0" layoutX="271.0" layoutY="27.0" pickOnBounds="true">
-         <image>
-            <Image url="@../../../../../../../backgrounds/2.jpg" />
-         </image></ImageView>
-      <Button fx:id="login" layoutX="373.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#cLogIn" prefHeight="69.0" prefWidth="154.0" style="-fx-background-color: NUll;" text="登录">
+      <Button fx:id="login" layoutX="157.0" layoutY="446.0" mnemonicParsing="false" onMouseClicked="#cLogIn" prefHeight="97.0" prefWidth="198.0" style="-fx-background-color: NUll;">
          <font>
             <Font name="KaiTi" size="42.0" />
          </font>
       </Button>
-      <Button fx:id="register" layoutX="373.0" layoutY="435.0" mnemonicParsing="false" onMouseClicked="#cRegister" prefHeight="69.0" prefWidth="154.0" text="注册">
+      <Button fx:id="register" layoutX="560.0" layoutY="451.0" mnemonicParsing="false" onMouseClicked="#cRegister" prefHeight="87.0" prefWidth="178.0" style="-fx-background-color: null;">
          <font>
             <Font size="34.0" />
          </font>
       </Button>
-      <Text layoutX="374.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="暗棋">
-         <font>
-            <Font size="76.0" />
-         </font>
-      </Text>
       <MenuBar prefHeight="26.0" prefWidth="900.0">
         <menus>
           <Menu mnemonicParsing="false" text="文件">
