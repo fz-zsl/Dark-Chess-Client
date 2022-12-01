@@ -23,6 +23,7 @@ public class StartGame
 
     private static Boolean judge = true;
     public static Stage thePreferenceStageSG;
+    public static int modeOfAll = 0;
     @FXML
     private MenuItem contectUs;
 
@@ -38,6 +39,7 @@ public class StartGame
     @FXML
     void cComputer(MouseEvent event)throws IOException
     {
+        modeOfAll = 3;
         if(judge)
         {
             Board.startGame(3);
@@ -55,8 +57,10 @@ public class StartGame
             Board.bText.setText("分数 " + blackScore.toString());
             Board.r.setText("玩家");
             Board.r.setFill(Color.BLACK);
-            Board.b.setText("机器");
             Board.rText.setFill(Color.BLACK);
+            Board.b.setText("机器");
+            Board.b.setFill(Color.BLACK);
+            Board.bText.setFill(Color.BLACK);
             Board.bTurn.setText("玩家翻棋");
             Board.theBoardStage.show();
             LogIn.theStartGameStage.close();
@@ -93,6 +97,7 @@ public class StartGame
     @FXML
     void cOffline(MouseEvent event) throws IOException
     {
+        modeOfAll = 1;
         if(judge)
         {
             Board.startGame(1);
@@ -110,8 +115,10 @@ public class StartGame
             Board.bText.setText("分数 " + blackScore.toString());
             Board.r.setText("红方");
             Board.r.setFill(Color.RED);
-            Board.b.setText("黑方");
             Board.rText.setFill(Color.RED);
+            Board.b.setText("黑方");
+            Board.b.setFill(Color.BLACK);
+            Board.bText.setFill(Color.BLACK);
             Board.bTurn.setText("先手翻棋");
             Board.theBoardStage.show();
             LogIn.theStartGameStage.close();

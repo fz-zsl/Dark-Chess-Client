@@ -22,6 +22,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -30,9 +32,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import oop.GameEndsException;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Currency;
 
 import static Properties.Property.version;
 
@@ -84,7 +88,7 @@ public class Board
             MenuItem menuItem7 = new MenuItem("重新开始");
             MenuItem menuItem = new MenuItem("返回模式选择页面");
             MenuItem menuItem2 = new MenuItem("游戏排行榜");
-            menu1.getItems().addAll(menuItem, menuItem1);
+            menu1.getItems().addAll(menuItem, menuItem1,menuItem2);
             menu3.getItems().addAll(menuItem6, menuItem3, menuItem4);
             menu4.getItems().addAll(menuItem5, menuItem7);
             menuBar.getMenus().addAll(menu1, menu2, menu4, menu3);
@@ -149,28 +153,29 @@ public class Board
                 {
                     anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
                     c.setJudge(true);
-                    //System.out.println(c + "removed");
                 }
                 anchorPane.getChildren().removeAll(chessPieceArrayList);
                 chessPieceArrayList = CanvasUtils.setAllChess();
-                CanvasUtils.set(mode);
+                CanvasUtils.set(StartGame.modeOfAll);
                 GeneralInit.generalInit();
                 //重新设定计分板
                 Integer redScore = UserStatus.getRedScore();
                 rText.setText("分数 " + redScore.toString());
                 Integer blackScore = UserStatus.getBlackScore();
                 bText.setText("分数 " + blackScore.toString());
-                if (mode == 1)
+                if (StartGame.modeOfAll == 1)
                 {
                     System.out.println("mode1");
                     r.setText("红方");
                     r.setFill(Color.RED);
                     b.setText("黑方");
+                    b.setFill(Color.BLACK);
+                    bText.setFill(Color.BLACK);
                     rText.setFill(Color.RED);
                     bTurn.setText("先手翻棋");
                 }
 
-                else if (mode == 3)
+                else if (StartGame.modeOfAll == 3)
                 {
                     System.out.println("mode3");
                     r.setText("玩家");
@@ -380,7 +385,12 @@ public class Board
                     {
                         flip();
                         if(e.getInfo() == UserStatus.AISide)
+                        {
                             Showing.Info("菜狗，回去多积淀积淀再来挑战爷！");
+                            ChessPiece.mediaPlayerEnd.pause();
+                            youDied();
+                        }
+
                         else
                             Showing.Info("厉害啊，小子！居然把爷战胜了？！");
                        // Showing.Info(e.toString());
@@ -421,6 +431,17 @@ public class Board
     {
         for(ChessPiece c: chessPieceArrayList)
             c.flipAChess();
+    }
+
+    private static void youDied()
+    {
+        String path = "D://DarkChess//demo//src//audio//WUHU.wav";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(Preference.volume);
+        mediaPlayer.setCycleCount(1);
+        System.out.println("you died");
     }
 
 

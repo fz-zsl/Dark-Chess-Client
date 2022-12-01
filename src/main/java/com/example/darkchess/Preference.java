@@ -16,6 +16,10 @@ public class Preference
     public static double time = 0.1;
     public static String version = "v 1.0.7";
     public static double volume = 0.3;
+    public static double volumeOfFlip = 1;
+    public static Boolean cheatingSoundInfo = true;
+    public static Boolean filpSoundInfo = true;
+    public static Boolean reRemoveSoundInfo = true;
 
     @FXML
     private MenuItem contectUs;

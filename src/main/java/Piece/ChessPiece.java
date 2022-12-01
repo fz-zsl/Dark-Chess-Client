@@ -19,7 +19,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import static com.example.darkchess.Board.anchorPane;
 import static com.example.darkchess.Board.gird;
@@ -32,6 +31,7 @@ public abstract class ChessPiece extends ImageView
     static public double peakingTime = 0.1;
     static public double time = 0.2;
     protected Integer i = -1;
+    public static MediaPlayer mediaPlayerEnd;
 
     public void setEatenX(double eatenX)
     {
@@ -54,6 +54,9 @@ public abstract class ChessPiece extends ImageView
     }
 
     protected Boolean status = false;//false代表没有翻开
+    static private ImageView blackG = new ImageView("file:D://DarkChess//ChessImages//吃将.png");
+    static private ImageView redG = new ImageView("file:D://DarkChess//ChessImages//吃帅.png");
+
 
 
     public ChessPiece(PieceType pieceType)
@@ -84,6 +87,7 @@ public abstract class ChessPiece extends ImageView
         tt.setToY(destinationY);
         tt.play();
         System.out.println("slgg txdy!");
+        flipSound(this.getPieceType().getAudio());
     }
 
     public void removeAChess(double initialX, double initialY) throws MalformedURLException
@@ -158,7 +162,7 @@ public abstract class ChessPiece extends ImageView
         timeline.play();
         this.getCircle().toFront();
         this.getText().toFront();
-        sound();
+        eatenSound();
     }
 
     public void reRemoveAChess(double finalX, double finalY)
@@ -172,6 +176,7 @@ public abstract class ChessPiece extends ImageView
         tt.setToY(finalY);
         tt.play();
         this.re();
+        reRemoveSound();
     }
 
     public void cheatingFlip()
@@ -200,7 +205,6 @@ public abstract class ChessPiece extends ImageView
             public void handle(ActionEvent actionEvent)
             {
                 chessPiece.setImage(new Image(PieceType.BACK.getAddress()));
-                System.out.println("cheating flip down");
             }
         }, keyValue3,keyValue4);//缩小
 
@@ -219,6 +223,7 @@ public abstract class ChessPiece extends ImageView
 
         timeline.getKeyFrames().addAll(keyFrame1,keyFrame3,keyFrame2);
         timeline.play();
+        cheatingSound();
     }
     public void flipAChess()
     {
@@ -259,11 +264,10 @@ public abstract class ChessPiece extends ImageView
                 System.out.println("SLGG YYDS 2!");
             }
         },keyValue, keyValue5);//显示
-
-
         timeline.getKeyFrames().addAll(keyFrame1,keyFrame3,keyFrame2);
         timeline.play();
         this.status = true;
+        flipSound(this.getPieceType().getAudio());
     }
 
     public void reFlipAChess()
@@ -321,18 +325,128 @@ public abstract class ChessPiece extends ImageView
     public abstract void re();
     public abstract void setJudge(boolean judge1);
 
-    public void sound()
+    public static void eatenSound()
     {
-        System.out.println("play sound begin");
-        String path = "D://DarkChess//demo//src//audio//a.mp3";
+        System.out.println("play sound begin: slgg yyds!");
+        String path = "D://DarkChess//demo//src//audio//remove.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        mediaPlayerEnd = new MediaPlayer(media);
+        mediaPlayerEnd.setAutoPlay(true);
+        mediaPlayerEnd.setVolume(Preference.volume);
+        mediaPlayerEnd.setCycleCount(1);
+        mediaPlayerEnd.setRate(2);
+        System.out.println("play sound end: SLGG YYDS!");
+    }
+
+    public void flipSound(String path)
+    {
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setVolume(0.3);
-        //mediaPlayer.setVolume(Preference.volume);
-        //mediaPlayer.play();
+        mediaPlayer.setVolume(Preference.volumeOfFlip);
         mediaPlayer.setCycleCount(1);
-        System.out.println("play sound end");
     }
 
+    public static void cheatingSound()
+    {
+        //String path = "D:/CloudMusic/Gothic Storm - Chemical Slam.mp3";
+        String path = "D://DarkChess//demo//src//audio//Gee.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(Preference.volume);
+        mediaPlayer.setCycleCount(1);
+    }
+
+    public static void reRemoveSound()
+    {
+        String path = "D://DarkChess//demo//src//audio//Aww.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(Preference.volume);
+        mediaPlayer.setCycleCount(1);
+    }
+
+    public static void geSound()
+    {
+        String path = "D:/CloudMusic/Gothic Storm - Chemical Slam.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(Preference.volume);
+        mediaPlayer.setVolume(1.5);
+        mediaPlayer.setCycleCount(1);
+    }
+    public static void rGeA()
+    {
+        geSound();
+        redG.setFitWidth(200);
+        redG.setFitHeight(200);
+        redG.setTranslateX(341.65 + gird / 6);
+        redG.setTranslateY(141.65);
+        anchorPane.getChildren().add(redG);
+        redG.toFront();
+        Timeline timeline = new Timeline();
+        KeyValue keyValue1 = new KeyValue(redG.scaleXProperty(),1.1);
+        KeyValue keyValue2 = new KeyValue(redG.scaleYProperty(),1.1);
+        KeyFrame keyFrame1 = new KeyFrame(Duration.seconds(0.1), "flip", new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                System.out.println("bigger");
+            }
+        }, keyValue1,keyValue2);//放大
+
+        KeyValue keyValue3 = new KeyValue(redG.scaleXProperty(), 1.1);
+        KeyValue keyValue4 = new KeyValue(redG.scaleYProperty(), 1.1);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.seconds(1), "flip2", new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                System.out.println("smaller");
+                anchorPane.getChildren().remove(redG);
+            }
+        }, keyValue3,keyValue4);//缩小
+        timeline.getKeyFrames().addAll(keyFrame1,keyFrame2);
+        timeline.play();
+    }
+
+    public static void bGeA()
+    {
+        geSound();
+        blackG.setFitWidth(200);
+        blackG.setFitHeight(200);
+        blackG.setTranslateX(341.65 + gird / 6);
+        blackG.setTranslateY(141.65);
+        anchorPane.getChildren().add(blackG);
+        blackG.toFront();
+        Timeline timeline = new Timeline();
+        KeyValue keyValue1 = new KeyValue(blackG.scaleXProperty(),1.1);
+        KeyValue keyValue2 = new KeyValue(blackG.scaleYProperty(),1.1);
+        KeyFrame keyFrame1 = new KeyFrame(Duration.seconds(0.1), "flip", new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                System.out.println("bigger");
+            }
+        }, keyValue1,keyValue2);//放大
+
+        KeyValue keyValue3 = new KeyValue(blackG.scaleXProperty(), 1.1);
+        KeyValue keyValue4 = new KeyValue(blackG.scaleYProperty(), 1.1);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.seconds(1), "flip2", new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                System.out.println("smaller");
+                anchorPane.getChildren().remove(blackG);
+            }
+        }, keyValue3,keyValue4);//缩小
+        timeline.getKeyFrames().addAll(keyFrame1,keyFrame2);
+        timeline.play();
+    }
 }
