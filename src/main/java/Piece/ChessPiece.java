@@ -329,7 +329,7 @@ public abstract class ChessPiece extends ImageView
     public static void eatenSound()
     {
         System.out.println("play sound begin: slgg yyds!");
-        String path = "D://DarkChess//demo//src//audio//remove.mp3";
+        String path = "D:/DarkChess/src/audio/remove.mp3";
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayerEnd = new MediaPlayer(media);
         mediaPlayerEnd.setAutoPlay(true);
@@ -351,7 +351,7 @@ public abstract class ChessPiece extends ImageView
     public static void cheatingSound()
     {
         //String path = "D:/CloudMusic/百石元 - Spilled tea.mp3";
-        String path = "D://DarkChess//demo//src//audio//Gee.mp3";
+        String path = "D:/DarkChess/src/audio/Gee.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
@@ -361,7 +361,7 @@ public abstract class ChessPiece extends ImageView
 
     public static void reRemoveSound()
     {
-        String path = "D://DarkChess//demo//src//audio//Aww.mp3";
+        String path = "D:/DarkChess/src/audio/Aww.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
