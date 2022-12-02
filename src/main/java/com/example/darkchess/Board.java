@@ -421,8 +421,7 @@ public class Board
                         CanvasUtils.set(3);
 
                         if (UserStatus.AISide == UserStatus.currentSide)
-                            Greedy.greedy(4, true,2);
-
+                            Greedy.greedy(UserStatus.AIDepth,true,UserStatus.AIMode);
                     }
                     catch (GameEndsException e)
                     {

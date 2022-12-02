@@ -7,7 +7,9 @@ import oop.*;
 
 public class UserStatus {
 	public static int currentSide=-1;
-	public static int AISide;
+	public static int AISide=-1;
+	public static int AIMode=2;
+	public static int AIDepth=4;
 	public static final int[] scorePerChess={30,10,5,5,5,1,5};
 	public static final int[] scorePerChessGreedyA={30,10,5,5,5,1,25};
 	public static final int[] scorePerChessGreedyB={30,10,5,5,5,1,25};

@@ -14,8 +14,8 @@ public class Greedy {
 	//dep is the counter of remaining steps, including itself
 	public static int greedy(int dep,boolean directUse,int level) throws GameEndsException, MalformedURLException
 	{
-		int[] modulo=new int[]{1,10,100};
-		int[] randomSteps=new int[]{10000,10,5};
+		int[] modulo=new int[]{1,10,100,1000};
+		int[] randomSteps=new int[]{10000,10,5,0};
 		int[][] val=new int[10][7];
 		int[][] nxt=new int[10][7];
 		int side=UserStatus.currentSide^(dep&1);
