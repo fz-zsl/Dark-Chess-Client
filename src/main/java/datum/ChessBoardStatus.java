@@ -26,7 +26,7 @@ public class ChessBoardStatus {
 	}
 
 	public static int getWholeChessStatus(int x,int y) {
-		return (objectIndex[x][y]<<1)|(chessFlipped[x][y]?1:0);
+		return objectIndex[x][y]+(chessFlipped[x][y]?50:0);
 	}
 
 	public static void chessInit(int x,int y,int chessObjectIndex,boolean flip) {
@@ -55,8 +55,9 @@ public class ChessBoardStatus {
 
 	public static int moveChess(int srcX,int srcY,int destX,int destY) {
 		//use MoveChess + ChessInit to undo the MoveChess process
-		int eatReport=(objectIndex[destX][destY]<<1)|(chessFlipped[destX][destY]?1:0);
-		//if no eat process happens, eatReport = -2
+		int eatReport=objectIndex[destX][destY]+(chessFlipped[destX][destY]?50:0);
+		if (eatReport>=0) System.out.println("Eat Report: "+destX+" "+destY+" "+eatReport);
+		//if no eat process happens, eatReport = -1
 		chessIndex[destX][destY]=chessIndex[srcX][srcY];
 		objectIndex[destX][destY]=objectIndex[srcX][srcY];
 		chessFlipped[destX][destY]=chessFlipped[srcX][srcY];

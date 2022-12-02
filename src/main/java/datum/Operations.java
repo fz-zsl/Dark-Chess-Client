@@ -32,20 +32,20 @@ public class Operations {
 		} else if (op==2) {//eat a chess
 			srcPosition[sizeOfStack]=positions[0];
 			destPosition[sizeOfStack]=positions[1];
-			if (positions[1]==0)
+			if (positions[1]%50==0)
 			{
 				System.out.println("吃帅");
 				if(Preference.chessSound)
 					ChessPiece.rGeA();
 			}
-			if (positions[1]==16)
+			if (positions[1]%50==16)
 			{
 				System.out.println("吃将");
 				if(Preference.chessSound)
 					ChessPiece.bGeA();
 			}
-			if (ChessBoardStatus.getFlipped(positions[0]/10,positions[0]%10))
-				destPosition[sizeOfStack]+=50;
+//			if (ChessBoardStatus.getFlipped(positions[0]/10,positions[0]%10))
+//				destPosition[sizeOfStack]+=50;
 			//+50 for uncovered pieces
 		}
 		//System.out.printf("%d %d",op,srcPosition[sizeOfStack]);

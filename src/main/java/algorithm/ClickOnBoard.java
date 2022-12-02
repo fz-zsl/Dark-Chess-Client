@@ -57,8 +57,8 @@ public class ClickOnBoard {
 				int eatReport=ChessBoardStatus.moveChess(preX,preY,clickX,clickY);
 				Operations.addOperationToStack(1,preX*10+preY,clickX*10+clickY);
 				if (eatReport>=0) {
-					Operations.addOperationToStack(2,clickX*10+clickY,eatReport>>1);
-					UserStatus.eatChess(eatReport>>1);
+					Operations.addOperationToStack(2,clickX*10+clickY,eatReport);
+					UserStatus.eatChess(eatReport%50);
 				}
 				ChessBoardStatus.clearPossibleMoves();
 				clickType=2;
@@ -79,7 +79,6 @@ public class ClickOnBoard {
 			//there is no previous click - first click
 			if (!ChessBoardStatus.getFlipped(clickX,clickY)) {
 				//flip
-
 				System.out.println("Let's Flip - first click!");
 				ChessBoardStatus.flipChess(clickX,clickY);
 				if (ChessBoardStatus.flipCounter==1) {

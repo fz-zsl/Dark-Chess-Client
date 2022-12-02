@@ -26,6 +26,7 @@ public class UndoPreviousOperation {
 			//Todo: call GUI here
 			chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(srcPosition/10,srcPosition%10)).transportAChess(ChessPiece.getChessXFx(destPosition%10),ChessPiece.getChessYFx(destPosition/10),ChessPiece.getChessXFx(srcPosition%10),ChessPiece.getChessYFx(srcPosition/10));
 		} else if (type==2) {
+			System.out.println("Last eat: "+srcPosition+" "+destPosition);
 			UserStatus.undoEatChess(destPosition%50);
 			lastOperation=Operations.popOperationFromStack();
 			int destOfLastOperation=lastOperation%100;
@@ -35,7 +36,7 @@ public class UndoPreviousOperation {
 			ChessBoardStatus.chessInit(srcPosition/10,srcPosition%10,destPosition%50,destPosition/50>0);
 			//Todo: call GUI here
 			chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(srcOfLastOperation/10,srcOfLastOperation%10)).transportAChess(ChessPiece.getChessXFx(destOfLastOperation%10),ChessPiece.getChessYFx(destOfLastOperation/10),ChessPiece.getChessXFx(srcOfLastOperation%10),ChessPiece.getChessYFx(srcOfLastOperation/10));
-			System.out.println(UserStatus.getEatenChess().get(chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(destOfLastOperation/10,destOfLastOperation%10)).getPieceType().getNum()));
+			//System.out.println(UserStatus.getEatenChess().get(chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(destOfLastOperation/10,destOfLastOperation%10)).getPieceType().getNum()));
 			chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(destOfLastOperation/10,destOfLastOperation%10)).getEatenNumber(UserStatus.getEatenChess().get(chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(destOfLastOperation/10,destOfLastOperation%10)).getPieceType().getNum()));
 			chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(destOfLastOperation/10,destOfLastOperation%10)).reRemoveAChess(ChessPiece.getChessXFx(destOfLastOperation%10),ChessPiece.getChessYFx(destOfLastOperation/10));
 		}

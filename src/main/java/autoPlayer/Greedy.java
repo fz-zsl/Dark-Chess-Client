@@ -60,14 +60,14 @@ public class Greedy {
 					}
 					int posStatus=ChessBoardStatus.getWholeChessStatus(posX,posY);
 					ChessBoardStatus.moveChess(i,j,posX,posY);
-					int curVal=(dep%2==1?UserStatus.scorePerChessGreedyB[ChessBoardInit.indexToChess[chessStatus>>1]%10]:UserStatus.scorePerChessGreedyA[ChessBoardInit.indexToChess[chessStatus>>1]%10])
+					int curVal=(dep%2==1?UserStatus.scorePerChessGreedyB[ChessBoardInit.indexToChess[chessStatus%50]%10]:UserStatus.scorePerChessGreedyA[ChessBoardInit.indexToChess[chessStatus%50]%10])
 							-(dep>1?Greedy.greedy(dep-1,false,level):0);
 					if (val[i][j]<curVal) {
 						val[i][j]=curVal;
 						nxt[i][j]=posX*10+posY;
 					}
 					ChessBoardStatus.moveChess(posX,posY,i,j);
-					ChessBoardStatus.chessInit(posX,posY,posStatus>>1,(posStatus&1)>0);
+					ChessBoardStatus.chessInit(posX,posY,posStatus%50,posStatus>50);
 				}
 			}
 		int ans=-1028, cnt=0;
@@ -84,7 +84,7 @@ public class Greedy {
 		Random rand=new Random(System.currentTimeMillis());
 		cnt=rand.nextInt(cnt);
 		for (int i=1;i<=8;++i)
-			for (int j=1;j<=4;++j)
+			for (int j=1;j<=4;++j)//
 				if (val[i][j]==ans||(val[i][j]>-3&&(rand.nextInt()%modulo[level]==0||ChessBoardStatus.flipCounter<randomSteps[level]))) {
 					rand=new Random(System.currentTimeMillis());
 					if (cnt<1) {

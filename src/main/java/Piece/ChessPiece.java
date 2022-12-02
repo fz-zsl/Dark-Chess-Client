@@ -332,56 +332,55 @@ public abstract class ChessPiece extends ImageView
 
     public static void eatenSound()
     {
-        System.out.println("play sound begin: slgg yyds!");
-        String path = "D:/DarkChess/src/audio/remove.mp3";
-        Media media = new Media(new File(path).toURI().toString());
-        mediaPlayerEnd = new MediaPlayer(media);
-        mediaPlayerEnd.setAutoPlay(true);
-        mediaPlayerEnd.setVolume(Preference.volume);
-        mediaPlayerEnd.setCycleCount(1);
-        mediaPlayerEnd.setRate(2);
-        System.out.println("play sound end: SLGG YYDS!");
+//        System.out.println("play sound begin: slgg yyds!");
+//        String path = "D:/DarkChess/src/audio/remove.mp3";
+//        Media media = new Media(new File(path).toURI().toString());
+//        mediaPlayerEnd = new MediaPlayer(media);
+//        mediaPlayerEnd.setAutoPlay(true);
+//        mediaPlayerEnd.setVolume(Preference.volume);
+//        mediaPlayerEnd.setCycleCount(1);
+//        mediaPlayerEnd.setRate(2);
+//        System.out.println("play sound end: SLGG YYDS!");
     }
 
     public void flipSound(String path)
     {
-        Media media = new Media(new File(path).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setVolume(Preference.volumeOfFlip);
-        mediaPlayer.setCycleCount(1);
+//        Media media = new Media(new File(path).toURI().toString());
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//        mediaPlayer.setAutoPlay(true);
+//        mediaPlayer.setVolume(Preference.volumeOfFlip);
+//        mediaPlayer.setCycleCount(1);
     }
 
     public static void cheatingSound()
     {
-        //String path = "D:/CloudMusic/百石元 - Spilled tea.mp3";
-        String path = "D:/DarkChess/src/audio/Gee.mp3";
-        Media media = new Media(new File(path).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setVolume(Preference.volume);
-        mediaPlayer.setCycleCount(1);
+//        String path = "D:/DarkChess/src/audio/Gee.mp3";
+//        Media media = new Media(new File(path).toURI().toString());
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//        mediaPlayer.setAutoPlay(true);
+//        mediaPlayer.setVolume(Preference.volume);
+//        mediaPlayer.setCycleCount(1);
     }
 
     public static void reRemoveSound()
     {
-        String path = "D:/DarkChess/src/audio/Aww.mp3";
-        Media media = new Media(new File(path).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setVolume(Preference.volume);
-        mediaPlayer.setCycleCount(1);
+//        String path = "D:/DarkChess/src/audio/Aww.mp3";
+//        Media media = new Media(new File(path).toURI().toString());
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//        mediaPlayer.setAutoPlay(true);
+//        mediaPlayer.setVolume(Preference.volume);
+//        mediaPlayer.setCycleCount(1);
     }
 
     public static void geSound()
     {
-        String path = "D:/CloudMusic/Gothic Storm - Chemical Slam.mp3";
-        Media media = new Media(new File(path).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setVolume(Preference.volume);
-        mediaPlayer.setVolume(1.5);
-        mediaPlayer.setCycleCount(1);
+//        String path = "D:/CloudMusic/Gothic Storm - Chemical Slam.mp3";
+//        Media media = new Media(new File(path).toURI().toString());
+//        MediaPlayer mediaPlayer = new MediaPlayer(media);
+//        mediaPlayer.setAutoPlay(true);
+//        mediaPlayer.setVolume(Preference.volume);
+//        mediaPlayer.setVolume(1.5);
+//        mediaPlayer.setCycleCount(1);
     }
     public static void rGeA()
     {
