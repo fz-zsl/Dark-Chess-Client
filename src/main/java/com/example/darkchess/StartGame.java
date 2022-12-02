@@ -39,6 +39,7 @@ public class StartGame
     @FXML
     void cComputer(MouseEvent event)throws IOException
     {
+        InitializationApplication.mediaPlayerFirst.pause();
         modeOfAll = 3;
         if(judge)
         {
@@ -97,6 +98,7 @@ public class StartGame
     @FXML
     void cOffline(MouseEvent event) throws IOException
     {
+        InitializationApplication.mediaPlayerFirst.pause();
         modeOfAll = 1;
         if(judge)
         {

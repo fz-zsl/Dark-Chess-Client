@@ -315,9 +315,12 @@ public class Board
                     }
                     catch (GameEndsException e)
                     {
+                        if(e.getInfo() == 0)
+                            Showing.Info("红方胜利");
+                        else if(e.getInfo() == 1)
+                            Showing.Info("黑方胜利");
                         ChessPiece.judgeSound = false;
                         flip();
-                        Showing.Info(e.toString());
                     }
                     catch (MalformedURLException e)
                     {
@@ -383,7 +386,7 @@ public class Board
                         CanvasUtils.set(3);
 
                         if (UserStatus.AISide == UserStatus.currentSide)
-                            Greedy.greedy(4, true,1);
+                            Greedy.greedy(4, true,2);
 
                     }
                     catch (GameEndsException e)
