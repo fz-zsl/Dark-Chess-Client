@@ -128,6 +128,7 @@ public class Board
             EventHandler<ActionEvent> eventHandler5 = e ->
             {
                 System.out.println("按下了悔棋按钮");
+                CanvasUtils.cancelHighLight();
                 if(Preference.soundSwitch)
                     InitializationApplication.mediaPlayerFirst.play();
                 ChessPiece.judgeSound = true;
@@ -182,6 +183,7 @@ public class Board
             EventHandler<ActionEvent> eventHandler7 = e ->
             {
                 System.out.println("restart");
+                CanvasUtils.cancelHighLight();
                 if(Preference.soundSwitch)
                     InitializationApplication.mediaPlayerFirst.play();
                 for (ChessPiece c:chessPieceArrayList)

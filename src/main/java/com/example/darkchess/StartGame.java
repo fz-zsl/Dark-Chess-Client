@@ -39,7 +39,8 @@ public class StartGame
     @FXML
     void cComputer(MouseEvent event)throws IOException
     {
-        if(Preference.soundSwitch)
+
+        if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();
         modeOfAll = 3;
         if(judge)
@@ -49,6 +50,7 @@ public class StartGame
         }
         else
         {
+            CanvasUtils.cancelHighLight();
             chessPieceArrayList = CanvasUtils.setAllChess();
             CanvasUtils.set(3);
             GeneralInit.generalInit();
@@ -99,7 +101,7 @@ public class StartGame
     @FXML
     void cOffline(MouseEvent event) throws IOException
     {
-        if(Preference.soundSwitch)
+        if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();
         modeOfAll = 1;
         if(judge)
@@ -109,6 +111,7 @@ public class StartGame
         }
         else
         {
+            CanvasUtils.cancelHighLight();
             chessPieceArrayList = CanvasUtils.setAllChess();
             CanvasUtils.set(1);
             GeneralInit.generalInit();

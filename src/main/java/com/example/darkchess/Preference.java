@@ -23,7 +23,8 @@ public class Preference
     public static Boolean soundSwitch = false;
     public static Boolean chessSound = false;
     public static Boolean endSound = false;
-    public static Boolean cheatingSwitch = true;
+    public static Boolean cheatingSwitch = false;
+    public static Boolean gamingSwitch = false;
 
     @FXML
     private MenuItem contectUs;

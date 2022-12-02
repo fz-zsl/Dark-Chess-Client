@@ -249,7 +249,9 @@ public class CanvasUtils
 
     public static void cancelHighLight()
     {
-        anchorPane.getChildren().removeAll(rectangles);
+        if(!rectangles.isEmpty())
+            anchorPane.getChildren().removeAll(rectangles);
+        return;
     }
 
 }
