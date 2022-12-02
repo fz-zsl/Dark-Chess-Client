@@ -403,7 +403,7 @@ public class Board
                         else
                         {
                             Showing.Info("厉害啊，小子！居然把爷战胜了？！");
-                            youWin();
+                            //youWin();
                         }
 
                        // Showing.Info(e.toString());
@@ -448,7 +448,7 @@ public class Board
 
     private static void youDied()
     {
-        String path = "D://DarkChess//demo//src//audio//结束1.mp3";
+        String path = "D:/DarkChess/src/audio/结束1.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
