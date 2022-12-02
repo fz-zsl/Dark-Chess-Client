@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Currency;
 
 import static Properties.Property.version;
+import static com.example.darkchess.StartGame.modeOfAll;
 
 
 public class Board
@@ -134,14 +135,43 @@ public class Board
                     return;
                 UndoPreviousOperation.undoPreviousOperation();
                 //重新设定计分板
-                Integer redScore = UserStatus.getRedScore();
-                rText.setText("分数 " + redScore.toString());
-                Integer blackScore = UserStatus.getBlackScore();
-                bText.setText("分数 " + blackScore.toString());
-                if (UserStatus.currentSide == 0)
-                    bTurn.setText("轮到红方");
-                else if (UserStatus.currentSide == 1)
-                    bTurn.setText("轮到黑方");
+                if(modeOfAll == 1)
+                {
+                    Integer redScore = UserStatus.getRedScore();
+                    rText.setText("分数 " + redScore.toString());
+                    Integer blackScore = UserStatus.getBlackScore();
+                    bText.setText("分数 " + blackScore.toString());
+                    if (UserStatus.currentSide == 0)
+                        bTurn.setText("轮到红方");
+                    else if (UserStatus.currentSide == 1)
+                        bTurn.setText("轮到黑方");
+                }
+                else  if(modeOfAll == 3)
+                {
+                    if(UserStatus.AISide == 0)
+                    {
+                        Integer redScore = UserStatus.getRedScore();
+                        Integer blackScore = UserStatus.getBlackScore();
+                        rText.setText("分数 " + blackScore.toString());
+                        bText.setText("分数 " + redScore.toString());
+                        if(UserStatus.currentSide == 0)
+                            bTurn.setText("轮到机器");
+                        else
+                            bTurn.setText("轮到玩家");
+                    }
+                    else if (UserStatus.AISide == 1)
+                    {
+                        Integer redScore = UserStatus.getRedScore();
+                        rText.setText("分数 " + redScore.toString());
+                        Integer blackScore = UserStatus.getBlackScore();
+                        bText.setText("分数 " + blackScore.toString());
+                        if(UserStatus.currentSide == 1)
+                            bTurn.setText("轮到机器");
+                        else
+                            bTurn.setText("轮到玩家");
+                    }
+                }
+
             };
 
             EventHandler<ActionEvent> eventHandler6 = e ->
@@ -161,14 +191,14 @@ public class Board
                 }
                 anchorPane.getChildren().removeAll(chessPieceArrayList);
                 chessPieceArrayList = CanvasUtils.setAllChess();
-                CanvasUtils.set(StartGame.modeOfAll);
+                CanvasUtils.set(modeOfAll);
                 GeneralInit.generalInit();
                 //重新设定计分板
                 Integer redScore = UserStatus.getRedScore();
                 rText.setText("分数 " + redScore.toString());
                 Integer blackScore = UserStatus.getBlackScore();
                 bText.setText("分数 " + blackScore.toString());
-                if (StartGame.modeOfAll == 1)
+                if (modeOfAll == 1)
                 {
                     System.out.println("mode1");
                     r.setText("红方");
@@ -180,7 +210,7 @@ public class Board
                     bTurn.setText("先手翻棋");
                 }
 
-                else if (StartGame.modeOfAll == 3)
+                else if (modeOfAll == 3)
                 {
                     System.out.println("mode3");
                     r.setText("玩家");

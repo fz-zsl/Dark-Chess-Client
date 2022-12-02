@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Preference
 {
     public static double time = 0.1;
-    public static String version = "v 1.1.6";
+    public static String version = "v 1.1.8";
     public static double volume = 0.3;
     public static double volumeOfFlip = 1;
     public static Boolean cheatingSoundInfo = true;
@@ -23,6 +23,7 @@ public class Preference
     public static Boolean soundSwitch = false;
     public static Boolean chessSound = false;
     public static Boolean endSound = false;
+    public static Boolean cheatingSwitch = true;
 
     @FXML
     private MenuItem contectUs;
