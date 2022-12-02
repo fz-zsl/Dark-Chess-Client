@@ -127,7 +127,8 @@ public class Board
             EventHandler<ActionEvent> eventHandler5 = e ->
             {
                 System.out.println("按下了悔棋按钮");
-                InitializationApplication.mediaPlayerFirst.play();
+                if(Preference.soundSwitch)
+                    InitializationApplication.mediaPlayerFirst.play();
                 ChessPiece.judgeSound = true;
                 if (ChessBoardStatus.flipCounter<1)
                     return;
@@ -151,7 +152,8 @@ public class Board
             EventHandler<ActionEvent> eventHandler7 = e ->
             {
                 System.out.println("restart");
-                InitializationApplication.mediaPlayerFirst.play();
+                if(Preference.soundSwitch)
+                    InitializationApplication.mediaPlayerFirst.play();
                 for (ChessPiece c:chessPieceArrayList)
                 {
                     anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
@@ -195,7 +197,8 @@ public class Board
             EventHandler<ActionEvent> eventHandler = e ->
             {
                 System.out.println("go back");
-                InitializationApplication.mediaPlayerFirst.play();
+                if(Preference.chessSound)
+                    InitializationApplication.mediaPlayerFirst.play();
                 for (ChessPiece c:chessPieceArrayList)
                 {
                     anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
@@ -393,12 +396,15 @@ public class Board
                     {
                         ChessPiece.judgeSound = false;
                         flip();
-                        InitializationApplication.mediaPlayerFirst.pause();
+                        if(Preference.soundSwitch)
+                            InitializationApplication.mediaPlayerFirst.pause();
                         if(e.getInfo() == UserStatus.AISide)
                         {
                             Showing.Info("菜狗，回去多积淀积淀再来挑战爷！");
-                            ChessPiece.mediaPlayerEnd.pause();
-                            youDied();
+                            if(Preference.chessSound)
+                                ChessPiece.mediaPlayerEnd.pause();
+                            if(Preference.endSound)
+                                youDied();
                         }
                         else
                         {

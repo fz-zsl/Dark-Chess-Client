@@ -88,7 +88,8 @@ public abstract class ChessPiece extends ImageView
         tt.setToY(destinationY);
         tt.play();
         System.out.println("slgg txdy!");
-        flipSound(this.getPieceType().getAudio());
+        if(Preference.chessSound)
+            flipSound(this.getPieceType().getAudio());
     }
 
     public void removeAChess(double initialX, double initialY) throws MalformedURLException
@@ -162,7 +163,8 @@ public abstract class ChessPiece extends ImageView
         timeline.play();
         this.getCircle().toFront();
         this.getText().toFront();
-        eatenSound();
+        if(Preference.chessSound)
+            eatenSound();
     }
 
     public void reRemoveAChess(double finalX, double finalY)
@@ -176,7 +178,8 @@ public abstract class ChessPiece extends ImageView
         tt.setToY(finalY);
         tt.play();
         this.re();
-        reRemoveSound();
+        if(Preference.chessSound)
+            reRemoveSound();
     }
 
     public void cheatingFlip()
@@ -223,7 +226,8 @@ public abstract class ChessPiece extends ImageView
 
         timeline.getKeyFrames().addAll(keyFrame1,keyFrame3,keyFrame2);
         timeline.play();
-        cheatingSound();
+        if(Preference.chessSound)
+            cheatingSound();
     }
     public void flipAChess()
     {
@@ -267,7 +271,7 @@ public abstract class ChessPiece extends ImageView
         timeline.getKeyFrames().addAll(keyFrame1,keyFrame3,keyFrame2);
         timeline.play();
         this.status = true;
-        if(judgeSound)
+        if(judgeSound && Preference.chessSound)
             flipSound(this.getPieceType().getAudio());
     }
 

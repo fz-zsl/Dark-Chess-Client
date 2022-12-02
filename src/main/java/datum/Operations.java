@@ -2,6 +2,7 @@ package datum;
 
 import Piece.ChessPiece;
 import algorithm.ChessBoardInit;
+import com.example.darkchess.Preference;
 import com.example.darkchess.Showing;
 
 public class Operations {
@@ -34,12 +35,14 @@ public class Operations {
 			if (positions[1]==0)
 			{
 				System.out.println("吃帅");
-				ChessPiece.rGeA();
+				if(Preference.chessSound)
+					ChessPiece.rGeA();
 			}
 			if (positions[1]==16)
 			{
 				System.out.println("吃将");
-				ChessPiece.bGeA();
+				if(Preference.chessSound)
+					ChessPiece.bGeA();
 			}
 			if (ChessBoardStatus.getFlipped(positions[0]/10,positions[0]%10))
 				destPosition[sizeOfStack]+=50;
