@@ -165,8 +165,8 @@ public class Board
             menuItem9.setOnAction(eventHandler11);
 
             menu1.getItems().addAll(menu5, menuItem, menuItem1,menuItem2);
-            menu3.getItems().addAll(menuItem6, menuItem3, menuItem4);
-            menu4.getItems().addAll(menuItem5, menuItem7, menuItem13);
+            menu3.getItems().addAll( menuItem3, menuItem4);
+            menu4.getItems().addAll(menuItem6,menuItem5, menuItem7, menuItem13);
             menuBar.getMenus().addAll(menu1, menu2, menu4, menu3);
 
             EventHandler<ActionEvent> eventHandler1 = e ->
