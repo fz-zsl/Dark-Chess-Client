@@ -1,5 +1,6 @@
 package com.example.darkchess;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,8 @@ public class StartPage {
     public static Stage theRegisterStage;
     public static Stage theLogInStage;
     public static Boolean preferenceBoolean = false;
+    private static Boolean loginBoolean = true;
+    private static Boolean registerBoolean = true;
 
 
 
@@ -46,14 +49,7 @@ public class StartPage {
     void cLogOut(ActionEvent event) throws IOException
     {
         // TODO: 2022/11/15 添加保存信息的功能
-
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quit.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("退出");
-        stage.setScene(scene);
-        stage.show();
-
+        Platform.exit();
     }
 
     @FXML
@@ -71,26 +67,38 @@ public class StartPage {
     void cRegister(MouseEvent event) throws IOException
     {
         InitializationApplication.theStartPage.close();
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("board.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
-        stage.setTitle("登录界面");
-        stage.setScene(scene);
-        stage.show();
-        StartPage.theRegisterStage = stage;
+        if(registerBoolean)
+        {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 900, 600);
+            stage.setTitle("登录界面");
+            stage.setScene(scene);
+            stage.show();
+            theRegisterStage = stage;
+            registerBoolean = false;
+        }
+        else
+            theRegisterStage.show();
     }
 
     @FXML
     void cLogIn(MouseEvent event)throws IOException
     {
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("logIn.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
-        stage.setTitle("登录界面");
-        stage.setScene(scene);
-        stage.show();
-        StartPage.theLogInStage = stage;
         InitializationApplication.theStartPage.close();
+        if(loginBoolean)
+        {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("logIn.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 900, 600);
+            stage.setTitle("登录界面");
+            stage.setScene(scene);
+            stage.show();
+            StartPage.theLogInStage = stage;
+        }
+        else
+            theLogInStage.show();
+
     }
 
     @FXML

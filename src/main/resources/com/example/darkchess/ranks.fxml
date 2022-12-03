@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.darkchess.Rank">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../../../../../backgrounds/4.jpg" />
+         </image>
+      </ImageView>
+      <Text fx:id="firstClass" layoutX="206.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="空">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Text>
+      <Text fx:id="secondClass" layoutX="206.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="空">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Text>
+      <Text fx:id="thirdClass" layoutX="206.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="空">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Text>
+      <Text fx:id="forthClass" layoutX="206.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="空">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Text>
+      <Text fx:id="fifthClass" layoutX="206.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="空">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Text>
+      <Text fx:id="score" layoutX="273.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <Text fx:id="yourRank" layoutX="273.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

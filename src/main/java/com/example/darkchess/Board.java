@@ -7,6 +7,7 @@ import algorithm.UndoPreviousOperation;
 import autoPlayer.Greedy;
 import datum.ChessBoardStatus;
 import datum.UserStatus;
+import fileOperations.RankList;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -88,7 +89,7 @@ public class Board
             MenuItem menuItem6 = new MenuItem("作弊模式");
             MenuItem menuItem7 = new MenuItem("重新开始");
             MenuItem menuItem = new MenuItem("返回模式选择页面");
-            MenuItem menuItem2 = new MenuItem("游戏排行榜");
+            MenuItem menuItem2 = new MenuItem("排行榜");
             menu1.getItems().addAll(menuItem, menuItem1,menuItem2);
             menu3.getItems().addAll(menuItem6, menuItem3, menuItem4);
             menu4.getItems().addAll(menuItem5, menuItem7);
@@ -177,6 +178,7 @@ public class Board
 
             EventHandler<ActionEvent> eventHandler6 = e ->
             {
+                // TODO: 2022/12/3
                 Showing.Info("鼠标右击翻看棋子");
             };
 
@@ -241,12 +243,27 @@ public class Board
                 theBoardStage.close();
             };
 
+            EventHandler<ActionEvent> eventHandler3 = e ->
+            {
+                if(StartGame.rankJudge)
+                {
+                    startRank();
+                    setRank();
+                }
+                else
+                {
+                    setRank();
+                    StartGame.theRankPage.show();
+                }
+            };
+
             menuItem1.setOnAction(eventHandler2);
             menuItem3.setOnAction(eventHandler4);
             menuItem4.setOnAction(eventHandler1);
             menuItem5.setOnAction(eventHandler5);
             menuItem7.setOnAction(eventHandler7);
             menuItem.setOnAction(eventHandler);
+            menuItem2.setOnAction(eventHandler3);
             anchorPane.getChildren().add(menuBar);
             menuBar.setLayoutX(0);
             menuBar.setLayoutY(1);
@@ -506,4 +523,80 @@ public class Board
     }
 
 
+    private static Text first = new Text("空");
+    private static Text second = new Text("空");
+    private static Text third = new Text("空");
+    private static Text forth = new Text("空");
+    private static Text fifth = new Text("空");
+    private static Text yourScore = new Text("空");
+    private static Text yourRank = new Text("空");
+    public static void startRank()
+    {
+        Stage stage1 = new Stage();
+        StartGame.theRankPage = stage1;
+        AnchorPane anchorPane1 = new AnchorPane();
+        anchorPane1.setMinSize(600, 400);
+        anchorPane1.setMinWidth(600);
+        anchorPane1.setMinHeight(400);
+        //页面背景
+        ImageView imageView = new ImageView("file:/D://backgrounds//4.jpg");
+        imageView.setFitHeight(400);
+        imageView.setFitWidth(600);
+        imageView.setTranslateX(0);
+        imageView.setTranslateY(0);
+        anchorPane1.getChildren().add(imageView);
+
+        first.setFill(Color.GREEN);
+        second.setFill(Color.GRAY);
+        third.setFill(Color.RED);
+
+        first.setTranslateX(206);
+        second.setTranslateX(206);
+        third.setTranslateX(206);
+        forth.setTranslateX(206);
+        fifth.setTranslateX(206);
+        yourScore.setTranslateX(273);
+        yourRank.setTranslateX(273);
+
+        first.setTranslateY(87);
+        second.setTranslateY(131);
+        third.setTranslateY(181);
+        forth.setTranslateY(233);
+        fifth.setTranslateY(279);
+        yourScore.setTranslateY(342);
+        yourRank.setTranslateY(373);
+
+        first.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 27));
+        second.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 27));
+        third.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 27));
+        forth.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 27));
+        fifth.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 27));
+        yourScore.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 24));
+        yourRank.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 24));
+
+        anchorPane1.getChildren().addAll(first, second, third, forth, fifth, yourRank, yourScore);
+
+        Group group1 = new Group();
+        group1.getChildren().add(anchorPane1);
+        Scene scene1 = new Scene(group1, 600, 400);
+        stage1.setTitle("排行榜");
+        stage1.setScene(scene1);
+        stage1.show();
+    }
+
+    public static void setRank()
+    {
+        System.out.println(RankList.getRankList().size());
+        System.out.println(RankList.getRankList().get(0).userName + " " + RankList.getRankList().get(0).credit);
+        first.setText("slgg");
+        first.setText(RankList.getRankList().get(0).userName + " " + RankList.getRankList().get(0).credit);
+        second.setText(RankList.getRankList().get(1).userName + " " + RankList.getRankList().get(0).credit);
+        third.setText(RankList.getRankList().get(2).userName + " " + RankList.getRankList().get(0).credit);
+        forth.setText(RankList.getRankList().get(3).userName + " " + RankList.getRankList().get(0).credit);
+        fifth.setText(RankList.getRankList().get(4).userName + " " + RankList.getRankList().get(0).credit);
+        Integer a = RankList.getRankList().get(RankList.findUserRank()).credit;
+        yourScore.setText(a.toString());
+        a = RankList.findUserRank() + 1;
+        yourRank.setText(a.toString());
+    }
 }

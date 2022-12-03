@@ -20,7 +20,8 @@ import static com.example.darkchess.Board.chessPieceArrayList;
 
 public class StartGame
 {
-
+    public static Boolean rankJudge = true;
+    public static Stage theRankPage;
     private static Boolean judge = true;
     public static Stage thePreferenceStageSG;
     public static int modeOfAll = 0;

@@ -36,7 +36,7 @@ public class InitializationApplication extends Application
 
     private static void startMusic()
     {
-        String path = "D:/DarkChess/src/audio/王利夫 - 一剪梅（8bit版）.mp3";
+        String path = "D:/DarkChess/src/audio/BGM.mp3";
         //String path = "D:/DarkChess/src/audio/王利 - 一剪梅（8bit版）.mp3";
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayerFirst = new MediaPlayer(media);

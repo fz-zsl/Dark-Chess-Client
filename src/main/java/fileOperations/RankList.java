@@ -1,6 +1,7 @@
 package fileOperations;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -10,7 +11,8 @@ public class RankList {
 
 	private static int calcCredit(ArrayList<Integer> userGameCounter) {
 		//Todo
-		return userGameCounter.get(0)*2
+		return 1500
+				+userGameCounter.get(0)*2
 				+userGameCounter.get(1)*3
 				+userGameCounter.get(2)*3
 				+userGameCounter.get(3)*3
@@ -20,9 +22,15 @@ public class RankList {
 				+userGameCounter.get(7)*3;
 	}
 
-	private static int getUserCredit(String userFile) {
-		Scanner sc=new Scanner(userFile);
-		sc.nextLine();
+	private static int getUserCredit(String userFile)
+	{
+		Scanner sc=new Scanner(System.in);
+		try {
+			sc=new Scanner(new File("database/"+userFile));
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		sc.next();
 		ArrayList<Integer> userGameCounter=new ArrayList<>();
 		for (int i=0;i<8;++i) userGameCounter.add(sc.nextInt());
 		return calcCredit(userGameCounter);

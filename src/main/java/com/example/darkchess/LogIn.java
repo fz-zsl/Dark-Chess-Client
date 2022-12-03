@@ -46,14 +46,17 @@ public class LogIn
     @FXML
     void cLogOut(ActionEvent event)throws IOException
     {
-        // TODO: 2022/11/15 添加保存信息的功能
-
+        StartPage.theLogInStage.close();
+        InitializationApplication.theStartPage.show();
+        /*
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quit.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("退出");
         stage.setScene(scene);
         stage.show();
+
+         */
     }
 
     @FXML
@@ -82,17 +85,15 @@ public class LogIn
     @FXML
     void cLogIn(MouseEvent event) throws IOException
     {
-       /*
         try
         {
             LoginInterface.userLogIn(account, password);
         }
         catch (Exception e)
         {
-            Showing.Alarm(String.valueOf(e));
+            Showing.Alarm(e.toString());
+            return;
         }
-
-        */
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(InitializationApplication.class.getResource("startGame.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
@@ -103,7 +104,6 @@ public class LogIn
         StartPage.theLogInStage.close();
 
     }
-
 
 
 

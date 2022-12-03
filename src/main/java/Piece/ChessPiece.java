@@ -314,7 +314,7 @@ public abstract class ChessPiece extends ImageView
         this.getCircle().setRadius(10);
         this.getText().setTranslateX(this.eatenX + 39.5);
         this.getText().setTranslateY(this.eatenY + 12);
-        this.getText().setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 17));
+        this.getText().setFont(Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 17));
     }
 
     public void getEatenNumber(int x)
@@ -396,9 +396,11 @@ public abstract class ChessPiece extends ImageView
         KeyValue keyValue2 = new KeyValue(redG.scaleYProperty(),1.1);
         KeyFrame keyFrame1 = new KeyFrame(Duration.seconds(0.1), "flip", new EventHandler<ActionEvent>()
         {
+
             @Override
             public void handle(ActionEvent actionEvent)
             {
+                blackG.toFront();
                 System.out.println("bigger");
             }
         }, keyValue1,keyValue2);//放大
@@ -410,6 +412,7 @@ public abstract class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
+                redG.toFront();
                 System.out.println("smaller");
                 anchorPane.getChildren().remove(redG);
             }
@@ -435,6 +438,7 @@ public abstract class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
+                redG.toFront();
                 System.out.println("bigger");
             }
         }, keyValue1,keyValue2);//放大
@@ -446,6 +450,7 @@ public abstract class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
+                blackG.toFront();
                 System.out.println("smaller");
                 anchorPane.getChildren().remove(blackG);
             }
