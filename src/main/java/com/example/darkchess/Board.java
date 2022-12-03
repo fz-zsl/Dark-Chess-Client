@@ -109,6 +109,12 @@ public class Board
                 menu5.getItems().add(menuItem12);
                 EventHandler<ActionEvent> eventHandler = e ->
                 {
+                    for(ChessPiece c:chessPieceArrayList)
+                    {
+                        anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
+                        c.setJudge(true);
+                    }
+                    anchorPane.getChildren().removeAll(chessPieceArrayList);
                     try
                     {
                         LoadGameFile.loadGameFile(str);
@@ -350,6 +356,7 @@ public class Board
                 System.out.println("handler");
                 try
                 {
+
                     if(UserStatus.AISide == 0)
                     {
                         Integer redScore = UserStatus.getRedScore();

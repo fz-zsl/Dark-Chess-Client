@@ -29,6 +29,7 @@ public class LoadGameFile {
 	public static void loadGameFile(String name) throws LoadFileException, GameEndsException, MalformedURLException
 	{
 		GeneralInit.generalInit();
+		//chessPieceArrayList = CanvasUtils.setAllChess();
 		//name should include the suffix
 		Operations.gameName=name;
 		String gameFileName="database/"+name;
@@ -136,6 +137,8 @@ public class LoadGameFile {
 		if (!rawString.equals("A")) UserStatus.AIMode=2;
 		else UserStatus.AIMode=sc.nextInt();
 		//GeneralInit.halfInit();
+		anchorPane.getChildren().removeAll(chessPieceArrayList);
+		chessPieceArrayList = CanvasUtils.setAllChess();
 		Operations.copyOfSizeOfStack=Operations.sizeOfStack;
 		ChessBoardStatus.flipCounter=0;
 		ChessBoardStatus.clearPossibleMoves();
