@@ -89,12 +89,12 @@ public class LoadGameFile {
 				}
 			}
 			if (operationType==0&&ClickOnBoard.clickOnBoard(srcPosition/10,srcPosition%10)!=0)
-				throw new LoadFileException("错误编码 #105A | 行棋步骤错误。");
+				throw new LoadFileException("错误编码 #105 | 行棋步骤错误。");
 			if (operationType==1) {
 				if (ClickOnBoard.clickOnBoard(srcPosition/10,srcPosition%10)!=1)
-					throw new LoadFileException("错误编码 #105B | 行棋步骤错误。");
+					throw new LoadFileException("错误编码 #105 | 行棋步骤错误。");
 				if (ClickOnBoard.clickOnBoard(destPosition/10,destPosition%10)!=2)
-					throw new LoadFileException("错误编码 #105C | 行棋步骤错误。");
+					throw new LoadFileException("错误编码 #105 | 行棋步骤错误。");
 			}
 		}
 		rawString=sc.nextLine();
