@@ -3,6 +3,7 @@ package fileOperations;
 import Piece.ChessPiece;
 import algorithm.ChessBoardInit;
 import algorithm.ClickOnBoard;
+import algorithm.GeneralInit;
 import com.example.darkchess.Board;
 import com.example.darkchess.CanvasUtils;
 import datum.ChessBoardStatus;
@@ -18,13 +19,16 @@ import oop.LoadFileException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import static com.example.darkchess.Board.anchorPane;
 import static com.example.darkchess.Board.chessPieceArrayList;
 
 public class LoadGameFile {
 	public static void loadGameFile(String name) throws LoadFileException, GameEndsException, MalformedURLException
 	{
+		GeneralInit.generalInit();
 		//name should include the suffix
 		Operations.gameName=name;
 		String gameFileName="database/"+name;
@@ -62,6 +66,7 @@ public class LoadGameFile {
 				if (curInt<0||curInt>31)
 					throw new LoadFileException("错误编码 #103 | 棋子错误，位于第 "+i+" 行，第 "+j+" 列的棋子不属于红黑 7 种棋子之一。");
 				--cntChess[ChessBoardInit.indexToChess[curInt]];
+
 				ChessBoardStatus.chessInit(i,j,curInt);
 				ChessBoardStatus.initObjectIndex[i][j]=curInt;
 				chessPieceArrayList.get(curInt).setTranslateX(ChessPiece.getChessXFx(j));
@@ -113,20 +118,44 @@ public class LoadGameFile {
 					throw new LoadFileException("错误编码 #201 | 日志文件格式错误，请导入由软件自动生成的游戏日志。");
 				}
 			}
-			if (operationType==0&&ClickOnBoard.clickOnBoard(srcPosition/10,srcPosition%10)!=0)
+			if (operationType==0&&ClickOnBoard.clickOnBoardFast(srcPosition/10,srcPosition%10)!=0)
 				throw new LoadFileException("错误编码 #105 | 行棋步骤错误。");
 			if (operationType==1) {
-				if (ClickOnBoard.clickOnBoard(srcPosition/10,srcPosition%10)!=1)
+				if (ClickOnBoard.clickOnBoardFast(srcPosition/10,srcPosition%10)!=1)
 					throw new LoadFileException("错误编码 #105 | 行棋步骤错误。");
-				if (ClickOnBoard.clickOnBoard(destPosition/10,destPosition%10)!=2)
+				if (ClickOnBoard.clickOnBoardFast(destPosition/10,destPosition%10)!=2)
 					throw new LoadFileException("错误编码 #105 | 行棋步骤错误。");
 			}
-			CanvasUtils.set(4);
+//			if (operationType==0) Operations.addOperationToStack(Integer.parseInt(Ints[0]),Integer.parseInt(Ints[1]));
+//			else Operations.addOperationToStack(Integer.parseInt(Ints[0]),Integer.parseInt(Ints[1]),Integer.parseInt(Ints[2]));
+			if (i==0) CanvasUtils.set(4);
 		}
-		if (side!=UserStatus.currentSide)
-			throw new LoadFileException("错误编码 #204 | 行棋方与记录种操作结果不符。");
+//		if (side!=UserStatus.currentSide)
+//			throw new LoadFileException("错误编码 #204 | 行棋方与记录种操作结果不符。");
 		rawString=sc.nextLine();
-		if (!rawString.equals("A")) return;
-		UserStatus.AIMode=sc.nextInt();
+		if (!rawString.equals("A")) UserStatus.AIMode=2;
+		else UserStatus.AIMode=sc.nextInt();
+		//GeneralInit.halfInit();
+		Operations.copyOfSizeOfStack=Operations.sizeOfStack;
+		ChessBoardStatus.flipCounter=0;
+		ChessBoardStatus.clearPossibleMoves();
+		UserStatus.setRedScore(0);
+		UserStatus.setBlackScore(0);
+		UserStatus.currentSide=-1;
+		ChessBoardStatus.flipCounter=0;
+		UserStatus.resetEatChessCount();
+		int objIndex=-1;
+		for (int i=1;i<=8;++i) {
+			for (int j=1;j<=4;++j) {
+				objIndex=ChessBoardStatus.initObjectIndex[i][j];
+				System.out.println(objIndex);
+				ChessBoardStatus.chessInit(i,j,objIndex);
+				System.out.println(chessPieceArrayList.get(objIndex));
+				chessPieceArrayList.get(objIndex).setTranslateX(ChessPiece.getChessXFx(j));
+				System.out.println(ChessPiece.getChessXFx(j));
+				chessPieceArrayList.get(objIndex).setTranslateY(ChessPiece.getChessYFx(i));
+				System.out.println(ChessPiece.getChessYFx(j));
+			}
+		}
 	}
 }

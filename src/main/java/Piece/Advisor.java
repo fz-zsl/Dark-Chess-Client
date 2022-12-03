@@ -1,5 +1,6 @@
 package Piece;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
@@ -29,10 +30,12 @@ public class Advisor extends ChessPiece
 
     public void re()
     {
+        System.out.println("CheckPoint1651: "+i);
         if(!status)
             this.reFlipAChess();
         if(i <= 0)
         {
+            System.out.println(this);
             circle.setFill(null);
             text.setFill(null);
         }

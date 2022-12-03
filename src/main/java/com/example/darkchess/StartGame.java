@@ -92,9 +92,17 @@ public class StartGame
         }
         else
         {
+
             CanvasUtils.cancelHighLight();
-            chessPieceArrayList = CanvasUtils.setAllChess();
             //重新设定计分板
+            GeneralInit.generalInit();
+            for(ChessPiece c:chessPieceArrayList)
+            {
+                anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
+                c.setJudge(true);
+            }
+            anchorPane.getChildren().removeAll(chessPieceArrayList);
+            System.out.println("mode4");
             Integer redScore = UserStatus.getRedScore();
             Board.rText.setText("分数 " + redScore.toString());
             Integer blackScore = UserStatus.getBlackScore();

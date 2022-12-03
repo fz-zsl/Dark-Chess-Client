@@ -2,15 +2,22 @@ package datum;
 
 import Piece.ChessPiece;
 import algorithm.ChessBoardInit;
+import algorithm.ClickOnBoard;
+import com.example.darkchess.CanvasUtils;
 import com.example.darkchess.Preference;
 import com.example.darkchess.Showing;
+import fileOperations.LoadGameFile;
+import oop.GameEndsException;
+import oop.LoadFileException;
 
 public class Operations {
 	public static String gameName;
 	private static int[] operationType=new int[100005];
 	private static int[] srcPosition=new int[100005];
 	private static int[] destPosition=new int[100005];
-	private static int sizeOfStack=0;
+	public static int sizeOfStack=0;
+	public static int copyOfSizeOfStack=-1;
+	public static int loadFileStamp=0;
 
 	public static void clearStack() {
 		sizeOfStack=0;
@@ -91,5 +98,25 @@ public class Operations {
 				System.out.printf("%d %d\n",srcPosition[i],destPosition[i]);
 			}
 		}
+	}
+
+	public static boolean loadNextMove() throws Exception {
+		if (loadFileStamp==copyOfSizeOfStack) {
+			sizeOfStack=copyOfSizeOfStack;
+			return false;
+		}
+		int type=operationType[loadFileStamp];
+		int src=srcPosition[loadFileStamp];
+		int dest=0;
+		if (type>0) dest=destPosition[loadFileStamp];
+		if (type==0) ClickOnBoard.clickOnBoard(src/10,src%10);
+		if (type==1) {
+			ClickOnBoard.clickOnBoard(src/10,src%10);
+			ClickOnBoard.clickOnBoard(dest/10,dest%10);
+		}
+		if (loadFileStamp==0) CanvasUtils.set(4);
+		++loadFileStamp;
+		if (operationType[loadFileStamp]==2) ++loadFileStamp;
+		return true;
 	}
 }
