@@ -40,7 +40,6 @@ public class StartGame
     @FXML
     void cComputer(MouseEvent event)throws IOException
     {
-
         if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();
         modeOfAll = 3;
@@ -53,7 +52,6 @@ public class StartGame
         {
             CanvasUtils.cancelHighLight();
             chessPieceArrayList = CanvasUtils.setAllChess();
-            CanvasUtils.set(3);
             GeneralInit.generalInit();
             //重新设定计分板
             Integer redScore = UserStatus.getRedScore();
@@ -81,10 +79,37 @@ public class StartGame
     }
 
     @FXML
-    void cHalf(MouseEvent event)
+    void cHalf(MouseEvent event) throws IOException
     {
 
-        // TODO: 2022/11/15
+        if(Preference.gamingSwitch)
+            InitializationApplication.mediaPlayerFirst.pause();
+        modeOfAll = 4;
+        if(judge)
+        {
+            Board.startGame(4);
+            LogIn.theStartGameStage.close();
+        }
+        else
+        {
+            CanvasUtils.cancelHighLight();
+            chessPieceArrayList = CanvasUtils.setAllChess();
+            //重新设定计分板
+            Integer redScore = UserStatus.getRedScore();
+            Board.rText.setText("分数 " + redScore.toString());
+            Integer blackScore = UserStatus.getBlackScore();
+            Board.bText.setText("分数 " + blackScore.toString());
+            Board.r.setText("玩家");
+            Board.r.setFill(Color.BLACK);
+            Board.rText.setFill(Color.BLACK);
+            Board.b.setText("机器");
+            Board.b.setFill(Color.BLACK);
+            Board.bText.setFill(Color.BLACK);
+            Board.bTurn.setText("玩家翻棋");
+            Board.theBoardStage.show();
+            LogIn.theStartGameStage.close();
+            Board.aiAction(Board.group);
+        }
         judge = false;
     }
 

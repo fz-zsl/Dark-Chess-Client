@@ -1,10 +1,17 @@
 package fileOperations;
 
+import Piece.ChessPiece;
 import algorithm.ChessBoardInit;
 import algorithm.ClickOnBoard;
+import com.example.darkchess.Board;
+import com.example.darkchess.CanvasUtils;
 import datum.ChessBoardStatus;
 import datum.Operations;
 import datum.UserStatus;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import oop.GameEndsException;
 import oop.LoadFileException;
 
@@ -12,6 +19,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.util.Scanner;
+
+import static com.example.darkchess.Board.chessPieceArrayList;
 
 public class LoadGameFile {
 	public static void loadGameFile(String name) throws LoadFileException, GameEndsException, MalformedURLException
@@ -29,8 +38,8 @@ public class LoadGameFile {
 			throw new LoadFileException("错误编码 #100 | 日志文件不存在，系统信息："+fileNotFoundException);
 		}
 		String rawString=sc.nextLine();
-		if (!rawString.equals(UserStatus.getGameKey()))
-			throw new LoadFileException("错误编码 #200 | 日志打开失败，请选择自己的残局继续游戏。");
+//		if (!rawString.equals(UserStatus.getGameKey()))
+//			throw new LoadFileException("错误编码 #200 | 日志打开失败，请选择自己的残局继续游戏。");
 		rawString=sc.nextLine();
 		if (!rawString.equals("P")) {
 			throw new LoadFileException("错误编码 #201 | 日志文件格式错误，请导入由软件自动生成的游戏日志。");
@@ -54,7 +63,23 @@ public class LoadGameFile {
 					throw new LoadFileException("错误编码 #103 | 棋子错误，位于第 "+i+" 行，第 "+j+" 列的棋子不属于红黑 7 种棋子之一。");
 				--cntChess[ChessBoardInit.indexToChess[curInt]];
 				ChessBoardStatus.chessInit(i,j,curInt);
+				ChessBoardStatus.initObjectIndex[i][j]=curInt;
+				chessPieceArrayList.get(curInt).setTranslateX(ChessPiece.getChessXFx(j));
+				chessPieceArrayList.get(curInt).setTranslateY(ChessPiece.getChessYFx(i));
 			}
+		}
+		rawString=sc.nextLine();
+		if (!rawString.equals("N")) {
+			throw new LoadFileException("错误编码 #104 | 缺少行棋方，请导入由软件自动生成的游戏日志。");
+		}
+		rawString=sc.nextLine();
+		int side=0;
+		if (rawString.equals("R")) {
+			side=0;
+		} else if (rawString.equals("B")) {
+			side=1;
+		} else {
+			throw new LoadFileException("错误编码 #104 | 缺少行棋方，请导入由软件自动生成的游戏日志。");
 		}
 		rawString=sc.nextLine();
 		if (!rawString.equals("O")) {
@@ -67,7 +92,7 @@ public class LoadGameFile {
 		} catch (NumberFormatException numberFormatException) {
 			throw new LoadFileException("错误编码 #201 | 日志文件格式错误，请导入由软件自动生成的游戏日志。");
 		}
-		int operationType,srcPosition,destPosition=0;
+		int operationType=0,srcPosition=0,destPosition=0;
 		for (int i=0;i<numberOfOperations;++i) {
 			rawString=sc.nextLine();
 			String[] Ints=rawString.split(" ");
@@ -96,19 +121,7 @@ public class LoadGameFile {
 				if (ClickOnBoard.clickOnBoard(destPosition/10,destPosition%10)!=2)
 					throw new LoadFileException("错误编码 #105 | 行棋步骤错误。");
 			}
-		}
-		rawString=sc.nextLine();
-		if (!rawString.equals("N")) {
-			throw new LoadFileException("错误编码 #201 | 日志文件格式错误，请导入由软件自动生成的游戏日志。");
-		}
-		rawString=sc.nextLine();
-		int side=0;
-		if (rawString.equals("R")) {
-			side=0;
-		} else if (rawString.equals("B")) {
-			side=1;
-		} else {
-			throw new LoadFileException("错误编码 #104 | 缺少行棋方，请导入由软件自动生成的游戏日志。");
+			CanvasUtils.set(4);
 		}
 		if (side!=UserStatus.currentSide)
 			throw new LoadFileException("错误编码 #204 | 行棋方与记录种操作结果不符。");

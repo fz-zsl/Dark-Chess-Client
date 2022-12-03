@@ -153,7 +153,7 @@ public class CanvasUtils
     public static void set(int mode)
     {
         int t = 10;
-        if (mode == 1 || (mode == 3 && UserStatus.AISide == 1))
+        if (mode == 1 || (mode == 3 && UserStatus.AISide == 1)||(mode == 4 && UserStatus.AISide == 1))
         {
             chessPieceArrayList.get(0).setCo(100 + 600 - t , 508.35);
             chessPieceArrayList.get(1).setCo(600 - t, 458.35);
@@ -189,7 +189,7 @@ public class CanvasUtils
             chessPieceArrayList.get(31).setCo(250, 458.35);
 
         }
-        else if (mode == 3 && UserStatus.AISide == 0)
+        else if ((mode == 3 && UserStatus.AISide == 0)||(mode == 4 && UserStatus.AISide == 0))
         {
             chessPieceArrayList.get(0).setCo(100, 508.35);
             chessPieceArrayList.get(1).setCo(0, 458.35);

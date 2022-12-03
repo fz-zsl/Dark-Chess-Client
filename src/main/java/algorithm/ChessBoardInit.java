@@ -32,6 +32,11 @@ public class ChessBoardInit {
 		chessStatus.sort((o1, o2) -> {
 			return Double.compare(o1.val,o2.val);
 		});
+//		chessStatus.remove(31);
+//		chessStatus.remove(30);
+//		System.out.println(chessStatus.size());
+//		chessStatus.add(new pairs(0,0));
+//		chessStatus.add(new pairs(15,15));
 		for (int i=1;i<=8;++i) {
 			for (int j=1;j<=4;++j) {
 				ChessBoardStatus.chessInit(i,j,chessStatus.get((i-1)*4+j-1).index);

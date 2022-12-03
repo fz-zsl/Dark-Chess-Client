@@ -85,7 +85,7 @@ public class Greedy {
 		cnt=rand.nextInt(cnt);
 		for (int i=1;i<=8;++i)
 			for (int j=1;j<=4;++j)//
-				if (val[i][j]==ans||(val[i][j]>-3&&(rand.nextInt()%modulo[level]==0||ChessBoardStatus.flipCounter<randomSteps[level]))) {
+				if (val[i][j]==ans||(val[i][j]>-3&&(rand.nextInt(1024)%modulo[level]==0||ChessBoardStatus.flipCounter<randomSteps[level]))) {
 					rand=new Random(System.currentTimeMillis());
 					if (cnt<1) {
 						System.out.print("[AI]");

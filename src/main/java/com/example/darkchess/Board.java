@@ -7,8 +7,9 @@ import algorithm.UndoPreviousOperation;
 import autoPlayer.Greedy;
 import datum.ChessBoardStatus;
 import datum.UserStatus;
+import fileOperations.GetFileList;
+import fileOperations.LoadGameFile;
 import fileOperations.RankList;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +17,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -32,12 +31,12 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import oop.GameEndsException;
+import oop.LoadFileException;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Currency;
 
 import static Properties.Property.version;
 import static com.example.darkchess.StartGame.modeOfAll;
@@ -58,7 +57,7 @@ public class Board
     static protected Text rText = new Text("分数 0");
     static protected Text bText = new Text("分数 0");
     static Stage theBoardStage;
-    static Group group = new Group();
+    public static Group group = new Group();
 
 
     public static void startGame(int mode) throws IOException
@@ -90,7 +89,73 @@ public class Board
             MenuItem menuItem7 = new MenuItem("重新开始");
             MenuItem menuItem = new MenuItem("返回模式选择页面");
             MenuItem menuItem2 = new MenuItem("排行榜");
-            menu1.getItems().addAll(menuItem, menuItem1,menuItem2);
+
+            Menu menu = new Menu("人机难度设置");
+            MenuItem menuItem8 = new MenuItem("幼儿园难度");
+            MenuItem menuItem9 = new MenuItem("小学二年级");
+            MenuItem menuItem10 = new MenuItem("初中三年级");
+            MenuItem menuItem11 = new MenuItem("量子力学");
+            menu.getItems().addAll(menuItem8,menuItem9,menuItem10,menuItem11);
+            menu2.getItems().add(menu);
+
+
+            Menu menu5 = new Menu("导入");
+            for(String str : GetFileList.getFileList())
+            {
+                MenuItem menuItem12 = new MenuItem(str);
+                menu5.getItems().add(menuItem12);
+                EventHandler<ActionEvent> eventHandler = e ->
+                {
+                    try
+                    {
+                        LoadGameFile.loadGameFile(str);
+                    }
+                    catch (LoadFileException ex)
+                    {
+                        Showing.Alarm(ex.toString());
+                    }
+                    catch (GameEndsException ex)
+                    {
+                        Showing.Alarm("游戏已经结束");
+                    }
+                    catch (MalformedURLException ex)
+                    {
+                        throw new RuntimeException(ex);
+                    }
+                };
+                menuItem12.setOnAction(eventHandler);
+            }
+
+
+            EventHandler<ActionEvent> eventHandler8 = e ->
+            {
+                UserStatus.AIMode = 0;
+                Showing.Info("已设置为幼儿园难度");
+            };
+            menuItem8.setOnAction(eventHandler8);
+
+            EventHandler<ActionEvent> eventHandler9 = e ->
+            {
+                UserStatus.AIMode = 1;
+                Showing.Info("已设置为小学二年级难度");
+            };
+            menuItem9.setOnAction(eventHandler9);
+
+            EventHandler<ActionEvent> eventHandler10 = e ->
+            {
+                UserStatus.AIMode = 2;
+                Showing.Info("已设置为初中二年级难度");
+            };
+            menuItem9.setOnAction(eventHandler10);
+
+            EventHandler<ActionEvent> eventHandler11 = e ->
+            {
+                UserStatus.AIMode = 3;
+                Showing.Info("已设置为量子力学难度");
+            };
+            menuItem9.setOnAction(eventHandler11);
+
+            menu1.getItems().addAll(menu5, menuItem, menuItem1,menuItem2);
             menu3.getItems().addAll(menuItem6, menuItem3, menuItem4);
             menu4.getItems().addAll(menuItem5, menuItem7);
             menuBar.getMenus().addAll(menu1, menu2, menu4, menu3);
@@ -148,7 +213,7 @@ public class Board
                     else if (UserStatus.currentSide == 1)
                         bTurn.setText("轮到黑方");
                 }
-                else  if(modeOfAll == 3)
+                else  if(modeOfAll == 3 || modeOfAll == 4)
                 {
                     if(UserStatus.AISide == 0)
                     {
@@ -225,6 +290,12 @@ public class Board
                     bText.setFill(Color.BLACK);
                     bTurn.setText("玩家翻棋");
                 }
+                else if(mode == 4)
+                {
+                    Showing.Info("残局模式不支持重新开始，请移步人机模式。");
+                    return;
+                }
+
 
             };
 
@@ -599,4 +670,5 @@ public class Board
         a = RankList.findUserRank() + 1;
         yourRank.setText(a.toString());
     }
+
 }
