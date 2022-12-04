@@ -35,7 +35,6 @@ public class ClickOnBoard {
 				//cancel highlight
 				ChessBoardStatus.clearPossibleMoves();
 				clickType=-1;
-				//Todo: call GUI here
 			} else if (ChessBoardStatus.getChessIndex(clickX,clickY)>=0
 					&&!ChessBoardStatus.getFlipped(clickX,clickY)
 					&&ChessBoardStatus.getChessIndex(preX,preY)%10!=6) {

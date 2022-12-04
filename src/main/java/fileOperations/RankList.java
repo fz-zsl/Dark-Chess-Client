@@ -12,13 +12,13 @@ public class RankList {
 		//Todo
 		return 1500
 				+userGameCounter.get(0)*2
-				+userGameCounter.get(1)*3
-				+userGameCounter.get(2)*3
-				+userGameCounter.get(3)*3
-				+userGameCounter.get(4)*3
-				+userGameCounter.get(5)*3
-				+userGameCounter.get(6)*3
-				+userGameCounter.get(7)*3;
+				-userGameCounter.get(1)
+				+userGameCounter.get(2)*10
+				-userGameCounter.get(3)*5
+				+userGameCounter.get(4)*50
+				-userGameCounter.get(5)*25
+				+userGameCounter.get(6)*100
+				-userGameCounter.get(7)*50;
 	}
 
 	private static int getUserCredit(String userFile)
