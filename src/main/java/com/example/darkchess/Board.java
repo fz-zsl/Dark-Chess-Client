@@ -60,6 +60,7 @@ public class Board
     static protected Text bText = new Text("分数 0");
     static Stage theBoardStage;
     public static Group group = new Group();
+    public static boolean cheatingFlag = false;
 
 
     public static void startGame(int mode) throws IOException
@@ -87,7 +88,7 @@ public class Board
             MenuItem menuItem3 = new MenuItem("版本信息");
             MenuItem menuItem4 = new MenuItem("联系我们");
             MenuItem menuItem5 = new MenuItem("悔棋");
-            MenuItem menuItem6 = new MenuItem("作弊模式");
+            MenuItem menuItem6 = new MenuItem("开启作弊模式");
             MenuItem menuItem7 = new MenuItem("重新开始");
             MenuItem menuItem = new MenuItem("返回模式选择页面");
             MenuItem menuItem2 = new MenuItem("排行榜");
@@ -253,7 +254,18 @@ public class Board
             EventHandler<ActionEvent> eventHandler6 = e ->
             {
                 // TODO: 2022/12/3
-                Showing.Info("鼠标右击翻看棋子");
+                if(!cheatingFlag)
+                {
+                    Showing.Info("已开启作弊模式，鼠标右击翻看棋子");
+                    menuItem6.setText("关闭作弊模式");
+                    cheatingFlag = true;
+                }
+                else
+                {
+                    Showing.Info("作弊模式关闭");
+                    menuItem6.setText("开启作弊模式");
+                    cheatingFlag = false;
+                }
             };
 
             EventHandler<ActionEvent> eventHandler7 = e ->
@@ -394,6 +406,7 @@ public class Board
             menuItem.setOnAction(eventHandler);
             menuItem2.setOnAction(eventHandler3);
             menuItem13.setOnAction(eventHandler13);
+            menuItem6.setOnAction(eventHandler6);
             anchorPane.getChildren().add(menuBar);
             menuBar.setLayoutX(0);
             menuBar.setLayoutY(1);
@@ -721,7 +734,9 @@ public class Board
                         bTurn.setText("轮到玩家");
                 }
                 else if (button == MouseButton.SECONDARY)
-                    chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(x, y)).cheatingFlip();
+                {
+                        chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(x, y)).cheatingFlip();
+                }
             }
         };
         group.setOnMouseClicked(eventHandler);

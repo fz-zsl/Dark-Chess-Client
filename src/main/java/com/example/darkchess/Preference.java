@@ -20,8 +20,8 @@ public class Preference
     public static Boolean cheatingSoundInfo = true;
     public static Boolean filpSoundInfo = true;
     public static Boolean reRemoveSoundInfo = true;
-    public static Boolean soundSwitch = false;
-    public static Boolean chessSound = false;
+    public static Boolean soundSwitch = true;
+    public static Boolean chessSound = true;
     public static Boolean endSound = false;
     public static Boolean cheatingSwitch = false;
     public static Boolean gamingSwitch = false;

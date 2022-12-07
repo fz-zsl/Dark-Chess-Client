@@ -1,5 +1,6 @@
 package Piece;
 
+import com.example.darkchess.Board;
 import com.example.darkchess.Preference;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
@@ -186,7 +187,7 @@ public abstract class ChessPiece extends ImageView
 
     public void cheatingFlip()
     {
-        if(this.status)
+        if(this.status || !Board.cheatingFlag)
             return;
         ChessPiece chessPiece = this;
         Timeline timeline = new Timeline();
