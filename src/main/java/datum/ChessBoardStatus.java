@@ -56,7 +56,7 @@ public class ChessBoardStatus {
 	public static int moveChess(int srcX,int srcY,int destX,int destY) {
 		//use MoveChess + ChessInit to undo the MoveChess process
 		int eatReport=objectIndex[destX][destY]+(chessFlipped[destX][destY]?50:0);
-		if (eatReport>=0) System.out.println("Eat Report: "+destX+" "+destY+" "+eatReport);
+		if (UserStatus.currentSide!=UserStatus.AISide&&eatReport>=0) System.out.println("Eat Report: "+destX+" "+destY+" "+eatReport);
 		//if no eat process happens, eatReport = -1
 		chessIndex[destX][destY]=chessIndex[srcX][srcY];
 		objectIndex[destX][destY]=objectIndex[srcX][srcY];

@@ -25,8 +25,4 @@ public class GeneralInit {
 		UserStatus.resetEatChessCount();
 		ChessBoardInit.chessBoardInit();
 	}
-
-	//public static void halfInit() {
-
-	//}
 }

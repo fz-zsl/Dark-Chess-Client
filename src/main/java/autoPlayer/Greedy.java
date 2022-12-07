@@ -67,7 +67,7 @@ public class Greedy {
 						nxt[i][j]=posX*10+posY;
 					}
 					ChessBoardStatus.moveChess(posX,posY,i,j);
-					ChessBoardStatus.chessInit(posX,posY,posStatus%50,posStatus>50);
+					ChessBoardStatus.chessInit(posX,posY,posStatus%50,posStatus>49);
 				}
 			}
 		int ans=-1028, cnt=0;
