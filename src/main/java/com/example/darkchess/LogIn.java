@@ -39,7 +39,7 @@ public class LogIn
     @FXML
     void cContactUs(ActionEvent event)
     {
-        Showing.Info("关注微信公众号“vitee”");
+        Showing.Info("欢迎关注微信公众号 Vitee Town");
     }
 
 
