@@ -61,6 +61,8 @@ public class Board
     static Stage theBoardStage;
     public static Group group = new Group();
     public static boolean cheatingFlag = false;
+    public static Stage theNamingStage;
+    public static boolean namingStageFlag = true;
 
 
     public static void startGame(int mode) throws IOException
@@ -93,6 +95,7 @@ public class Board
             MenuItem menuItem = new MenuItem("返回模式选择页面");
             MenuItem menuItem2 = new MenuItem("排行榜");
             MenuItem menuItem13 = new MenuItem("下一步");
+            MenuItem menuItem14 = new MenuItem("保存");
 
             Menu menu = new Menu("人机难度设置");
             MenuItem menuItem8 = new MenuItem("幼儿园难度");
@@ -165,7 +168,7 @@ public class Board
             };
             menuItem9.setOnAction(eventHandler11);
 
-            menu1.getItems().addAll(menu5, menuItem, menuItem1,menuItem2);
+            menu1.getItems().addAll(menu5, menuItem, menuItem1,menuItem2,menuItem14);
             menu3.getItems().addAll( menuItem3, menuItem4);
             menu4.getItems().addAll(menuItem6,menuItem5, menuItem7, menuItem13);
             menuBar.getMenus().addAll(menu1, menu2, menu4, menu3);
@@ -398,6 +401,31 @@ public class Board
                 }
             };
 
+            EventHandler<ActionEvent> eventHandler14 = e ->
+            {
+                if(namingStageFlag)
+                {
+                    Stage theNamingStage1 = new Stage();
+                    FXMLLoader fxmlLoader = new FXMLLoader(InitializationApplication.class.getResource("naming.fxml"));
+                    Scene scene = null;
+                    try
+                    {
+                        scene = new Scene(fxmlLoader.load(), 320, 240);
+                    }
+                    catch (IOException ex)
+                    {
+                        throw new RuntimeException(ex);
+                    }
+                    theNamingStage1.setTitle("输入");
+                    theNamingStage1.setScene(scene);
+                    theNamingStage1.show();
+                    theNamingStage = theNamingStage1;
+                    namingStageFlag = false;
+                }
+                else
+                    theNamingStage.show();
+            };
+
             menuItem1.setOnAction(eventHandler2);
             menuItem3.setOnAction(eventHandler4);
             menuItem4.setOnAction(eventHandler1);
@@ -407,6 +435,7 @@ public class Board
             menuItem2.setOnAction(eventHandler3);
             menuItem13.setOnAction(eventHandler13);
             menuItem6.setOnAction(eventHandler6);
+            menuItem14.setOnAction(eventHandler14);
             anchorPane.getChildren().add(menuBar);
             menuBar.setLayoutX(0);
             menuBar.setLayoutY(1);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -30,11 +31,59 @@
             </Menu>
          </menus>
       </MenuBar>
-      <TextField fx:id="timeField" layoutX="320.0" layoutY="112.0" onKeyTyped="#setTime" promptText="默认" />
-      <Text layoutX="184.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="吃棋子动画时间">
+      <TextField fx:id="timeField" layoutX="352.0" layoutY="87.0" onKeyTyped="#setTime" promptText="默认" />
+      <Text layoutX="165.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="吃棋子动画时间">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
+      <Text layoutX="165.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="背景音效">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="165.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="吃子音效">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <CheckBox layoutX="352.0" layoutY="131.0" mnemonicParsing="false" onMouseClicked="#setBackSound" prefHeight="23.0" prefWidth="92.0" text="开启">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </CheckBox>
+      <CheckBox layoutX="352.0" layoutY="175.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="92.0" text="开启">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </CheckBox>
+      <Text layoutX="165.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="游戏阶段是否关闭背景音效">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <CheckBox layoutX="444.0" layoutY="214.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="92.0" text="是">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </CheckBox>
+      <Text layoutX="165.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="音量">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="timeField1" layoutX="352.0" layoutY="253.0" onAction="#soundField" onKeyTyped="#setTime" promptText="范围：0-1" />
+      <Text layoutX="165.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="头像设置">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="timeField2" layoutX="352.0" layoutY="287.0" onAction="#headPic" onKeyTyped="#setTime" promptText="请输入图片地址" />
+      <Text layoutX="165.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="背景设置">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="timeField21" layoutX="352.0" layoutY="321.0" onAction="#backPic" onKeyTyped="#setTime" promptText="请输入图片地址" />
    </children>
 </AnchorPane>

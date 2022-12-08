@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.darkchess.Naming">
+   <children>
+      <TextField fx:id="name" layoutX="79.0" layoutY="120.0" onKeyPressed="#keyPressed" />
+      <Text layoutX="80.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="他叫什么名字？">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Button layoutX="131.0" layoutY="163.0" mnemonicParsing="false" onMouseClicked="#clickOK" prefHeight="23.0" prefWidth="60.0" text="OK" />
+   </children>
+</AnchorPane>
