@@ -10,7 +10,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.darkchess.Naming">
    <children>
       <TextField fx:id="name" layoutX="79.0" layoutY="120.0" onKeyPressed="#keyPressed" />
-      <Text layoutX="80.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="他叫什么名字？">
+      <Text layoutX="80.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="给这局游戏起个好记的名字吧~">
          <font>
             <Font size="23.0" />
          </font>
