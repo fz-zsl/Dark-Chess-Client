@@ -133,9 +133,13 @@ public class LoadGameFile {
 		}
 //		if (side!=UserStatus.currentSide)
 //			throw new LoadFileException("错误编码 #204 | 行棋方与记录种操作结果不符。");
-		rawString=sc.nextLine();
-		if (!rawString.equals("A")) UserStatus.AIMode=2;
-		else UserStatus.AIMode=sc.nextInt();
+		try {
+			rawString=sc.nextLine();
+			if (!rawString.equals("A")) UserStatus.AIMode=2;
+			else UserStatus.AIMode=sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("No AI mark!");
+		}
 		//GeneralInit.halfInit();
 		anchorPane.getChildren().removeAll(chessPieceArrayList);
 		chessPieceArrayList = CanvasUtils.setAllChess();

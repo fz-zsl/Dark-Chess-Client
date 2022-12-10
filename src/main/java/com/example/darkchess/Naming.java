@@ -21,7 +21,8 @@ public class Naming
         //str中有用户输入的文件名字。
         // TODO: 2022/12/8 保存文件操作
         try {
-            SaveGame.writeGameFile(null);
+            SaveGame.writeGameFile(str);
+            SaveGame.writeUserFile();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

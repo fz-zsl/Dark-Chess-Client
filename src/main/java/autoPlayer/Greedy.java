@@ -82,10 +82,10 @@ public class Greedy {
 		}
 		if (!directUse) return ans;
 		Random rand=new Random(System.currentTimeMillis());
-		cnt=rand.nextInt(cnt);
-		for (int i=1;i<=8;++i)
-			for (int j=1;j<=4;++j)//
-				if (val[i][j]==ans||(val[i][j]>-3&&(rand.nextInt(1024)%modulo[level]==0||ChessBoardStatus.flipCounter<randomSteps[level]))) {
+		cnt=rand.nextInt(36);//guess why it is 36 :)
+		for (int i=1;i<=8;i=(i==8?1:i+1))
+			for (int j=1;j<=4;++j)
+				if (val[i][j]>=ans-3||(val[i][j]>-30&&(rand.nextInt(1118)%modulo[level]==0||ChessBoardStatus.flipCounter<randomSteps[level]))) {
 					rand=new Random(System.currentTimeMillis());
 					if (cnt<1) {
 						System.out.print("[AI]");

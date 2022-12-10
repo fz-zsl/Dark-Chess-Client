@@ -209,7 +209,7 @@ public class ChessBoardStatus {
 	public static void printInitChessBoardToFile(){
 		System.out.println('P');
 		for (int i=1;i<=8;++i) {
-			for (int j=1;j<=8;++j) {
+			for (int j=1;j<=4;++j) {
 				System.out.printf("%d ",ChessBoardStatus.initObjectIndex[i][j]);
 			}
 			System.out.println();
