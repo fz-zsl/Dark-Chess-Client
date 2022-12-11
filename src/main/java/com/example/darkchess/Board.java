@@ -31,8 +31,10 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import net.sf.json.JSONObject;
 import oop.GameEndsException;
 import oop.LoadFileException;
+import socket.Client;
 
 import java.io.File;
 import java.io.IOException;
@@ -577,6 +579,10 @@ public class Board
         {
             halfAction(group);
         }
+        else if(mode == 2)
+        {
+            online(group);
+        }
     }
 
 
@@ -1015,6 +1021,46 @@ public class Board
         yourScore.setText(a.toString());
         a = RankList.findUserRank() + 1;
         yourRank.setText(a.toString());
+    }
+
+    public static void online(Group group)
+    {
+        //设置棋盘，画出棋子
+        CanvasUtils.set(1);
+        GeneralInit.generalInit();
+
+        EventHandler<MouseEvent> eventHandler = mouseEvent ->
+        {
+            int y = (int) ((mouseEvent.getX() - 341.65 - 1f / 6 * gird) / gird + 1);
+            int x = (int) ((mouseEvent.getY() - 41.65 - 1f / 6 * gird) / gird + 1);
+
+            MouseButton button = mouseEvent.getButton();
+            if (button == MouseButton.PRIMARY)//左击
+            {
+                //调用控制程序，判断棋子的类型
+                if (x > 0 && x < 9 && y > 0 && y < 9)
+                {
+                    JSONObject message = new JSONObject();
+                    message.put("signalType", 2);
+                    message.put("actionType",1);
+                    message.put("clickX",x);
+                    message.put("clickY",y);
+                    Client.sendMessage(message);
+                }
+                //重新设定计分板
+                Integer redScore = UserStatus.getRedScore();
+                rText.setText("分数 " + redScore.toString());
+                Integer blackScore = UserStatus.getBlackScore();
+                bText.setText("分数 " + blackScore.toString());
+                if (UserStatus.currentSide == 0)
+                    bTurn.setText("轮到红方");
+                else if (UserStatus.currentSide == 1)
+                    bTurn.setText("轮到黑方");
+            }
+            else if (button == MouseButton.SECONDARY)
+                chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(x, y)).cheatingFlip();
+        };
+        group.setOnMouseClicked(eventHandler);
     }
 
 }

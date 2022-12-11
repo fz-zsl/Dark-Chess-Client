@@ -19,6 +19,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.Socket;
 
 import static com.example.darkchess.Board.*;
 import static com.example.darkchess.StartPage.preferenceBoolean;
@@ -149,6 +150,7 @@ public class StartGame
 
     @FXML
     void cOffline(MouseEvent event) throws IOException
+
     {
         if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();
@@ -185,10 +187,30 @@ public class StartGame
     }
 
     @FXML
-    void cOnline(MouseEvent event)
+    void cOnline(MouseEvent event) throws IOException
     {
-        // TODO: 2022/11/15 在线开发
-        judge = false;
+        if(Preference.gamingSwitch)
+            InitializationApplication.mediaPlayerFirst.pause();
+        modeOfAll = 2;
+        new Client();
+        JSONObject message = new JSONObject();
+        message.put("signalType",1);
+        message.put("actionType",2);
+        message.put("password", LogIn.password);
+        message.put("userName", LogIn.account);
+        Client.sendMessage(message);
+        if(judge)
+        {
+            Board.startGame(2);
+        }
+        else
+        {
+            Board.theBoardStage.show();
+            LogIn.theStartGameStage.close();
+        }
+
+       LogIn.theStartGameStage.close();
+
     }
 
     @FXML

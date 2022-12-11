@@ -1,28 +1,44 @@
 package socket;
 
-import com.example.darkchess.InitializationApplication;
-
-import java.io.BufferedWriter;
+import java.awt.*;
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.net.MalformedURLException;
 import java.net.Socket;
-import java.util.Scanner;
+import java.util.ArrayList;
+
+import static com.example.darkchess.Board.anchorPane;
+import static com.example.darkchess.Board.chessPieceArrayList;
+
+import Piece.ChessPiece;
+import com.example.darkchess.CanvasUtils;
+import com.example.darkchess.Showing;
+import javafx.scene.text.*;
+import javafx.scene.text.Font;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 
 public class Client
 {
-    public void client() throws IOException
+    private String serverIP = "10.27.96.18";
+    static Socket serverSocket;
+    DataInputStream inputStream;
+    DataOutputStream outputStream;
+
+    public Client()
     {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("等待连接服务器...");
-//        Socket socket = new Socket("192.168.43.193",2121);
-//        System.out.println("连接服务器成功！");
-//        OutputStream outputStream = socket.getOutputStream();
-//        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-//        BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
-//        InitializationApplication initializationApplication = new InitializationApplication();
-        //JSONObject jsonObject = JSONObject
-
-
+        try
+        {
+            serverSocket = new Socket(serverIP, 9019);
+            inputStream = new DataInputStream(serverSocket.getInputStream());
+            outputStream = new DataOutputStream(serverSocket.getOutputStream());
+            new Thread(new ClientThread()).start();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -20,8 +20,8 @@ import static com.example.darkchess.StartPage.thePreferenceStage;
 
 public class LogIn
 {
-    private static String account;
-    private static String password;
+    public static String account;
+    public static String password;
     public static Stage theStartGameStage;
 
     @FXML
