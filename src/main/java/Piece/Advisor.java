@@ -30,12 +30,10 @@ public class Advisor extends ChessPiece
 
     public void re()
     {
-        System.out.println("CheckPoint1651: "+i);
         if(!status)
             this.reFlipAChess();
         if(i <= 0)
         {
-            System.out.println(this);
             circle.setFill(null);
             text.setFill(null);
         }

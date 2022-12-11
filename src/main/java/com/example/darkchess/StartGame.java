@@ -8,15 +8,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static com.example.darkchess.Board.anchorPane;
-import static com.example.darkchess.Board.chessPieceArrayList;
+import static com.example.darkchess.Board.*;
+import static com.example.darkchess.StartPage.preferenceBoolean;
+import static com.example.darkchess.StartPage.thePreferenceStage;
 
 public class StartGame
 {
@@ -26,7 +32,7 @@ public class StartGame
     public static Stage thePreferenceStageSG;
     public static int modeOfAll = 0;
     @FXML
-    private MenuItem contectUs;
+    private MenuItem contactUs;
 
     @FXML
     private MenuItem logout;
@@ -53,6 +59,7 @@ public class StartGame
             CanvasUtils.cancelHighLight();
             chessPieceArrayList = CanvasUtils.setAllChess();
             GeneralInit.generalInit();
+            Board.imageView1.setImage(new Image("file:/" + Preference.pictureAddressUse));
             //重新设定计分板
             Integer redScore = UserStatus.getRedScore();
             Board.rText.setText("分数 " + redScore.toString());
@@ -81,6 +88,13 @@ public class StartGame
     @FXML
     void cHalf(MouseEvent event) throws IOException
     {
+        //下一步的按钮
+        nextButton = new Button("下一步");
+        nextButton.setTranslateX(380.04);
+        nextButton.setTranslateY(525.40515);
+        nextButton.setPrefWidth(150);
+        nextButton.setPrefHeight(50);
+        nextButton.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
 
         if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();
@@ -88,35 +102,36 @@ public class StartGame
         if(judge)
         {
             Board.startGame(4);
+            anchorPane.getChildren().add(nextButton);
             LogIn.theStartGameStage.close();
         }
         else
         {
-
             CanvasUtils.cancelHighLight();
-            //重新设定计分板
             GeneralInit.generalInit();
+            Board.imageView1.setImage(new Image("file:/" + Preference.pictureAddressUse));
             for(ChessPiece c:chessPieceArrayList)
             {
                 anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
                 c.setJudge(true);
             }
             anchorPane.getChildren().removeAll(chessPieceArrayList);
+            anchorPane.getChildren().add(nextButton);
             System.out.println("mode4");
             Integer redScore = UserStatus.getRedScore();
             Board.rText.setText("分数 " + redScore.toString());
             Integer blackScore = UserStatus.getBlackScore();
             Board.bText.setText("分数 " + blackScore.toString());
-            Board.r.setText("玩家");
+            Board.r.setText("玩家A");
             Board.r.setFill(Color.BLACK);
             Board.rText.setFill(Color.BLACK);
-            Board.b.setText("机器");
+            Board.b.setText("玩家B");
             Board.b.setFill(Color.BLACK);
             Board.bText.setFill(Color.BLACK);
             Board.bTurn.setText("玩家翻棋");
             Board.theBoardStage.show();
             LogIn.theStartGameStage.close();
-            Board.aiAction(Board.group);
+            Board.halfAction(Board.group);
         }
         judge = false;
     }
@@ -149,6 +164,7 @@ public class StartGame
             chessPieceArrayList = CanvasUtils.setAllChess();
             CanvasUtils.set(1);
             GeneralInit.generalInit();
+            Board.imageView1.setImage(new Image("file:/" + Preference.pictureAddressUse));
             //重新设定计分板
             Integer redScore = UserStatus.getRedScore();
             Board.rText.setText("分数 " + redScore.toString());
@@ -178,12 +194,18 @@ public class StartGame
     @FXML
     void cPreference(ActionEvent event) throws IOException
     {
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("preference.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
-        stage.setTitle("偏好设置");
-        stage.setScene(scene);
-        stage.show();
+        if(preferenceBoolean)
+        {
+            Stage stage22 = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("preference.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+            stage22.setTitle("个性化设置");
+            stage22.setScene(scene);
+            stage22.show();
+            thePreferenceStage = stage22;
+        }
+        else
+            thePreferenceStage.show();
     }
 
     @FXML

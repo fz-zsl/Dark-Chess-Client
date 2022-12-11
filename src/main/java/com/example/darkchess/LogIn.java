@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static com.example.darkchess.StartPage.preferenceBoolean;
+import static com.example.darkchess.StartPage.thePreferenceStage;
+
 public class LogIn
 {
     private static String account;
@@ -48,26 +51,23 @@ public class LogIn
     {
         StartPage.theLogInStage.close();
         InitializationApplication.theStartPage.show();
-        /*
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quit.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("退出");
-        stage.setScene(scene);
-        stage.show();
-
-         */
     }
 
     @FXML
     void cPreference(ActionEvent event)throws IOException
     {
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("preference.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
-        stage.setTitle("偏好设置");
-        stage.setScene(scene);
-        stage.show();
+        if(preferenceBoolean)
+        {
+            Stage stage22 = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("preference.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+            stage22.setTitle("个性化设置");
+            stage22.setScene(scene);
+            stage22.show();
+            thePreferenceStage = stage22;
+        }
+        else
+            thePreferenceStage.show();
     }
 
     @FXML

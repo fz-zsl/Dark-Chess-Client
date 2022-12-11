@@ -37,11 +37,12 @@ import oop.LoadFileException;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.attribute.AttributeView;
 import java.util.ArrayList;
 
 import static Properties.Property.version;
 import static com.example.darkchess.StartGame.modeOfAll;
+import static com.example.darkchess.StartPage.preferenceBoolean;
+import static com.example.darkchess.StartPage.thePreferenceStage;
 
 
 public class Board
@@ -64,6 +65,12 @@ public class Board
     public static Stage theNamingStage;
     public static boolean namingStageFlag = true;
 
+    public static ImageView ir;
+    public static ImageView ib;
+    public static Button nextButton;
+
+    public static ImageView imageView1;
+
 
     public static void startGame(int mode) throws IOException
     {
@@ -76,7 +83,9 @@ public class Board
         anchorPane.setMinHeight(boardH * 1.5);
 
         //页面背景
-        ImageView imageView1 = new ImageView("file:/D:/backgrounds/1.jpg");
+        imageView1 = new ImageView("file:/" + Preference.pictureAddressUse);
+        imageView1.setFitWidth(900);
+        imageView1.setFitHeight(600);
         anchorPane.getChildren().add(imageView1);
 
         //菜单
@@ -94,34 +103,125 @@ public class Board
             MenuItem menuItem7 = new MenuItem("重新开始");
             MenuItem menuItem = new MenuItem("返回模式选择页面");
             MenuItem menuItem2 = new MenuItem("排行榜");
-            MenuItem menuItem13 = new MenuItem("下一步");
             MenuItem menuItem14 = new MenuItem("保存");
+            MenuItem menuItem15 = new MenuItem("属性设置");
 
             Menu menu = new Menu("人机难度设置");
             MenuItem menuItem8 = new MenuItem("幼儿园难度");
             MenuItem menuItem9 = new MenuItem("小学二年级");
             MenuItem menuItem10 = new MenuItem("初中三年级");
             MenuItem menuItem11 = new MenuItem("量子力学");
-            menu.getItems().addAll(menuItem8,menuItem9,menuItem10,menuItem11);
-            menu2.getItems().add(menu);
+            menu.getItems().addAll(menuItem8, menuItem9, menuItem10, menuItem11);
+            menu2.getItems().addAll(menu, menuItem15);
+
+
+            EventHandler<ActionEvent> eventHandler15 = new EventHandler<ActionEvent>()
+            {
+                @Override
+                public void handle(ActionEvent actionEvent)
+                {
+                    if (preferenceBoolean)
+                    {
+                        Stage stage22 = new Stage();
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("preference.fxml"));
+                        Scene scene = null;
+                        try
+                        {
+                            scene = new Scene(fxmlLoader.load(), 640, 480);
+                        }
+                        catch (IOException e)
+                        {
+                            throw new RuntimeException(e);
+                        }
+                        stage22.setTitle("个性化设置");
+                        stage22.setScene(scene);
+                        stage22.show();
+                        thePreferenceStage = stage22;
+                    }
+                    else
+                        thePreferenceStage.show();
+                }
+            };
+            menuItem15.setOnAction(eventHandler15);
 
 
             Menu menu5 = new Menu("导入");
-            for(String str : GetFileList.getFileList())
+            for (String str : GetFileList.getFileList())
             {
                 MenuItem menuItem12 = new MenuItem(str);
                 menu5.getItems().add(menuItem12);
                 EventHandler<ActionEvent> eventHandler = e ->
                 {
-                    for(ChessPiece c:chessPieceArrayList)
+                    for (ChessPiece c : chessPieceArrayList)
                     {
-                        anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
+                        anchorPane.getChildren().removeAll(c.getCircle(), c.getText());
                         c.setJudge(true);
                     }
                     anchorPane.getChildren().removeAll(chessPieceArrayList);
                     try
                     {
                         LoadGameFile.loadGameFile(str);
+                        nextButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+                        {
+                            @Override
+                            public void handle(MouseEvent mouseEvent)
+                            {
+                                try
+                                {
+                                    if(UserStatus.AISide == 0)
+                                    {
+                                        Integer redScore = UserStatus.getRedScore();
+                                        Integer blackScore = UserStatus.getBlackScore();
+                                        rText.setText("分数 " + blackScore.toString());
+                                        bText.setText("分数 " + redScore.toString());
+                                        bText.setFill(Color.RED);
+                                        b.setFill(Color.RED);
+                                    }
+                                    else if (UserStatus.AISide == 1)
+                                    {
+                                        Integer redScore = UserStatus.getRedScore();
+                                        rText.setText("分数 " + redScore.toString());
+                                        Integer blackScore = UserStatus.getBlackScore();
+                                        bText.setText("分数 " + blackScore.toString());
+                                        rText.setFill(Color.RED);
+                                        r.setFill(Color.RED);
+                                    }
+                                    else if(UserStatus.AISide == -1)
+                                    {
+                                        Integer redScore = UserStatus.getRedScore();
+                                        rText.setText("分数 " + redScore.toString());
+                                        Integer blackScore = UserStatus.getBlackScore();
+                                        bText.setText("分数 " + blackScore.toString());
+                                        rText.setFill(Color.RED);
+                                        r.setFill(Color.RED);
+                                    }
+                                    if (UserStatus.AISide == UserStatus.currentSide)
+                                        bTurn.setText("轮到机器");
+                                    else
+                                        bTurn.setText("轮到玩家");
+                                    if (!Operations.loadNextMove())
+                                    {
+                                        if(Choice.choiceStageFlage)
+                                        {
+                                            Stage stage33 = new Stage();
+                                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("choice.fxml"));
+                                            Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+                                            stage33.setTitle("选择模式");
+                                            stage33.setScene(scene);
+                                            stage33.show();
+                                            Choice.choiceStageFlage = false;
+                                            Choice.theChoiceStage = stage33;
+                                        }
+                                        else
+                                            Choice.theChoiceStage.show();
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    throw new RuntimeException(ex);
+                                }
+                            }
+                        });
                     }
                     catch (LoadFileException ex)
                     {
@@ -168,9 +268,9 @@ public class Board
             };
             menuItem9.setOnAction(eventHandler11);
 
-            menu1.getItems().addAll(menu5, menuItem, menuItem1,menuItem2,menuItem14);
-            menu3.getItems().addAll( menuItem3, menuItem4);
-            menu4.getItems().addAll(menuItem6,menuItem5, menuItem7, menuItem13);
+            menu1.getItems().addAll(menu5, menuItem, menuItem1, menuItem2, menuItem14);
+            menu3.getItems().addAll(menuItem3, menuItem4);
+            menu4.getItems().addAll(menuItem6, menuItem5, menuItem7);
             menuBar.getMenus().addAll(menu1, menu2, menu4, menu3);
 
             EventHandler<ActionEvent> eventHandler1 = e ->
@@ -182,20 +282,7 @@ public class Board
                 @Override
                 public void handle(ActionEvent actionEvent)
                 {
-                    Stage stage = new Stage();
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quit.fxml"));
-                    Scene scene = null;
-                    try
-                    {
-                        scene = new Scene(fxmlLoader.load(), 320, 240);
-                    }
-                    catch (IOException e)
-                    {
-                        throw new RuntimeException(e);
-                    }
-                    stage.setTitle("退出");
-                    stage.setScene(scene);
-                    stage.show();
+                    // TODO: 2022/12/11
                 }
             };
 
@@ -208,14 +295,14 @@ public class Board
             {
                 System.out.println("按下了悔棋按钮");
                 CanvasUtils.cancelHighLight();
-                if(Preference.soundSwitch)
+                if (Preference.soundSwitch)
                     InitializationApplication.mediaPlayerFirst.play();
                 ChessPiece.judgeSound = true;
-                if (ChessBoardStatus.flipCounter<1)
+                if (ChessBoardStatus.flipCounter < 1)
                     return;
                 UndoPreviousOperation.undoPreviousOperation();
                 //重新设定计分板
-                if(modeOfAll == 1)
+                if (modeOfAll == 1)
                 {
                     Integer redScore = UserStatus.getRedScore();
                     rText.setText("分数 " + redScore.toString());
@@ -226,15 +313,15 @@ public class Board
                     else if (UserStatus.currentSide == 1)
                         bTurn.setText("轮到黑方");
                 }
-                else  if(modeOfAll == 3 || modeOfAll == 4)
+                else if (modeOfAll == 3)
                 {
-                    if(UserStatus.AISide == 0)
+                    if (UserStatus.AISide == 0)
                     {
                         Integer redScore = UserStatus.getRedScore();
                         Integer blackScore = UserStatus.getBlackScore();
                         rText.setText("分数 " + blackScore.toString());
                         bText.setText("分数 " + redScore.toString());
-                        if(UserStatus.currentSide == 0)
+                        if (UserStatus.currentSide == 0)
                             bTurn.setText("轮到机器");
                         else
                             bTurn.setText("轮到玩家");
@@ -245,19 +332,32 @@ public class Board
                         rText.setText("分数 " + redScore.toString());
                         Integer blackScore = UserStatus.getBlackScore();
                         bText.setText("分数 " + blackScore.toString());
-                        if(UserStatus.currentSide == 1)
+                        if (UserStatus.currentSide == 1)
                             bTurn.setText("轮到机器");
                         else
                             bTurn.setText("轮到玩家");
                     }
+                }
+                else if(modeOfAll == 4)
+                {
+                    Integer redScore = UserStatus.getRedScore();
+                    Board.rText.setText("分数 " + redScore.toString());
+                    Integer blackScore = UserStatus.getBlackScore();
+                    Board.bText.setText("分数 " + blackScore.toString());
+                    Board.r.setText("玩家A");
+                    Board.r.setFill(Color.BLACK);
+                    Board.rText.setFill(Color.BLACK);
+                    Board.b.setText("玩家B");
+                    Board.b.setFill(Color.BLACK);
+                    Board.bText.setFill(Color.BLACK);
+                    Board.bTurn.setText("玩家翻棋");
                 }
 
             };
 
             EventHandler<ActionEvent> eventHandler6 = e ->
             {
-                // TODO: 2022/12/3
-                if(!cheatingFlag)
+                if (!cheatingFlag)
                 {
                     Showing.Info("已开启作弊模式，鼠标右击翻看棋子");
                     menuItem6.setText("关闭作弊模式");
@@ -273,13 +373,12 @@ public class Board
 
             EventHandler<ActionEvent> eventHandler7 = e ->
             {
-                System.out.println("restart");
                 CanvasUtils.cancelHighLight();
-                if(Preference.soundSwitch)
+                if (Preference.soundSwitch)
                     InitializationApplication.mediaPlayerFirst.play();
-                for (ChessPiece c:chessPieceArrayList)
+                for (ChessPiece c : chessPieceArrayList)
                 {
-                    anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
+                    anchorPane.getChildren().removeAll(c.getCircle(), c.getText());
                     c.setJudge(true);
                 }
                 anchorPane.getChildren().removeAll(chessPieceArrayList);
@@ -293,6 +392,8 @@ public class Board
                 bText.setText("分数 " + blackScore.toString());
                 if (modeOfAll == 1)
                 {
+                    anchorPane.getChildren().remove(nextButton);
+                    //anchorPane.getChildren().removeAll(ir,ib);
                     System.out.println("mode1");
                     r.setText("红方");
                     r.setFill(Color.RED);
@@ -305,6 +406,7 @@ public class Board
 
                 else if (modeOfAll == 3)
                 {
+                    anchorPane.getChildren().remove(nextButton);
                     System.out.println("mode3");
                     r.setText("玩家");
                     r.setFill(Color.BLACK);
@@ -314,11 +416,11 @@ public class Board
                     bText.setFill(Color.BLACK);
                     bTurn.setText("玩家翻棋");
                 }
-                else if(modeOfAll == 4)
+                else if (modeOfAll == 4)
                 {
-                    for(ChessPiece c:chessPieceArrayList)
+                    for (ChessPiece c : chessPieceArrayList)
                     {
-                        anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
+                        anchorPane.getChildren().removeAll(c.getCircle(), c.getText());
                         c.setJudge(true);
                     }
                     anchorPane.getChildren().removeAll(chessPieceArrayList);
@@ -331,30 +433,27 @@ public class Board
                     bText.setFill(Color.BLACK);
                     bTurn.setText("玩家翻棋");
                 }
-
-
-
-
             };
+            menuItem7.setOnAction(eventHandler7);
 
             EventHandler<ActionEvent> eventHandler = e ->
             {
-                System.out.println("go back");
-                if(Preference.chessSound)
+                if (Preference.chessSound)
                     InitializationApplication.mediaPlayerFirst.play();
-                for (ChessPiece c:chessPieceArrayList)
+                for (ChessPiece c : chessPieceArrayList)
                 {
-                    anchorPane.getChildren().removeAll(c.getCircle(),c.getText());
+                    anchorPane.getChildren().removeAll(c.getCircle(), c.getText());
                     c.setJudge(true);
                 }
                 anchorPane.getChildren().removeAll(chessPieceArrayList);
+                anchorPane.getChildren().removeAll(ir, ib, nextButton);
                 LogIn.theStartGameStage.show();
                 theBoardStage.close();
             };
 
             EventHandler<ActionEvent> eventHandler3 = e ->
             {
-                if(StartGame.rankJudge)
+                if (StartGame.rankJudge)
                 {
                     startRank();
                     setRank();
@@ -366,44 +465,9 @@ public class Board
                 }
             };
 
-            EventHandler<ActionEvent> eventHandler13 = e ->
-            {
-                System.out.println("handler");
-                try
-                {
-
-                    if(UserStatus.AISide == 0)
-                    {
-                        Integer redScore = UserStatus.getRedScore();
-                        Integer blackScore = UserStatus.getBlackScore();
-                        rText.setText("分数 " + blackScore.toString());
-                        bText.setText("分数 " + redScore.toString());
-                    }
-                    else if (UserStatus.AISide == 1)
-                    {
-                        Integer redScore = UserStatus.getRedScore();
-                        rText.setText("分数 " + redScore.toString());
-                        Integer blackScore = UserStatus.getBlackScore();
-                        bText.setText("分数 " + blackScore.toString());
-                    }
-
-                    if (UserStatus.AISide == UserStatus.currentSide)
-                        bTurn.setText("轮到机器");
-                    else
-                        bTurn.setText("轮到玩家");
-                    if (!Operations.loadNextMove()) {
-                        Showing.Info("残局已加载完毕，请开始操作。");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new RuntimeException(ex);
-                }
-            };
-
             EventHandler<ActionEvent> eventHandler14 = e ->
             {
-                if(namingStageFlag)
+                if (namingStageFlag)
                 {
                     Stage theNamingStage1 = new Stage();
                     FXMLLoader fxmlLoader = new FXMLLoader(InitializationApplication.class.getResource("naming.fxml"));
@@ -430,15 +494,13 @@ public class Board
             menuItem3.setOnAction(eventHandler4);
             menuItem4.setOnAction(eventHandler1);
             menuItem5.setOnAction(eventHandler5);
-            menuItem7.setOnAction(eventHandler7);
             menuItem.setOnAction(eventHandler);
             menuItem2.setOnAction(eventHandler3);
-            menuItem13.setOnAction(eventHandler13);
             menuItem6.setOnAction(eventHandler6);
             menuItem14.setOnAction(eventHandler14);
             anchorPane.getChildren().add(menuBar);
             menuBar.setLayoutX(0);
-            menuBar.setLayoutY(1);
+            menuBar.setLayoutY(0);
             menuBar.setPrefWidth(900.0);
             menuBar.setPrefHeight(26.0);
         }
@@ -446,14 +508,14 @@ public class Board
         //红方
         {
             r.setX(100);
-            r.setY(100);
+            r.setY(100 + 150);
             r.setText("红方");
             r.setFill(Color.RED);
             r.setFont(new Font("verdana", 30));
             anchorPane.getChildren().add(r);
             //黑方
             b.setX(700);
-            b.setY(100);
+            b.setY(100 + 150);
             b.setText("黑方");
             b.setFont(new Font("verdana", 30));
             anchorPane.getChildren().add(b);
@@ -463,15 +525,15 @@ public class Board
             rText.setFill(Color.RED);
             rText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
             rText.setX(85);
-            rText.setY(180);
+            rText.setY(180 + 150);
             anchorPane.getChildren().add(rText);
             //黑方
             bText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
             bText.setX(685);
-            bText.setY(180);
+            bText.setY(180 + 150);
             anchorPane.getChildren().add(bText);
         }
-        //棋盘背景
+        //棋盘背景imageView
         ImageView imageView = new ImageView("file:D:/DarkChess/wood.jpg");
         imageView.setFitHeight(boardH);
         imageView.setFitWidth(boardW);
@@ -511,7 +573,8 @@ public class Board
             offlineAction(group);
         else if (mode == 3)
             aiAction(group);
-        else if (mode == 4) {
+        else if (mode == 4)
+        {
             halfAction(group);
         }
     }
@@ -522,15 +585,30 @@ public class Board
         //设置棋盘，画出棋子
         CanvasUtils.set(1);
         GeneralInit.generalInit();
+        //头像
+        ir = new ImageView("D:/backgrounds/hb3.png");
+        ir.setTranslateX(80);
+        ir.setTranslateY(100);
+        ir.setFitHeight(100);
+        ir.setFitWidth(100);
+        ib = new ImageView("file:/D:/backgrounds/hb1.jpg");
+        ib.setTranslateX(80 + 600);
+        ib.setTranslateY(100);
+        ib.setFitHeight(100);
+        ib.setFitWidth(100);
+
         EventHandler<MouseEvent> eventHandler = mouseEvent ->
         {
+            if (!anchorPane.getChildren().contains(ir))
+            {
+                anchorPane.getChildren().add(ir);
+                anchorPane.getChildren().add(ib);
+            }
             int y = (int) ((mouseEvent.getX() - 341.65 - 1f / 6 * gird) / gird + 1);
             int x = (int) ((mouseEvent.getY() - 41.65 - 1f / 6 * gird) / gird + 1);
-            //Showing.Info(mouseEvent.getX()+" "+mouseEvent.getY());
-            System.out.println(mouseEvent.getX() + " " + mouseEvent.getY());
+            //System.out.println(mouseEvent.getX() + " " + mouseEvent.getY());
 
             MouseButton button = mouseEvent.getButton();
-
             if (button == MouseButton.PRIMARY)//左击
             {
                 //调用控制程序，判断棋子的类型
@@ -542,9 +620,9 @@ public class Board
                     }
                     catch (GameEndsException e)
                     {
-                        if(e.getInfo() == 0)
+                        if (e.getInfo() == 0)
                             Showing.Info("红方胜利");
-                        else if(e.getInfo() == 1)
+                        else if (e.getInfo() == 1)
                             Showing.Info("黑方胜利");
                         ChessPiece.judgeSound = false;
                         flip();
@@ -577,6 +655,17 @@ public class Board
         b.setText("机器");
         rText.setFill(Color.BLACK);
         bTurn.setText("玩家翻棋");
+        ir = new ImageView("file:/" + Preference.headAddressUse);
+        ir.setTranslateX(80);
+        ir.setTranslateY(100);
+        ir.setFitHeight(100);
+        ir.setFitWidth(100);
+        ib = new ImageView("file:/D:/backgrounds/hb4.jpg");
+        ib.setTranslateX(80 + 600);
+        ib.setTranslateY(100);
+        ib.setFitHeight(100);
+        ib.setFitWidth(100);
+        anchorPane.getChildren().addAll(ib, ir);
         //玩家在左边，r代表玩家而非颜色
 
         //设置棋盘，画出棋子
@@ -598,9 +687,7 @@ public class Board
                     try
                     {
                         ClickOnBoard.clickOnBoard(x, y);
-
-                        //这里是GUI
-                        if(UserStatus.AISide == 1)//ai是黑方
+                        if (UserStatus.AISide == 1)//ai是黑方
                         {
                             r.setFill(Color.RED);
                             rText.setFill(Color.RED);
@@ -613,20 +700,20 @@ public class Board
                         CanvasUtils.set(3);
 
                         if (UserStatus.AISide == UserStatus.currentSide)
-                            Greedy.greedy(UserStatus.AIDepth,true,UserStatus.AIMode);
+                            Greedy.greedy(UserStatus.AIDepth, true, UserStatus.AIMode);
                     }
                     catch (GameEndsException e)
                     {
                         ChessPiece.judgeSound = false;
                         flip();
-                        if(Preference.soundSwitch)
+                        if (Preference.soundSwitch)
                             InitializationApplication.mediaPlayerFirst.pause();
-                        if(e.getInfo() == UserStatus.AISide)
+                        if (e.getInfo() == UserStatus.AISide)
                         {
                             Showing.Info("菜狗，回去多积淀积淀再来挑战爷！");
-                            if(Preference.chessSound)
+                            if (Preference.chessSound)
                                 ChessPiece.mediaPlayerEnd.pause();
-                            if(Preference.endSound)
+                            if (Preference.endSound)
                                 youDied();
                         }
                         else
@@ -635,7 +722,7 @@ public class Board
                             //youWin();
                         }
 
-                       // Showing.Info(e.toString());
+                        // Showing.Info(e.toString());
                     }
                     catch (MalformedURLException e)
                     {
@@ -643,7 +730,7 @@ public class Board
                     }
                 }
                 //重新设定计分板
-                if(UserStatus.AISide == 0)
+                if (UserStatus.AISide == 0)
                 {
                     Integer redScore = UserStatus.getRedScore();
                     Integer blackScore = UserStatus.getBlackScore();
@@ -671,109 +758,161 @@ public class Board
 
     static public void halfAction(Group group)
     {
-        r.setText("玩家");
-        r.setFill(Color.BLACK);
-        b.setText("机器");
-        rText.setFill(Color.BLACK);
-        bTurn.setText("玩家翻棋");
+        ir = new ImageView("file:/" + Preference.headAddressUse);
+        ir.setTranslateX(80);
+        ir.setTranslateY(100);
+        ir.setFitHeight(100);
+        ir.setFitWidth(100);
+        ib = new ImageView("file:/D:/backgrounds/hb1.jpg");
+        ib.setTranslateX(80 + 600);
+        ib.setTranslateY(100);
+        ib.setFitHeight(100);
+        ib.setFitWidth(100);
+        anchorPane.getChildren().addAll(ir,ib);
+        // TODO: 2022/12/11 头像图片
         //玩家在左边，r代表玩家而非颜色
 
-        //设置棋盘，画出棋子
         EventHandler<MouseEvent> eventHandler = mouseEvent ->
         {
-            if (Operations.copyOfSizeOfStack == Operations.loadFileStamp) {
+            if (Operations.copyOfSizeOfStack == Operations.loadFileStamp)
+            {
                 int y = (int) ((mouseEvent.getX() - 341.65 - 1f / 6 * gird) / gird + 1);
                 int x = (int) ((mouseEvent.getY() - 41.65 - 1f / 6 * gird) / gird + 1);
-                //Showing.Info(mouseEvent.getX()+" "+mouseEvent.getY());
-                System.out.println(mouseEvent.getX() + " " + mouseEvent.getY());
-
+                //System.out.println(mouseEvent.getX() + " " + mouseEvent.getY());
                 MouseButton button = mouseEvent.getButton();
-
                 if (button == MouseButton.PRIMARY)//左击
                 {
                     //调用控制程序，判断棋子的类型
                     if (x > 0 && x < 9 && y > 0 && y < 9)
                     {
-                        try
+                        if(Choice.modeOfHalf == 2)
                         {
-                            ClickOnBoard.clickOnBoard(x, y);
+                            r.setText("玩家");
+                            b.setText("机器");
+                            if(UserStatus.currentSide == UserStatus.AISide)
+                            {
+                                try
+                                {
+                                    Greedy.greedy(UserStatus.AIDepth, true, UserStatus.AIMode);
+                                }
+                                catch (GameEndsException e)
+                                {
+                                    throw new RuntimeException(e);
+                                }
+                                catch (MalformedURLException e)
+                                {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            try
+                            {
+                                ClickOnBoard.clickOnBoard(x, y);
+                                if (UserStatus.AISide == 1)//ai是黑方
+                                {
+                                    r.setFill(Color.RED);
+                                    rText.setFill(Color.RED);
+                                }
+                                else if (UserStatus.AISide == 0)//ai为红方
+                                {
+                                    b.setFill(Color.RED);
+                                    bText.setFill(Color.RED);
+                                }
+                                CanvasUtils.set(3);
 
-                            //这里是GUI
-                            if(UserStatus.AISide == 1)//ai是黑方
-                            {
-                                r.setFill(Color.RED);
-                                rText.setFill(Color.RED);
+                                if (UserStatus.AISide == UserStatus.currentSide)
+                                    Greedy.greedy(UserStatus.AIDepth, true, UserStatus.AIMode);
                             }
-                            else if (UserStatus.AISide == 0)//ai为红方
+                            catch (GameEndsException e)
                             {
-                                b.setFill(Color.RED);
-                                bText.setFill(Color.RED);
+                                ChessPiece.judgeSound = false;
+                                flip();
+                                if (Preference.soundSwitch)
+                                    InitializationApplication.mediaPlayerFirst.pause();
+                                if (e.getInfo() == UserStatus.AISide)
+                                {
+                                    Showing.Info("菜狗，回去多积淀积淀再来挑战爷！");
+                                    if (Preference.chessSound)
+                                        ChessPiece.mediaPlayerEnd.pause();
+                                    if (Preference.endSound)
+                                        youDied();
+                                }
+                                else
+                                {
+                                    Showing.Info("厉害啊，小子！居然把爷战胜了？！");
+                                    youWin();
+                                }
                             }
-                            CanvasUtils.set(3);
+                            catch (MalformedURLException e)
+                            {
+                                throw new RuntimeException(e);
+                            }
+                            //重新设定计分板
+                            if (UserStatus.AISide == 0)
+                            {
+                                Integer redScore = UserStatus.getRedScore();
+                                Integer blackScore = UserStatus.getBlackScore();
+                                rText.setText("分数 " + blackScore.toString());
+                                bText.setText("分数 " + redScore.toString());
+                            }
+                            else if (UserStatus.AISide == 1)
+                            {
+                                Integer redScore = UserStatus.getRedScore();
+                                rText.setText("分数 " + redScore.toString());
+                                Integer blackScore = UserStatus.getBlackScore();
+                                bText.setText("分数 " + blackScore.toString());
+                            }
 
                             if (UserStatus.AISide == UserStatus.currentSide)
-                                Greedy.greedy(UserStatus.AIDepth,true,UserStatus.AIMode);
-                        }
-                        catch (GameEndsException e)
-                        {
-                            ChessPiece.judgeSound = false;
-                            flip();
-                            if(Preference.soundSwitch)
-                                InitializationApplication.mediaPlayerFirst.pause();
-                            if(e.getInfo() == UserStatus.AISide)
-                            {
-                                Showing.Info("菜狗，回去多积淀积淀再来挑战爷！");
-                                if(Preference.chessSound)
-                                    ChessPiece.mediaPlayerEnd.pause();
-                                if(Preference.endSound)
-                                    youDied();
-                            }
+                                bTurn.setText("轮到机器");
                             else
-                            {
-                                Showing.Info("厉害啊，小子！居然把爷战胜了？！");
-                                //youWin();
-                            }
+                                bTurn.setText("轮到玩家");
 
-                            // Showing.Info(e.toString());
                         }
-                        catch (MalformedURLException e)
+
+                        else if(Choice.modeOfHalf == 1)
                         {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    //重新设定计分板
-                    if(UserStatus.AISide == 0)
-                    {
-                        Integer redScore = UserStatus.getRedScore();
-                        Integer blackScore = UserStatus.getBlackScore();
-                        rText.setText("分数 " + blackScore.toString());
-                        bText.setText("分数 " + redScore.toString());
-                    }
-                    else if (UserStatus.AISide == 1)
-                    {
-                        Integer redScore = UserStatus.getRedScore();
-                        rText.setText("分数 " + redScore.toString());
-                        Integer blackScore = UserStatus.getBlackScore();
-                        bText.setText("分数 " + blackScore.toString());
-                    }
+                            try
+                            {
+                                ClickOnBoard.clickOnBoard(x, y);
+                            }
+                            catch (GameEndsException e)
+                            {
+                                if (e.getInfo() == 0)
+                                    Showing.Info("红方胜利");
+                                else if (e.getInfo() == 1)
+                                    Showing.Info("黑方胜利");
+                                ChessPiece.judgeSound = false;
+                                flip();
+                            }
+                            catch (MalformedURLException e)
+                            {
+                                throw new RuntimeException(e);
+                            }
+                            //重新设定计分板
+                            Integer redScore = UserStatus.getRedScore();
+                            rText.setText("分数 " + redScore.toString());
+                            Integer blackScore = UserStatus.getBlackScore();
+                            bText.setText("分数 " + blackScore.toString());
+                            if (UserStatus.currentSide == 0)
+                                bTurn.setText("轮到红方");
+                            else if (UserStatus.currentSide == 1)
+                                bTurn.setText("轮到黑方");
+                         }
 
-                    if (UserStatus.AISide == UserStatus.currentSide)
-                        bTurn.setText("轮到机器");
-                    else
-                        bTurn.setText("轮到玩家");
+                    }
                 }
                 else if (button == MouseButton.SECONDARY)
                 {
-                        chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(x, y)).cheatingFlip();
+                    chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(x, y)).cheatingFlip();
                 }
             }
         };
         group.setOnMouseClicked(eventHandler);
     }
 
-     private static void flip()
+    private static void flip()
     {
-        for(ChessPiece c: chessPieceArrayList)
+        for (ChessPiece c : chessPieceArrayList)
             c.flipAChess();
     }
 
@@ -788,7 +927,7 @@ public class Board
         System.out.println("you died");
     }
 
-    private static void  youWin()
+    private static void youWin()
     {
         String path = "D:/CloudMusic/百石元 - Spilled tea.mp3";
         Media media = new Media(new File(path).toURI().toString());
@@ -807,6 +946,7 @@ public class Board
     private static Text fifth = new Text("空");
     private static Text yourScore = new Text("空");
     private static Text yourRank = new Text("空");
+
     public static void startRank()
     {
         Stage stage1 = new Stage();
@@ -865,7 +1005,7 @@ public class Board
     {
         System.out.println(RankList.getRankList().size());
         System.out.println(RankList.getRankList().get(0).userName + " " + RankList.getRankList().get(0).credit);
-        first.setText("slgg");
+        first.setText("bwgg");
         first.setText(RankList.getRankList().get(0).userName + " " + RankList.getRankList().get(0).credit);
         second.setText(RankList.getRankList().get(1).userName + " " + RankList.getRankList().get(0).credit);
         third.setText(RankList.getRankList().get(2).userName + " " + RankList.getRankList().get(0).credit);

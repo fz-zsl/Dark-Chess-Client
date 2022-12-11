@@ -90,7 +90,6 @@ public abstract class ChessPiece extends ImageView
         tt.setToX(destinationX);
         tt.setToY(destinationY);
         tt.play();
-        System.out.println("slgg txdy!");
         if(Preference.chessSound)
             flipSound(this.getPieceType().getAudio());
     }
@@ -117,7 +116,6 @@ public abstract class ChessPiece extends ImageView
             public void handle(ActionEvent actionEvent)
             {
                 chessPiece.setImage(new Image(chessPiece.pieceType.getAddress()));
-                System.out.println("SLGG YYDS 1!");
             }
         }, keyValue3,keyValue4);//放大
 
@@ -128,7 +126,6 @@ public abstract class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                System.out.println("SLGG YYDS 2!");
             }
         },keyValue5, keyValue6);//显示
 
@@ -139,7 +136,6 @@ public abstract class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                System.out.println("SLGG YYDS 3!");
             }
         }, keyValue7,keyValue8);//缩小
 
@@ -199,7 +195,6 @@ public abstract class ChessPiece extends ImageView
             public void handle(ActionEvent actionEvent)
             {
                 chessPiece.setImage(new Image(chessPiece.pieceType.getAddress()));
-                System.out.println("cheating flip over");
             }
         }, keyValue1,keyValue2);//放大
 
@@ -221,8 +216,6 @@ public abstract class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                System.out.println("SLGG YYDS!");
-                System.out.println( chessPiece.getTranslateX() + " " + chessPiece.getTranslateY());
             }
         },keyValue, keyValue5);//显示
 
@@ -246,7 +239,6 @@ public abstract class ChessPiece extends ImageView
             public void handle(ActionEvent actionEvent)
             {
                 chessPiece.setImage(new Image(chessPiece.pieceType.getAddress()));
-                System.out.println("SLGG YYDS 1!");
             }
         }, keyValue1,keyValue2);//放大
 
@@ -257,7 +249,6 @@ public abstract class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                System.out.println("SLGG YYDS 3!");
             }
         }, keyValue3,keyValue4);//缩小
 
@@ -268,7 +259,6 @@ public abstract class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                System.out.println("SLGG YYDS 2!");
             }
         },keyValue, keyValue5);//显示
         timeline.getKeyFrames().addAll(keyFrame1,keyFrame3,keyFrame2);
@@ -323,7 +313,6 @@ public abstract class ChessPiece extends ImageView
     public void getEatenNumber(int x)
     {
         i = x;
-        System.out.println("Eaten number is " + i);
         this.getText().setText(i.toString());
     }
 
@@ -335,15 +324,13 @@ public abstract class ChessPiece extends ImageView
 
     public static void eatenSound()
     {
-        System.out.println("play sound begin: slgg yyds!");
-        String path = "D:/DarkChess/src/audio/remove.mp3";
+        String path = "D:/DarkChess/audio/remove.mp3";
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayerEnd = new MediaPlayer(media);
         mediaPlayerEnd.setAutoPlay(true);
         mediaPlayerEnd.setVolume(Preference.volume);
         mediaPlayerEnd.setCycleCount(1);
         mediaPlayerEnd.setRate(2);
-        System.out.println("play sound end: SLGG YYDS!");
     }
 
     public void flipSound(String path)
@@ -357,7 +344,7 @@ public abstract class ChessPiece extends ImageView
 
     public static void cheatingSound()
     {
-        String path = "D:/DarkChess/src/audio/Gee.mp3";
+        String path = "D:/DarkChess/audio/Gee.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
@@ -367,7 +354,7 @@ public abstract class ChessPiece extends ImageView
 
     public static void reRemoveSound()
     {
-        String path = "D:/DarkChess/src/audio/Aww.mp3";
+        String path = "D:/DarkChess/audio/Aww.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
@@ -404,7 +391,6 @@ public abstract class ChessPiece extends ImageView
             public void handle(ActionEvent actionEvent)
             {
                 blackG.toFront();
-                System.out.println("bigger");
             }
         }, keyValue1,keyValue2);//放大
 
@@ -416,7 +402,6 @@ public abstract class ChessPiece extends ImageView
             public void handle(ActionEvent actionEvent)
             {
                 redG.toFront();
-                System.out.println("smaller");
                 anchorPane.getChildren().remove(redG);
             }
         }, keyValue3,keyValue4);//缩小
@@ -442,7 +427,6 @@ public abstract class ChessPiece extends ImageView
             public void handle(ActionEvent actionEvent)
             {
                 redG.toFront();
-                System.out.println("bigger");
             }
         }, keyValue1,keyValue2);//放大
 
@@ -454,7 +438,6 @@ public abstract class ChessPiece extends ImageView
             public void handle(ActionEvent actionEvent)
             {
                 blackG.toFront();
-                System.out.println("smaller");
                 anchorPane.getChildren().remove(blackG);
             }
         }, keyValue3,keyValue4);//缩小

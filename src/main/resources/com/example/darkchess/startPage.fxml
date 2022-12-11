@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.darkchess.StartPage">
    <children>
-      <ImageView fx:id="bigPic" fitHeight="615.0" fitWidth="985.0" layoutX="-42.0" layoutY="-7.0" pickOnBounds="true">
+      <ImageView fitHeight="615.0" fitWidth="985.0" layoutX="-42.0" layoutY="-7.0" pickOnBounds="true">
          <image>
             <Image url="@../../../../../../../backgrounds/3.jpg" />
          </image>

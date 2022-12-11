@@ -53,7 +53,7 @@ public class LoadGameFile {
 		for (int i=1;i<=8;++i) {
 			rawString=sc.nextLine();
 			String[] Ints=rawString.split(" ");
-			System.out.println(rawString);
+			//System.out.println(rawString);
 			if (Ints.length!=4) {
 				throw new LoadFileException("错误编码 #102 | 棋盘错误，第 "+i+" 行的棋子个数不为 4 个。");
 			}
@@ -138,7 +138,7 @@ public class LoadGameFile {
 			if (!rawString.equals("A")) UserStatus.AIMode=2;
 			else UserStatus.AIMode=sc.nextInt();
 		} catch (Exception e) {
-			System.out.println("No AI mark!");
+//			System.out.println("No AI mark!");
 		}
 		//GeneralInit.halfInit();
 		anchorPane.getChildren().removeAll(chessPieceArrayList);
@@ -155,13 +155,13 @@ public class LoadGameFile {
 		for (int i=1;i<=8;++i) {
 			for (int j=1;j<=4;++j) {
 				objIndex=ChessBoardStatus.initObjectIndex[i][j];
-				System.out.println(objIndex);
+//				System.out.println(objIndex);
 				ChessBoardStatus.chessInit(i,j,objIndex);
-				System.out.println(chessPieceArrayList.get(objIndex));
+//				System.out.println(chessPieceArrayList.get(objIndex));
 				chessPieceArrayList.get(objIndex).setTranslateX(ChessPiece.getChessXFx(j));
-				System.out.println(ChessPiece.getChessXFx(j));
+//				System.out.println(ChessPiece.getChessXFx(j));
 				chessPieceArrayList.get(objIndex).setTranslateY(ChessPiece.getChessYFx(i));
-				System.out.println(ChessPiece.getChessYFx(j));
+//				System.out.println(ChessPiece.getChessYFx(j));
 			}
 		}
 	}

@@ -7,12 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
 
-public class StartPage {
+public class StartPage
+{
     @FXML
     private MenuItem contectUs;
 
@@ -33,9 +36,10 @@ public class StartPage {
 
     public static Stage theRegisterStage;
     public static Stage theLogInStage;
-    public static Boolean preferenceBoolean = false;
+    public static Stage thePreferenceStage;
     private static Boolean loginBoolean = true;
     private static Boolean registerBoolean = true;
+    public static boolean preferenceBoolean = true;
 
 
 
@@ -55,19 +59,26 @@ public class StartPage {
     @FXML
     void cPreference(ActionEvent event) throws IOException
     {
-            Stage stage = new Stage();
+        if (preferenceBoolean)
+        {
+            Stage stage22 = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("preference.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 640, 480);
-            stage.setTitle("偏好设置");
-            stage.setScene(scene);
-            stage.show();
+            stage22.setTitle("个性化设置");
+            stage22.setScene(scene);
+            stage22.show();
+            thePreferenceStage = stage22;
+            preferenceBoolean = false;
+        }
+        else
+            thePreferenceStage.show();
     }
 
     @FXML
     void cRegister(MouseEvent event) throws IOException
     {
         InitializationApplication.theStartPage.close();
-        if(registerBoolean)
+        if (registerBoolean)
         {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register.fxml"));
@@ -83,10 +94,10 @@ public class StartPage {
     }
 
     @FXML
-    void cLogIn(MouseEvent event)throws IOException
+    void cLogIn(MouseEvent event) throws IOException
     {
         InitializationApplication.theStartPage.close();
-        if(loginBoolean)
+        if (loginBoolean)
         {
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("logIn.fxml"));
