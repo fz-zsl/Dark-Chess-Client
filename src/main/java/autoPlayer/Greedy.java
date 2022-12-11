@@ -88,10 +88,10 @@ public class Greedy {
 				if (val[i][j]>=ans-3||(val[i][j]>-30&&(rand.nextInt(1118)%modulo[level]==0||ChessBoardStatus.flipCounter<randomSteps[level]))) {
 					rand=new Random(System.currentTimeMillis());
 					if (cnt<1) {
-						System.out.print("[AI]");
+//						System.out.print("[AI]");
 						ClickOnBoard.clickOnBoard(i,j);
 						if (nxt[i][j]>0) {
-							System.out.print("[AI]");
+//							System.out.print("[AI]");
 							ClickOnBoard.clickOnBoard(nxt[i][j]/10,nxt[i][j]%10);
 						}
 						return ans;

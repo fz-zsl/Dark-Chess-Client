@@ -41,13 +41,13 @@ public class Operations {
 			destPosition[sizeOfStack]=positions[1];
 			if (positions[1]%50==0)
 			{
-				System.out.println("吃帅");
+//				System.out.println("吃帅");
 				if(Preference.chessSound)
 					ChessPiece.rGeA();
 			}
 			if (positions[1]%50==16)
 			{
-				System.out.println("吃将");
+//				System.out.println("吃将");
 				if(Preference.chessSound)
 					ChessPiece.bGeA();
 			}
@@ -61,7 +61,7 @@ public class Operations {
 		++sizeOfStack;
 		if (op<2) {
 			UserStatus.currentSide^=1;
-			System.out.println("Wait for a click: "+UserStatus.currentSide);
+//			System.out.println("Wait for a click: "+UserStatus.currentSide);
 		}
 	}
 

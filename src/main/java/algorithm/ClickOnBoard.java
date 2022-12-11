@@ -13,7 +13,7 @@ import static com.example.darkchess.Board.chessPieceArrayList;
 public class ClickOnBoard {
 	public static int clickOnBoard(int clickX, int clickY) throws GameEndsException, MalformedURLException
 	{
-		System.out.println("A click on"+clickX+" "+clickY);
+//		System.out.println("A click on"+clickX+" "+clickY);
 		/*
 		values of clickType:
 		-1 | invalid click, which shouldn't appear in the log
@@ -27,11 +27,11 @@ public class ClickOnBoard {
 			//there is a previous click - second click
 			int preX=ChessBoardStatus.allPossibleMoves.get(0)/10;
 			int preY=ChessBoardStatus.allPossibleMoves.get(0)%10;
-			System.out.println("second click with"+preX+" "+preY);
+//			System.out.println("second click with"+preX+" "+preY);
 			//Todo: call GUI here
 			CanvasUtils.cancelHighLight();
 			if (preX==clickX&&preY==clickY) {
-				System.out.println("A same click, which will cancel the previous click.");
+//				System.out.println("A same click, which will cancel the previous click.");
 				//cancel highlight
 				ChessBoardStatus.clearPossibleMoves();
 				clickType=-1;
@@ -39,7 +39,7 @@ public class ClickOnBoard {
 					&&!ChessBoardStatus.getFlipped(clickX,clickY)
 					&&ChessBoardStatus.getChessIndex(preX,preY)%10!=6) {
 				//flip
-				System.out.println("Let's Flip - second click!");
+//				System.out.println("Let's Flip - second click!");
 				ChessBoardStatus.flipChess(clickX,clickY);
 				Operations.addOperationToStack(0,clickX*10+clickY);
 				ChessBoardStatus.clearPossibleMoves();
@@ -48,7 +48,7 @@ public class ClickOnBoard {
 				chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(clickX,clickY)).flipAChess();
 			} else if (ChessBoardStatus.allPossibleMoves.contains(clickIndex)) {
 				//move
-				System.out.println("Let's move!");
+//				System.out.println("Let's move!");
 				//Todo: call GUI here
 				ChessPiece preChessPiece=null;
 				if (ChessBoardStatus.getWholeChessStatus(clickX,clickY)>=0)
@@ -78,7 +78,7 @@ public class ClickOnBoard {
 			//there is no previous click - first click
 			if (!ChessBoardStatus.getFlipped(clickX,clickY)) {
 				//flip
-				System.out.println("Let's Flip - first click!");
+//				System.out.println("Let's Flip - first click!");
 				ChessBoardStatus.flipChess(clickX,clickY);
 				if (ChessBoardStatus.flipCounter==1) {
 					UserStatus.currentSide=ChessBoardStatus.getChessIndex(clickX,clickY)/10;
@@ -90,7 +90,7 @@ public class ClickOnBoard {
 				chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(clickX,clickY)).flipAChess();
 			} else if (ChessBoardStatus.getChessIndex(clickX,clickY)/10==UserStatus.currentSide) {
 				ArrayList<Integer> APM=ChessBoardStatus.calcPossibleMoves(clickX,clickY);
-				System.out.printf("All possible moves: %s\n",APM.toString());
+//				System.out.printf("All possible moves: %s\n",APM.toString());
 				clickType=1;
 				//Todo: call GUI here
 				CanvasUtils.highLight(APM);
@@ -101,7 +101,7 @@ public class ClickOnBoard {
 
 	public static int clickOnBoardFast(int clickX, int clickY) throws GameEndsException, MalformedURLException
 	{
-		System.out.println("A fast click on"+clickX+" "+clickY);
+//		System.out.println("A fast click on"+clickX+" "+clickY);
 		/*
 		values of clickType:
 		-1 | invalid click, which shouldn't appear in the log

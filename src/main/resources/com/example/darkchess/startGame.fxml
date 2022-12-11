@@ -61,7 +61,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="帮助">
                <items>
-                  <MenuItem fx:id="contectUs" mnemonicParsing="false" onAction="#cContactUs" text="联系我们" />
+                  <MenuItem fx:id="contactUs" mnemonicParsing="false" onAction="#cContactUs" text="联系我们" />
                   <MenuItem fx:id="version" mnemonicParsing="false" onAction="#cVersion" text="版本信息" />
                </items>
             </Menu>

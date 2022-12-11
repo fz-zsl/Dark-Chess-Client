@@ -15,7 +15,7 @@ public class Register
 {
 
     @FXML
-    private MenuItem contectUs;
+    private MenuItem contactUs;
 
     @FXML
     private Button register;
