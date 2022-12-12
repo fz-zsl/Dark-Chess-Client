@@ -75,6 +75,7 @@ public class ClickOnBoard {
 				clickType=-1;
 			}
 		} else {
+			if (ChessBoardStatus.getObjectIndex(clickX,clickY)<0) return -1;
 			//there is no previous click - first click
 			if (!ChessBoardStatus.getFlipped(clickX,clickY)) {
 				//flip
