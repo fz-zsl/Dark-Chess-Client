@@ -125,13 +125,13 @@ public class StartGame
             Board.rText.setText("分数 " + redScore.toString());
             Integer blackScore = UserStatus.getBlackScore();
             Board.bText.setText("分数 " + blackScore.toString());
-            Board.r.setText("玩家A");
+            Board.r.setText("玩家");
             Board.r.setFill(Color.BLACK);
             Board.rText.setFill(Color.BLACK);
-            Board.b.setText("玩家B");
+            Board.b.setText("对手");
             Board.b.setFill(Color.BLACK);
             Board.bText.setFill(Color.BLACK);
-            Board.bTurn.setText("玩家翻棋");
+            Board.bTurn.setText("场景回顾");
             Board.theBoardStage.show();
             LogIn.theStartGameStage.close();
             Board.halfAction(Board.group);

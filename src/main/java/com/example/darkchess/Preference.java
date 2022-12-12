@@ -158,7 +158,7 @@ public class Preference
         StartPage.thePreferenceStage.close();
         firstDet = true;
     }
-    private boolean firstDet = true;
+    private static boolean firstDet = true;
     @FXML
     void startUp(MouseEvent event)
     {

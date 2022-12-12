@@ -72,6 +72,9 @@ public class Board
     public static Button nextButton;
 
     public static ImageView imageView1;
+    public static boolean inFlag = true;
+    public static int right = 0;
+    public static Menu menu5;
 
 
     public static void startGame(int mode) throws IOException
@@ -147,19 +150,30 @@ public class Board
             menuItem15.setOnAction(eventHandler15);
 
 
-            Menu menu5 = new Menu("导入");
+            menu5 = new Menu("导入");
             for (String str : GetFileList.getFileList())
             {
                 MenuItem menuItem12 = new MenuItem(str);
                 menu5.getItems().add(menuItem12);
                 EventHandler<ActionEvent> eventHandler = e ->
                 {
+                    inFlag = true;
+                    r.setText("玩家");
+                    r.setFill(Color.BLACK);
+                    rText.setFill(Color.BLACK);
+                    b.setText("对手");
+                    b.setFill(Color.BLACK);
+                    bText.setFill(Color.BLACK);
+                    bTurn.setText("点击回顾");
+                    Board.rText.setText("分数 " + 0);
+                    Board.bText.setText("分数 " + 0);
                     for (ChessPiece c : chessPieceArrayList)
                     {
                         anchorPane.getChildren().removeAll(c.getCircle(), c.getText());
                         c.setJudge(true);
                     }
                     anchorPane.getChildren().removeAll(chessPieceArrayList);
+
                     try
                     {
                         LoadGameFile.loadGameFile(str);
@@ -168,43 +182,54 @@ public class Board
                             @Override
                             public void handle(MouseEvent mouseEvent)
                             {
+                                right = UserStatus.AISide;
+                                if(!inFlag)
+                                    return;
                                 try
                                 {
-                                    if(UserStatus.AISide == 0)
-                                    {
-                                        Integer redScore = UserStatus.getRedScore();
-                                        Integer blackScore = UserStatus.getBlackScore();
-                                        rText.setText("分数 " + blackScore.toString());
-                                        bText.setText("分数 " + redScore.toString());
-                                        bText.setFill(Color.RED);
-                                        b.setFill(Color.RED);
-                                    }
-                                    else if (UserStatus.AISide == 1)
-                                    {
-                                        Integer redScore = UserStatus.getRedScore();
-                                        rText.setText("分数 " + redScore.toString());
-                                        Integer blackScore = UserStatus.getBlackScore();
-                                        bText.setText("分数 " + blackScore.toString());
-                                        rText.setFill(Color.RED);
-                                        r.setFill(Color.RED);
-                                    }
-                                    else if(UserStatus.AISide == -1)
-                                    {
-                                        Integer redScore = UserStatus.getRedScore();
-                                        rText.setText("分数 " + redScore.toString());
-                                        Integer blackScore = UserStatus.getBlackScore();
-                                        bText.setText("分数 " + blackScore.toString());
-                                        rText.setFill(Color.RED);
-                                        r.setFill(Color.RED);
-                                    }
-                                    if (UserStatus.AISide == UserStatus.currentSide)
-                                        bTurn.setText("轮到机器");
-                                    else
-                                        bTurn.setText("轮到玩家");
                                     if (!Operations.loadNextMove())
                                     {
+                                        inFlag = false;
                                         if(Choice.choiceStageFlage)
                                         {
+                                            if(UserStatus.AISide == 0)
+                                            {
+                                                Integer redScore = UserStatus.getRedScore();
+                                                Integer blackScore = UserStatus.getBlackScore();
+                                                rText.setText("分数 " + blackScore.toString());
+                                                bText.setText("分数 " + redScore.toString());
+                                                bText.setFill(Color.RED);
+                                                b.setFill(Color.RED);
+                                                rText.setFill(Color.BLACK);
+                                                r.setFill(Color.BLACK);
+                                            }
+                                            else if (UserStatus.AISide == 1)
+                                            {
+                                                Integer redScore = UserStatus.getRedScore();
+                                                rText.setText("分数 " + redScore.toString());
+                                                Integer blackScore = UserStatus.getBlackScore();
+                                                bText.setText("分数 " + blackScore.toString());
+                                                rText.setFill(Color.RED);
+                                                r.setFill(Color.RED);
+                                                bText.setFill(Color.BLACK);
+                                                b.setFill(Color.BLACK);
+                                            }
+                                            else if(UserStatus.AISide == -1)
+                                            {
+                                                Integer redScore = UserStatus.getRedScore();
+                                                rText.setText("分数 " + redScore.toString());
+                                                Integer blackScore = UserStatus.getBlackScore();
+                                                bText.setText("分数 " + blackScore.toString());
+                                                rText.setFill(Color.RED);
+                                                r.setFill(Color.RED);
+                                                bText.setFill(Color.BLACK);
+                                                b.setFill(Color.BLACK);
+                                            }
+
+                                            if (UserStatus.AISide == UserStatus.currentSide)
+                                                bTurn.setText("轮到对手");
+                                            else
+                                                bTurn.setText("轮到玩家");
                                             Stage stage33 = new Stage();
                                             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("choice.fxml"));
                                             Scene scene = new Scene(fxmlLoader.load(), 320, 240);
@@ -217,6 +242,47 @@ public class Board
                                         else
                                             Choice.theChoiceStage.show();
                                     }
+
+                                    if(UserStatus.AISide == 0)
+                                    {
+                                        Integer redScore = UserStatus.getRedScore();
+                                        Integer blackScore = UserStatus.getBlackScore();
+                                        rText.setText("分数 " + blackScore.toString());
+                                        bText.setText("分数 " + redScore.toString());
+                                        bText.setFill(Color.RED);
+                                        b.setFill(Color.RED);
+                                        rText.setFill(Color.BLACK);
+                                        r.setFill(Color.BLACK);
+                                    }
+                                    else if (UserStatus.AISide == 1)
+                                    {
+                                        Integer redScore = UserStatus.getRedScore();
+                                        rText.setText("分数 " + redScore.toString());
+                                        Integer blackScore = UserStatus.getBlackScore();
+                                        bText.setText("分数 " + blackScore.toString());
+                                        rText.setFill(Color.RED);
+                                        r.setFill(Color.RED);
+                                        bText.setFill(Color.BLACK);
+                                        b.setFill(Color.BLACK);
+                                    }
+                                    else if(UserStatus.AISide == -1)
+                                    {
+                                        Integer redScore = UserStatus.getRedScore();
+                                        rText.setText("分数 " + redScore.toString());
+                                        Integer blackScore = UserStatus.getBlackScore();
+                                        bText.setText("分数 " + blackScore.toString());
+                                        rText.setFill(Color.RED);
+                                        r.setFill(Color.RED);
+                                        bText.setFill(Color.BLACK);
+                                        b.setFill(Color.BLACK);
+                                    }
+
+                                    if (UserStatus.AISide == UserStatus.currentSide)
+                                        bTurn.setText("轮到对手");
+                                    else
+                                        bTurn.setText("轮到玩家");
+
+
                                 }
                                 catch (Exception ex)
                                 {
@@ -342,19 +408,52 @@ public class Board
                 }
                 else if(modeOfAll == 4)
                 {
-                    Integer redScore = UserStatus.getRedScore();
-                    Board.rText.setText("分数 " + redScore.toString());
-                    Integer blackScore = UserStatus.getBlackScore();
-                    Board.bText.setText("分数 " + blackScore.toString());
-                    Board.r.setText("玩家A");
-                    Board.r.setFill(Color.BLACK);
-                    Board.rText.setFill(Color.BLACK);
-                    Board.b.setText("玩家B");
-                    Board.b.setFill(Color.BLACK);
-                    Board.bText.setFill(Color.BLACK);
-                    Board.bTurn.setText("玩家翻棋");
-                }
+                    if(Choice.modeOfHalf == 2)
+                    {
+                        b.setText("机器");
+                        if (UserStatus.AISide == 0)
+                        {
+                            Integer redScore = UserStatus.getRedScore();
+                            Integer blackScore = UserStatus.getBlackScore();
+                            rText.setText("分数 " + blackScore.toString());
+                            bText.setText("分数 " + redScore.toString());
+                        }
+                        else if (UserStatus.AISide == 1)
+                        {
+                            Integer redScore = UserStatus.getRedScore();
+                            rText.setText("分数 " + redScore.toString());
+                            Integer blackScore = UserStatus.getBlackScore();
+                            bText.setText("分数 " + blackScore.toString());
+                        }
+                        if (UserStatus.AISide == UserStatus.currentSide)
+                            bTurn.setText("轮到机器");
+                        else
+                            bTurn.setText("轮到玩家");
 
+                    }
+                    else if(Choice.modeOfHalf == 1)
+                    {
+                        //重新设定计分板
+                        if(right == 0)
+                        {
+                            Integer redScore = UserStatus.getRedScore();
+                            bText.setText("分数 " + redScore.toString());
+                            Integer blackScore = UserStatus.getBlackScore();
+                            rText.setText("分数 " + blackScore.toString());
+                        }
+                        else
+                        {
+                            Integer redScore = UserStatus.getRedScore();
+                            rText.setText("分数 " + redScore.toString());
+                            Integer blackScore = UserStatus.getBlackScore();
+                            bText.setText("分数 " + blackScore.toString());
+                        }
+                        if (UserStatus.currentSide == 0)
+                            bTurn.setText("轮到红方");
+                        else if (UserStatus.currentSide == 1)
+                            bTurn.setText("轮到黑方");
+                    }
+                }
             };
 
             EventHandler<ActionEvent> eventHandler6 = e ->
@@ -519,6 +618,7 @@ public class Board
             b.setX(700);
             b.setY(100 + 150);
             b.setText("黑方");
+            b.setFill(Color.BLACK);
             b.setFont(new Font("verdana", 30));
             anchorPane.getChildren().add(b);
 
@@ -533,6 +633,7 @@ public class Board
             bText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
             bText.setX(685);
             bText.setY(180 + 150);
+            bText.setFill(Color.BLACK);
             anchorPane.getChildren().add(bText);
         }
         //棋盘背景imageView
@@ -626,6 +727,10 @@ public class Board
                     }
                     catch (GameEndsException e)
                     {
+                        Integer redScore = UserStatus.getRedScore();
+                        rText.setText("分数 " + redScore.toString());
+                        Integer blackScore = UserStatus.getBlackScore();
+                        bText.setText("分数 " + blackScore.toString());
                         if (e.getInfo() == 0)
                             Showing.Info("红方胜利");
                         else if (e.getInfo() == 1)
@@ -710,6 +815,20 @@ public class Board
                     }
                     catch (GameEndsException e)
                     {
+                        if (UserStatus.AISide == 0)
+                        {
+                            Integer redScore = UserStatus.getRedScore();
+                            Integer blackScore = UserStatus.getBlackScore();
+                            rText.setText("分数 " + blackScore.toString());
+                            bText.setText("分数 " + redScore.toString());
+                        }
+                        else if (UserStatus.AISide == 1)
+                        {
+                            Integer redScore = UserStatus.getRedScore();
+                            rText.setText("分数 " + redScore.toString());
+                            Integer blackScore = UserStatus.getBlackScore();
+                            bText.setText("分数 " + blackScore.toString());
+                        }
                         ChessPiece.judgeSound = false;
                         flip();
                         if (Preference.soundSwitch)
@@ -764,6 +883,11 @@ public class Board
 
     static public void halfAction(Group group)
     {
+        r.setText("玩家");
+        r.setFill(Color.BLACK);
+        b.setText("对手");
+        rText.setFill(Color.BLACK);
+        bTurn.setText("点击回顾");
         ir = new ImageView("file:/" + Preference.headAddressUse);
         ir.setTranslateX(80);
         ir.setTranslateY(100);
@@ -784,7 +908,6 @@ public class Board
             {
                 int y = (int) ((mouseEvent.getX() - 341.65 - 1f / 6 * gird) / gird + 1);
                 int x = (int) ((mouseEvent.getY() - 41.65 - 1f / 6 * gird) / gird + 1);
-                //System.out.println(mouseEvent.getX() + " " + mouseEvent.getY());
                 MouseButton button = mouseEvent.getButton();
                 if (button == MouseButton.PRIMARY)//左击
                 {
@@ -793,7 +916,6 @@ public class Board
                     {
                         if(Choice.modeOfHalf == 2)
                         {
-                            r.setText("玩家");
                             b.setText("机器");
                             if(UserStatus.currentSide == UserStatus.AISide)
                             {
@@ -868,6 +990,8 @@ public class Board
                                 bText.setText("分数 " + blackScore.toString());
                             }
 
+
+
                             if (UserStatus.AISide == UserStatus.currentSide)
                                 bTurn.setText("轮到机器");
                             else
@@ -895,10 +1019,20 @@ public class Board
                                 throw new RuntimeException(e);
                             }
                             //重新设定计分板
-                            Integer redScore = UserStatus.getRedScore();
-                            rText.setText("分数 " + redScore.toString());
-                            Integer blackScore = UserStatus.getBlackScore();
-                            bText.setText("分数 " + blackScore.toString());
+                            if(right == 0)
+                            {
+                                Integer redScore = UserStatus.getRedScore();
+                                bText.setText("分数 " + redScore.toString());
+                                Integer blackScore = UserStatus.getBlackScore();
+                                rText.setText("分数 " + blackScore.toString());
+                            }
+                            else
+                            {
+                                Integer redScore = UserStatus.getRedScore();
+                                rText.setText("分数 " + redScore.toString());
+                                Integer blackScore = UserStatus.getBlackScore();
+                                bText.setText("分数 " + blackScore.toString());
+                            }
                             if (UserStatus.currentSide == 0)
                                 bTurn.setText("轮到红方");
                             else if (UserStatus.currentSide == 1)
