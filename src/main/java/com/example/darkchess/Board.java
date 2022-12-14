@@ -117,7 +117,8 @@ public class Board
         anchorPane.setMinHeight(boardH * 1.5);
 
         //页面背景
-        imageView1 = new ImageView("file:/" + Preference.pictureAddressUse);
+        //imageView1 = new ImageView("file:/" + Preference.pictureAddressUse);
+        imageView1 = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.616pic.com%2Fbg_w1180%2F00%2F24%2F22%2F6F2rbyxDg4.jpg&refer=http%3A%2F%2Fpic.616pic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673607905&t=8a1e3344c84154ee060d41abe1d99cf7");
         imageView1.setFitWidth(900);
         imageView1.setFitHeight(600);
         anchorPane.getChildren().add(imageView1);
@@ -1225,6 +1226,26 @@ public class Board
 
     public static void online(Group group)
     {
+        r.setText("玩家A");
+        r.setFill(Color.BLACK);
+        b.setText("玩家B");
+        rText.setFill(Color.BLACK);
+        bTurn.setText("请翻棋");
+        ir = new ImageView("file:/" + Preference.headAddressUse);
+        ir.setTranslateX(irX);
+        ir.setTranslateY(irY);
+        ir.setFitHeight(100);
+        ir.setFitWidth(100);
+        ib = new ImageView("file:/D:/backgrounds/hb4.jpg");
+        ib.setTranslateX(irX + 600);
+        ib.setTranslateY(irY);
+        ib.setFitHeight(100);
+        ib.setFitWidth(100);
+        anchorPane.getChildren().addAll(ib, ir);
+        //玩家在左边，r代表玩家而非颜色
+        rName.setText(LogIn.account);
+        bName.setText("网友");
+
         //设置棋盘，画出棋子
         CanvasUtils.set(1);
         GeneralInit.generalInit();

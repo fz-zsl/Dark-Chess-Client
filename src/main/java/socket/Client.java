@@ -1,7 +1,5 @@
 package socket;
 
-import java.awt.*;
-import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,20 +7,16 @@ import java.net.MalformedURLException;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import static com.example.darkchess.Board.anchorPane;
 import static com.example.darkchess.Board.chessPieceArrayList;
 
 import Piece.ChessPiece;
 import com.example.darkchess.CanvasUtils;
-import com.example.darkchess.Showing;
 import javafx.scene.text.*;
-import javafx.scene.text.Font;
-import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 
 public class Client
 {
-    private String serverIP = "10.27.96.18";
+    private String serverIP = "10.12.97.137";
     static Socket serverSocket;
     DataInputStream inputStream;
     DataOutputStream outputStream;
@@ -48,10 +42,10 @@ public class Client
         {
             DataOutputStream outputStream = new DataOutputStream(serverSocket.getOutputStream());
             outputStream.writeUTF(messageInfo.toString());
+            System.out.println("包装完毕");
         }
         catch (IOException ioException)
         {
-//            System.out.printf("[%s]Message is rejected by the client.",getServerTime());
             System.out.println(messageInfo.toString());
         }
     }
@@ -87,6 +81,7 @@ public class Client
                     }
                     else if (actionType == 2)
                     {
+                        System.out.println("棋盘初始化完毕，棋子就位");
                         objectIndex = info.getInt("objectIndex");
                         curX = info.getInt("curX");
                         curY = info.getInt("curY");
@@ -96,6 +91,7 @@ public class Client
                     }
                     else if (actionType == 3)
                     {
+                        System.out.println("棋子被吃掉了");
                         objectIndex = info.getInt("objectIndex");
                         curX = info.getInt("curX");
                         curY = info.getInt("curY");
