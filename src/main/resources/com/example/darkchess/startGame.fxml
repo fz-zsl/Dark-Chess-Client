@@ -51,7 +51,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="文件">
                <items>
-                  <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#cLogOut" text="退出" />
+                  <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#cLogOut" text="退出登录" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="设置">

@@ -13,7 +13,7 @@ public class Preference
     public static String version = "v 2.2.7";
     public static double volume = 0.3;
     public double volumeS = 0.3;
-    public static double volumeOfFlip = 1;
+    public static double volumeOfFlip = 2;
     public static Boolean soundSwitch = false;
     public Boolean soundSwitchS = false;
     public static Boolean chessSound = false;

@@ -26,10 +26,7 @@ import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 import net.sf.json.JSONObject;
 import oop.GameEndsException;
@@ -37,6 +34,8 @@ import oop.LoadFileException;
 import socket.Client;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -59,6 +58,8 @@ public class Board
     static public ArrayList<ChessPiece> chessPieceArrayList;
     static protected Text r = new Text("红方");
     static protected Text b = new Text("黑方");
+    public static Text rName = new Text("用户一 ");
+    public static Text bName = new Text("用户二 ");
     static protected Text rText = new Text("分数 0");
     static protected Text bText = new Text("分数 0");
     static Stage theBoardStage;
@@ -76,9 +77,36 @@ public class Board
     public static int right = 0;
     public static Menu menu5;
 
+    public static double rX = 100;
+    public static double rTextX = 85;
+    public static double irX = 80;
+    public static double rY = 250;
+    public static double rTextY = 380;
+    public static double irY = 100;
+    public static double rNameX = 115;
+    public static double rNameY = 310;
+    public static double rProgressBarX = 80;
+    public static double rProgressBarY = 70;
+    public static ProgressBar rProgressBar = new ProgressBar(0);
+    public static ProgressBar bProgressBar = new ProgressBar(0);
+    public static Font font;
+
+    static
+    {
+        try
+        {
+            font = setFont();
+        }
+        catch (FileNotFoundException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void startGame(int mode) throws IOException
     {
+        rName.setTextAlignment(TextAlignment.CENTER);
+        bName.setTextAlignment(TextAlignment.CENTER);
         chessPieceArrayList = new ArrayList<>();
         Stage stage = new Stage();
         theBoardStage = stage;
@@ -106,10 +134,10 @@ public class Board
             MenuItem menuItem5 = new MenuItem("悔棋");
             MenuItem menuItem6 = new MenuItem("开启作弊模式");
             MenuItem menuItem7 = new MenuItem("重新开始");
-            MenuItem menuItem = new MenuItem("返回模式选择页面");
+            MenuItem menuItem = new MenuItem("上一级");
             MenuItem menuItem2 = new MenuItem("排行榜");
             MenuItem menuItem14 = new MenuItem("保存");
-            MenuItem menuItem15 = new MenuItem("属性设置");
+            MenuItem menuItem15 = new MenuItem("个性化设置");
 
             Menu menu = new Menu("人机难度设置");
             MenuItem menuItem8 = new MenuItem("幼儿园难度");
@@ -336,7 +364,7 @@ public class Board
             };
             menuItem9.setOnAction(eventHandler11);
 
-            menu1.getItems().addAll(menu5, menuItem, menuItem1, menuItem2, menuItem14);
+            menu1.getItems().addAll(menuItem14,menu5, menuItem1,menuItem, menuItem2);
             menu3.getItems().addAll(menuItem3, menuItem4);
             menu4.getItems().addAll(menuItem6, menuItem5, menuItem7);
             menuBar.getMenus().addAll(menu1, menu2, menu4, menu3);
@@ -350,7 +378,16 @@ public class Board
                 @Override
                 public void handle(ActionEvent actionEvent)
                 {
-                    // TODO: 2022/12/11
+                    try {
+                        SaveGame.writeUserFile();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                    anchorPane.getChildren().removeAll(chessPieceArrayList);
+                    theBoardStage.close();
+                    InitializationApplication.theStartPage.show();
+                    rName.setText("用户一");
+                    bName.setText("深蓝一号");
                 }
             };
 
@@ -608,33 +645,44 @@ public class Board
         //阵营显示
         //红方
         {
-            r.setX(100);
-            r.setY(100 + 150);
+            r.setX(rX);
+            r.setY(rY);
             r.setText("红方");
             r.setFill(Color.RED);
-            r.setFont(new Font("verdana", 30));
+            r.setFont(font);
             anchorPane.getChildren().add(r);
             //黑方
-            b.setX(700);
-            b.setY(100 + 150);
+            b.setX(rX + 600);
+            b.setY(rY);
             b.setText("黑方");
-            b.setFill(Color.BLACK);
-            b.setFont(new Font("verdana", 30));
+            b.setFont(setFont());
+            b.setFont(font);
             anchorPane.getChildren().add(b);
 
             //分数显示
             //红方
             rText.setFill(Color.RED);
-            rText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
-            rText.setX(85);
-            rText.setY(180 + 150);
+            rText.setFont(font);
+            rText.setX(rTextX);
+            rText.setY(rTextY);
             anchorPane.getChildren().add(rText);
             //黑方
-            bText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
-            bText.setX(685);
-            bText.setY(180 + 150);
+            rText.setFont(font);
+            bText.setFont(font);
+            bText.setX(rTextX + 600);
+            bText.setY(rTextY);
             bText.setFill(Color.BLACK);
             anchorPane.getChildren().add(bText);
+
+            rName.setTranslateX(rNameX);
+            bName.setTranslateX(rNameX + 600);
+            rName.setTranslateY(rNameY);
+            bName.setTranslateY(rNameY);
+            rName.setFont(font);
+            bName.setFont(font);
+            rName.setFill(Color.BURLYWOOD);
+            bName.setFill(Color.BURLYWOOD);
+            anchorPane.getChildren().addAll(rName,bName);
         }
         //棋盘背景imageView
         ImageView imageView = new ImageView("file:D:/DarkChess/wood.jpg");
@@ -660,8 +708,15 @@ public class Board
         bTurn.setFill(Color.BLACK);
         bTurn.setTranslateX(393.04);
         bTurn.setTranslateY(505.40515);
-        bTurn.setFont(Font.font("verdana", FontWeight.BOLD, 30));
+        bTurn.setFont(font);
         anchorPane.getChildren().add(bTurn);
+        
+        //时间条
+        rProgressBar.setTranslateX(rProgressBarX);
+        rProgressBar.setTranslateY(rProgressBarY);
+        bProgressBar.setTranslateX(rProgressBarX + 600);
+        bProgressBar.setTranslateY(rProgressBarY);
+        anchorPane.getChildren().addAll(rProgressBar,bProgressBar);
 
         //游戏初始化
         //显示界面
@@ -694,23 +749,24 @@ public class Board
         GeneralInit.generalInit();
         //头像
         ir = new ImageView("D:/backgrounds/hb3.png");
-        ir.setTranslateX(80);
-        ir.setTranslateY(100);
+        ir.setTranslateX(irX);
+        ir.setTranslateY(irY);
         ir.setFitHeight(100);
         ir.setFitWidth(100);
         ib = new ImageView("file:/D:/backgrounds/hb1.jpg");
-        ib.setTranslateX(80 + 600);
-        ib.setTranslateY(100);
+        ib.setTranslateX(irX + 600);
+        ib.setTranslateY(irY);
         ib.setFitHeight(100);
         ib.setFitWidth(100);
-
+        rName.setText(LogIn.account);
+        bName.setText(null);
+        if (!anchorPane.getChildren().contains(ir))
+        {
+            anchorPane.getChildren().add(ir);
+            anchorPane.getChildren().add(ib);
+        }
         EventHandler<MouseEvent> eventHandler = mouseEvent ->
         {
-            if (!anchorPane.getChildren().contains(ir))
-            {
-                anchorPane.getChildren().add(ir);
-                anchorPane.getChildren().add(ib);
-            }
             int y = (int) ((mouseEvent.getX() - 341.65 - 1f / 6 * gird) / gird + 1);
             int x = (int) ((mouseEvent.getY() - 41.65 - 1f / 6 * gird) / gird + 1);
             //System.out.println(mouseEvent.getX() + " " + mouseEvent.getY());
@@ -767,17 +823,19 @@ public class Board
         rText.setFill(Color.BLACK);
         bTurn.setText("玩家翻棋");
         ir = new ImageView("file:/" + Preference.headAddressUse);
-        ir.setTranslateX(80);
-        ir.setTranslateY(100);
+        ir.setTranslateX(irX);
+        ir.setTranslateY(irY);
         ir.setFitHeight(100);
         ir.setFitWidth(100);
         ib = new ImageView("file:/D:/backgrounds/hb4.jpg");
-        ib.setTranslateX(80 + 600);
-        ib.setTranslateY(100);
+        ib.setTranslateX(irX + 600);
+        ib.setTranslateY(irY);
         ib.setFitHeight(100);
         ib.setFitWidth(100);
         anchorPane.getChildren().addAll(ib, ir);
         //玩家在左边，r代表玩家而非颜色
+        rName.setText(LogIn.account);
+        bName.setText("深蓝一号");
 
         //设置棋盘，画出棋子
         GeneralInit.generalInit();
@@ -844,7 +902,10 @@ public class Board
                         else
                         {
                             Showing.Info("厉害啊，小子！居然把爷战胜了？！");
-                            //youWin();
+                            if (Preference.chessSound)
+                                ChessPiece.mediaPlayerEnd.pause();
+                            if (Preference.endSound)
+                                youWin();
                         }
 
                         // Showing.Info(e.toString());
@@ -889,16 +950,18 @@ public class Board
         rText.setFill(Color.BLACK);
         bTurn.setText("点击回顾");
         ir = new ImageView("file:/" + Preference.headAddressUse);
-        ir.setTranslateX(80);
-        ir.setTranslateY(100);
+        ir.setTranslateX(irX);
+        ir.setTranslateY(irY);
         ir.setFitHeight(100);
         ir.setFitWidth(100);
         ib = new ImageView("file:/D:/backgrounds/hb1.jpg");
-        ib.setTranslateX(80 + 600);
-        ib.setTranslateY(100);
+        ib.setTranslateX(irX + 600);
+        ib.setTranslateY(irY);
         ib.setFitHeight(100);
         ib.setFitWidth(100);
         anchorPane.getChildren().addAll(ir,ib);
+        rName.setText(LogIn.account);
+        bName.setText(null);
         // TODO: 2022/12/11 头像图片
         //玩家在左边，r代表玩家而非颜色
 
@@ -917,6 +980,7 @@ public class Board
                         if(Choice.modeOfHalf == 2)
                         {
                             b.setText("机器");
+                            bName.setText("深蓝一号");
                             if(UserStatus.currentSide == UserStatus.AISide)
                             {
                                 try
@@ -958,16 +1022,16 @@ public class Board
                                     InitializationApplication.mediaPlayerFirst.pause();
                                 if (e.getInfo() == UserStatus.AISide)
                                 {
-                                    Showing.Info("菜狗，回去多积淀积淀再来挑战爷！");
                                     if (Preference.chessSound)
                                         ChessPiece.mediaPlayerEnd.pause();
                                     if (Preference.endSound)
-                                        youDied();
+                                        youWin();
+                                    Showing.Info("菜狗，回去多积淀积淀再来挑战爷！");
                                 }
                                 else
                                 {
-                                    Showing.Info("厉害啊，小子！居然把爷战胜了？！");
                                     youWin();
+                                    Showing.Info("厉害啊，小子！居然把爷战胜了？！");
                                 }
                             }
                             catch (MalformedURLException e)
@@ -1001,6 +1065,7 @@ public class Board
 
                         else if(Choice.modeOfHalf == 1)
                         {
+                            bName.setText(null);
                             try
                             {
                                 ClickOnBoard.clickOnBoard(x, y);
@@ -1058,7 +1123,7 @@ public class Board
 
     private static void youDied()
     {
-        String path = "D:/DarkChess/src/audio/结束1.mp3";
+        String path = "D:/DarkChess/audio/LOSE.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
@@ -1069,13 +1134,13 @@ public class Board
 
     private static void youWin()
     {
-        String path = "D:/CloudMusic/百石元 - Spilled tea.mp3";
+        String path = "D:/arkChess/audio/WIN.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
         mediaPlayer.setVolume(Preference.volume);
         mediaPlayer.setCycleCount(1);
-        System.out.println("you died");
+        System.out.println("you win");
     }
 
 
@@ -1123,13 +1188,13 @@ public class Board
         yourScore.setTranslateY(342);
         yourRank.setTranslateY(373);
 
-        first.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 27));
-        second.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 27));
-        third.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 27));
-        forth.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 27));
-        fifth.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 27));
-        yourScore.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 24));
-        yourRank.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 24));
+        first.setFont(font);
+        second.setFont(font);
+        third.setFont(font);
+        forth.setFont(font);
+        fifth.setFont(font);
+        yourScore.setFont(font);
+        yourRank.setFont(font);
 
         anchorPane1.getChildren().addAll(first, second, third, forth, fifth, yourRank, yourScore);
 
@@ -1195,6 +1260,14 @@ public class Board
                 chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(x, y)).cheatingFlip();
         };
         group.setOnMouseClicked(eventHandler);
+    }
+
+    public static Font setFont() throws FileNotFoundException
+    {
+        Font font = Font.loadFont(
+                new FileInputStream("fonts/font.ttf"),
+                30);
+        return font;
     }
 
 }

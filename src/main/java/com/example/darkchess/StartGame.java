@@ -97,7 +97,7 @@ public class StartGame
         nextButton.setTranslateY(525.40515);
         nextButton.setPrefWidth(150);
         nextButton.setPrefHeight(50);
-        nextButton.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
+        nextButton.setFont(Board.font);
 
         if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();
@@ -142,12 +142,9 @@ public class StartGame
     @FXML
     void cLogOut(ActionEvent event) throws IOException
     {
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quit.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("退出");
-        stage.setScene(scene);
-        stage.show();
+
+        LogIn.theStartGameStage.close();
+        InitializationApplication.theStartPage.show();
     }
 
     @FXML

@@ -328,7 +328,7 @@ public abstract class ChessPiece extends ImageView
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayerEnd = new MediaPlayer(media);
         mediaPlayerEnd.setAutoPlay(true);
-        mediaPlayerEnd.setVolume(Preference.volume);
+        mediaPlayerEnd.setVolume(2);
         mediaPlayerEnd.setCycleCount(1);
         mediaPlayerEnd.setRate(2);
     }
