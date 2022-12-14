@@ -192,13 +192,13 @@ public class StartGame
             InitializationApplication.mediaPlayerFirst.pause();
         modeOfAll = 2;
         new Client();
+        chessPieceArrayList = CanvasUtils.setAllChess();
         JSONObject message = new JSONObject();
         message.put("signalType",1);
         message.put("actionType",2);
         message.put("password", LogIn.password);
         message.put("userName", LogIn.account);
         Client.sendMessage(message);
-        chessPieceArrayList = CanvasUtils.setAllChess();
         if(judge)
         {
             Board.startGame(2);
@@ -206,6 +206,7 @@ public class StartGame
         else
         {
             Board.theBoardStage.show();
+            Board.online(group);
             LogIn.theStartGameStage.close();
         }
        LogIn.theStartGameStage.close();

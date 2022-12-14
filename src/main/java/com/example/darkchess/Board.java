@@ -49,60 +49,61 @@ import static com.example.darkchess.StartPage.thePreferenceStage;
 
 public class Board
 {
-    static public double gird = 50;
-    static public double boardW = 4 * gird + 1f / 3 * gird;
-    static public double boardH = 8 * gird + 1f / 3 * gird;
-    static Canvas canvas = new Canvas(boardW + 2 * 41.65, boardH + 41.65);
-    static public AnchorPane anchorPane = new AnchorPane();
-    static public GraphicsContext gc = canvas.getGraphicsContext2D();
-    static protected Text bTurn = new Text("先手翻棋");
-    static public ArrayList<ChessPiece> chessPieceArrayList;
-    static protected Text r = new Text("红方");
-    static protected Text b = new Text("黑方");
-    public static Text rName = new Text("用户一 ");
-    public static Text bName = new Text("用户二 ");
-    static protected Text rText = new Text("分数 0");
-    static protected Text bText = new Text("分数 0");
-    static Stage theBoardStage;
-    public static Group group = new Group();
-    public static boolean cheatingFlag = false;
-    public static Stage theNamingStage;
-    public static boolean namingStageFlag = true;
 
-    public static ImageView ir;
-    public static ImageView ib;
-    public static Button nextButton;
+        static public double gird = 50;
+        static public double boardW = 4 * gird + 1f / 3 * gird;
+        static public double boardH = 8 * gird + 1f / 3 * gird;
+        static Canvas canvas = new Canvas(boardW + 2 * 41.65, boardH + 41.65);
+        static public AnchorPane anchorPane = new AnchorPane();
+        static public GraphicsContext gc = canvas.getGraphicsContext2D();
+        static protected Text bTurn = new Text("先手翻棋");
+        static public ArrayList<ChessPiece> chessPieceArrayList;
+        static protected Text r = new Text("红方");
+        static protected Text b = new Text("黑方");
+        public static Text rName = new Text("用户一 ");
+        public static Text bName = new Text("用户二 ");
+        static protected Text rText = new Text("分数 0");
+        static protected Text bText = new Text("分数 0");
+        static Stage theBoardStage;
+        public static Group group = new Group();
+        public static boolean cheatingFlag = false;
+        public static Stage theNamingStage;
+        public static boolean namingStageFlag = true;
 
-    public static ImageView imageView1;
-    public static boolean inFlag = true;
-    public static int right = 0;
-    public static Menu menu5;
+        public static ImageView ir;
+        public static ImageView ib;
+        public static Button nextButton;
 
-    public static double rX = 100;
-    public static double rTextX = 85;
-    public static double irX = 80;
-    public static double rY = 250;
-    public static double rTextY = 380;
-    public static double irY = 100;
-    public static double rNameX = 115;
-    public static double rNameY = 310;
-    public static double rProgressBarX = 80;
-    public static double rProgressBarY = 70;
-    public static ProgressBar rProgressBar = new ProgressBar(0);
-    public static ProgressBar bProgressBar = new ProgressBar(0);
-    public static Font font;
+        public static ImageView imageView1;
+        public static boolean inFlag = true;
+        public static int right = 0;
+        public static Menu menu5;
 
-    static
-    {
-        try
+        public static double rX = 100;
+        public static double rTextX = 85;
+        public static double irX = 80;
+        public static double rY = 250;
+        public static double rTextY = 380;
+        public static double irY = 100;
+        public static double rNameX = 115;
+        public static double rNameY = 310;
+        public static double rProgressBarX = 80;
+        public static double rProgressBarY = 70;
+        public static ProgressBar rProgressBar = new ProgressBar(0);
+        public static ProgressBar bProgressBar = new ProgressBar(0);
+        public static Font font;
+
+        static
         {
-            font = setFont();
+            try
+            {
+                font = setFont();
+            }
+            catch (FileNotFoundException e)
+            {
+                throw new RuntimeException(e);
+            }
         }
-        catch (FileNotFoundException e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
 
     public static void startGame(int mode) throws IOException
     {
@@ -1263,8 +1264,8 @@ public class Board
                     JSONObject message = new JSONObject();
                     message.put("signalType", 2);
                     message.put("actionType",1);
-                    message.put("clickX",x);
-                    message.put("clickY",y);
+                    message.put("clickX",y);
+                    message.put("clickY",x);
                     Client.sendMessage(message);
                 }
                 //重新设定计分板
