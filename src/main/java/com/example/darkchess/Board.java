@@ -117,8 +117,7 @@ public class Board
         anchorPane.setMinHeight(boardH * 1.5);
 
         //页面背景
-        //imageView1 = new ImageView("file:/" + Preference.pictureAddressUse);
-        imageView1 = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.616pic.com%2Fbg_w1180%2F00%2F24%2F22%2F6F2rbyxDg4.jpg&refer=http%3A%2F%2Fpic.616pic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673607905&t=8a1e3344c84154ee060d41abe1d99cf7");
+        imageView1 = new ImageView("file:/" + Preference.pictureAddressUse);
         imageView1.setFitWidth(900);
         imageView1.setFitHeight(600);
         anchorPane.getChildren().add(imageView1);
@@ -1288,7 +1287,7 @@ public class Board
     {
         Font font = Font.loadFont(
                 new FileInputStream("fonts/font.ttf"),
-                30);
+                40);
         return font;
     }
 

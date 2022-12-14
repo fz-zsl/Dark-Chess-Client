@@ -124,7 +124,7 @@ public class Client
                         //set a chess
                         //System.out.println(chessPieceArrayList.size());
                         chessPieceArrayList.get(objectIndex).setTranslateX(ChessPiece.getChessXFx(curY));
-                        chessPieceArrayList.get(objectIndex).setTranslateX(ChessPiece.getChessXFx(curX));
+                        chessPieceArrayList.get(objectIndex).setTranslateY(ChessPiece.getChessYFx(curX));
                     }
                 }
                 else if (signalType == 3)

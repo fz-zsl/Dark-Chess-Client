@@ -95,7 +95,7 @@ public class StartGame
         nextButton = new Button("下一步");
         nextButton.setTranslateX(380.04);
         nextButton.setTranslateY(525.40515);
-        nextButton.setPrefWidth(150);
+        nextButton.setPrefWidth(180);
         nextButton.setPrefHeight(50);
         nextButton.setFont(Board.font);
 
