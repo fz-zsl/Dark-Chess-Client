@@ -118,7 +118,6 @@ public class Client
                         curX = info.getInt("curX");
                         curY = info.getInt("curY");
                         System.out.println(curX + " " + curY);
-                        System.out.println(chessPieceArrayList);
                         chessPieceArrayList.get(objectIndex).setTranslateX(ChessPiece.getChessXFx(curY));
                         chessPieceArrayList.get(objectIndex).setTranslateY(ChessPiece.getChessYFx(curX));
                     }

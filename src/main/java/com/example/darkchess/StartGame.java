@@ -192,7 +192,6 @@ public class StartGame
             InitializationApplication.mediaPlayerFirst.pause();
         modeOfAll = 2;
         chessPieceArrayList = CanvasUtils.setAllChess();
-        System.out.println(chessPieceArrayList);
         new Client();
         JSONObject message = new JSONObject();
         message.put("signalType",1);
