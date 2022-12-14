@@ -16,7 +16,7 @@ import net.sf.json.JSONObject;
 
 public class Client
 {
-    private String serverIP = "192.168.43.199";
+    private String serverIP = "10.27.96.18";
     static Socket serverSocket;
     DataInputStream inputStream;
     DataOutputStream outputStream;
