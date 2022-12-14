@@ -85,7 +85,6 @@ public class LogIn
     @FXML
     void cLogIn(MouseEvent event) throws IOException
     {
-        System.out.println();
         try
         {
             LoginInterface.userLogIn(account, password);

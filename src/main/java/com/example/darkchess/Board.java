@@ -754,7 +754,8 @@ public class Board
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
         ir.setFitWidth(100);
-        ib = new ImageView("file:/D:/backgrounds/hb1.jpg");
+        //ib = new ImageView("file:/D:/backgrounds/hb1.jpg");
+        ib = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F9f%2F6b%2F59%2F9f6b59e3c4e2f9abd632e6f73143d65b.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673610777&t=2b5744ba74d57757f46369d242ec900c");
         ib.setTranslateX(irX + 600);
         ib.setTranslateY(irY);
         ib.setFitHeight(100);
@@ -828,7 +829,7 @@ public class Board
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
         ir.setFitWidth(100);
-        ib = new ImageView("file:/D:/backgrounds/hb4.jpg");
+        ib = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F9f%2F6b%2F59%2F9f6b59e3c4e2f9abd632e6f73143d65b.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673610777&t=2b5744ba74d57757f46369d242ec900c");
         ib.setTranslateX(irX + 600);
         ib.setTranslateY(irY);
         ib.setFitHeight(100);
@@ -955,7 +956,7 @@ public class Board
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
         ir.setFitWidth(100);
-        ib = new ImageView("file:/D:/backgrounds/hb1.jpg");
+        ib = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F9f%2F6b%2F59%2F9f6b59e3c4e2f9abd632e6f73143d65b.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673610777&t=2b5744ba74d57757f46369d242ec900c");
         ib.setTranslateX(irX + 600);
         ib.setTranslateY(irY);
         ib.setFitHeight(100);
@@ -1235,7 +1236,7 @@ public class Board
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
         ir.setFitWidth(100);
-        ib = new ImageView("file:/D:/backgrounds/hb4.jpg");
+        ib = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F9f%2F6b%2F59%2F9f6b59e3c4e2f9abd632e6f73143d65b.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673610777&t=2b5744ba74d57757f46369d242ec900c");
         ib.setTranslateX(irX + 600);
         ib.setTranslateY(irY);
         ib.setFitHeight(100);
@@ -1247,7 +1248,6 @@ public class Board
 
         //设置棋盘，画出棋子
         CanvasUtils.set(1);
-        GeneralInit.generalInit();
 
         EventHandler<MouseEvent> eventHandler = mouseEvent ->
         {

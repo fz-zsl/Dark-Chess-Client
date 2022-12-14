@@ -224,6 +224,8 @@ public class CanvasUtils
             chessPieceArrayList.get(30).setCo(250 - t + 600, 458.35);
             chessPieceArrayList.get(31).setCo(250 - t + 600, 458.35);
         }
+        else if(mode == 2);
+
     }
 
     public static void highLight(int x, int y)

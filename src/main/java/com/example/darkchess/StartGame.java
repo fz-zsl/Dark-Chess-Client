@@ -142,7 +142,6 @@ public class StartGame
     @FXML
     void cLogOut(ActionEvent event) throws IOException
     {
-
         LogIn.theStartGameStage.close();
         InitializationApplication.theStartPage.show();
     }
@@ -151,6 +150,7 @@ public class StartGame
     void cOffline(MouseEvent event) throws IOException
 
     {
+        System.out.println(StartGame.judge);
         if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();
         modeOfAll = 1;
@@ -207,9 +207,8 @@ public class StartGame
             Board.theBoardStage.show();
             LogIn.theStartGameStage.close();
         }
-
        LogIn.theStartGameStage.close();
-
+        judge = false;
     }
 
     @FXML
