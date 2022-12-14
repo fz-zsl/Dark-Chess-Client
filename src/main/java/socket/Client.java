@@ -161,7 +161,7 @@ public class Client
 
                         if(flag)
                         {
-                            anchorPane.getChildren().remove(textField);
+                            System.out.println("匹配成功！");
                         }
                     }
                 }
