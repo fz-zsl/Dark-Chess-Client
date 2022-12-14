@@ -1267,6 +1267,7 @@ public class Board
                     message.put("clickX",y);
                     message.put("clickY",x);
                     Client.sendMessage(message);
+                    System.out.println(message);
                 }
                 //重新设定计分板
                 Integer redScore = UserStatus.getRedScore();

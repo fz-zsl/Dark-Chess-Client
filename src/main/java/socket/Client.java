@@ -11,7 +11,6 @@ import static com.example.darkchess.Board.chessPieceArrayList;
 
 import Piece.ChessPiece;
 import com.example.darkchess.CanvasUtils;
-import javafx.scene.text.*;
 import net.sf.json.JSONObject;
 
 public class Client
@@ -118,7 +117,8 @@ public class Client
                         objectIndex = info.getInt("objectIndex");
                         curX = info.getInt("curX");
                         curY = info.getInt("curY");
-//                        System.out.println(curX + " " + curY);
+                        System.out.println(curX + " " + curY);
+                        System.out.println(chessPieceArrayList);
                         chessPieceArrayList.get(objectIndex).setTranslateX(ChessPiece.getChessXFx(curY));
                         chessPieceArrayList.get(objectIndex).setTranslateY(ChessPiece.getChessYFx(curX));
                     }
@@ -145,7 +145,6 @@ public class Client
                     if(actionType == 3)
                     {
                         Boolean flag = info.getBoolean("result");
-                        Text textField = null;
                         if(!flag)
                         {
                             System.out.println("正在匹配……");
