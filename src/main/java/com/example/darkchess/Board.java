@@ -1264,8 +1264,8 @@ public class Board
                     JSONObject message = new JSONObject();
                     message.put("signalType", 2);
                     message.put("actionType",1);
-                    message.put("clickX",y);
-                    message.put("clickY",x);
+                    message.put("clickX",x);
+                    message.put("clickY",y);
                     Client.sendMessage(message);
                     System.out.println(message);
                 }
