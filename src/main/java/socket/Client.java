@@ -56,7 +56,6 @@ public class Client
         @Override
         public void run()
         {
-            chessPieceArrayList = CanvasUtils.setAllChess();
             while (true)
             {
                 String infoString = null;
@@ -81,7 +80,6 @@ public class Client
                     }
                     else if (actionType == 2)
                     {
-                        System.out.println("棋盘初始化完毕，棋子就位");
                         objectIndex = info.getInt("objectIndex");
                         curX = info.getInt("curX");
                         curY = info.getInt("curY");
@@ -117,12 +115,10 @@ public class Client
                     }
                     else if (actionType == 6)
                     {
-                        //System.out.println("set a chess");
                         objectIndex = info.getInt("objectIndex");
                         curX = info.getInt("curX");
                         curY = info.getInt("curY");
-                        //set a chess
-                        //System.out.println(chessPieceArrayList.size());
+                        System.out.println(curX + " " + curY);
                         chessPieceArrayList.get(objectIndex).setTranslateX(ChessPiece.getChessXFx(curY));
                         chessPieceArrayList.get(objectIndex).setTranslateY(ChessPiece.getChessYFx(curX));
                     }

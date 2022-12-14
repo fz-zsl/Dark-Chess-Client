@@ -198,6 +198,7 @@ public class StartGame
         message.put("password", LogIn.password);
         message.put("userName", LogIn.account);
         Client.sendMessage(message);
+        chessPieceArrayList = CanvasUtils.setAllChess();
         if(judge)
         {
             Board.startGame(2);
