@@ -3,6 +3,7 @@ package socket;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import net.sf.json.JSONObject;
 
 public class Client
 {
-    private String serverIP = "10.12.97.137";
+    private String serverIP = "192.168.43.199";
     static Socket serverSocket;
     DataInputStream inputStream;
     DataOutputStream outputStream;
@@ -103,8 +104,14 @@ public class Client
                     }
                     else if (actionType == 4)
                     {
-                        ArrayList<Integer> allPossibleMoves = new ArrayList<>((ArrayList<Integer>) info.get("allPossibleMoves"));
+                        ArrayList<Integer> allPossibleMoves = new ArrayList<>();
                         //show all possible moves
+                        String rawString1=info.getString("APM");
+                        String rawString2=rawString1.substring(1,rawString1.length()-2);
+                        //System.out.println(rawString2);
+                        String[] rawStrings=rawString2.split(",");
+                        for (String str:rawStrings)
+                            allPossibleMoves.add(Integer.parseInt(str));
                         CanvasUtils.highLight(allPossibleMoves);
                     }
                     else if (actionType == 5)

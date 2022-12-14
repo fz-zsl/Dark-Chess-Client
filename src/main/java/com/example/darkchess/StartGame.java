@@ -188,6 +188,7 @@ public class StartGame
     @FXML
     void cOnline(MouseEvent event) throws IOException
     {
+        CanvasUtils.cancelHighLight();
         if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();
         modeOfAll = 2;
