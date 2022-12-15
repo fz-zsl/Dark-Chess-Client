@@ -49,6 +49,7 @@ public class StartGame
     @FXML
     void cComputer(MouseEvent event)throws IOException
     {
+        CanvasUtils.reRec();
         if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();
         modeOfAll = 3;
@@ -91,6 +92,7 @@ public class StartGame
     @FXML
     void cHalf(MouseEvent event) throws IOException
     {
+        CanvasUtils.reRec();
         //下一步的按钮
         nextButton = new Button("下一步");
         nextButton.setTranslateX(380.04);
@@ -148,8 +150,8 @@ public class StartGame
 
     @FXML
     void cOffline(MouseEvent event) throws IOException
-
     {
+        CanvasUtils.reRec();
         System.out.println(StartGame.judge);
         if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();

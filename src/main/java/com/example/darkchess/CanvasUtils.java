@@ -11,6 +11,7 @@ import static com.example.darkchess.Board.*;
 
 public class CanvasUtils
 {
+    public static ArrayList<Rectangle> rectangles2 = new ArrayList<>();
     static ArrayList<Rectangle> rectangles = new ArrayList<Rectangle>();
     public static void drawChessBoard(GraphicsContext gc)//画出棋盘线
     {
@@ -245,6 +246,7 @@ public class CanvasUtils
     public static void highLight(ArrayList<Integer> APM) {
         int size=APM.size();
         for (int i=1;i<size;++i) {
+            System.out.println("APMMMMMM: "+APM.get(i));
             highLight(APM.get(i)%10,APM.get(i)/10);
         }
     }
@@ -254,6 +256,44 @@ public class CanvasUtils
         if(!rectangles.isEmpty())
             anchorPane.getChildren().removeAll(rectangles);
         return;
+    }
+
+    public static void setRec()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            Rectangle rectangle = new Rectangle();
+            rectangle.setTranslateX(-50);
+            rectangle.setTranslateY(-50);
+            rectangle.setFill(null);
+            rectangle.setStroke(Color.GREEN);
+            rectangle.setStrokeWidth(3);
+            rectangle.setHeight(gird);
+            rectangle.setWidth(gird);
+            rectangle.toFront();
+            rectangles2.add(rectangle);
+        }
+        anchorPane.getChildren().addAll(rectangles2);
+    }
+
+    public static void reRec()
+    {
+        if(!rectangles2.isEmpty())
+            anchorPane.getChildren().removeAll(rectangles2);
+    }
+
+    public static void moveRe(int x, int y, int i)
+    {
+        rectangles2.get(i).setTranslateX(ChessPiece.getChessXFx(y));
+        rectangles2.get(i).setTranslateY(ChessPiece.getChessYFx(x));
+    }
+    public static void removeRe()
+    {
+        for(Rectangle rectangle: rectangles2)
+        {
+            rectangle.setTranslateX(-50);
+            rectangle.setTranslateY(-50);
+        }
     }
 
 }

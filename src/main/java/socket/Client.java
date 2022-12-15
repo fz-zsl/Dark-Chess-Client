@@ -107,17 +107,23 @@ public class Client
                         ArrayList<Integer> allPossibleMoves = new ArrayList<>();
                         //show all possible moves
                         String rawString1=info.getString("APM");
-                        String rawString2=rawString1.substring(1,rawString1.length()-2);
-                        //System.out.println(rawString2);
+                        String rawString2=rawString1.substring(1,rawString1.length()-1);
+                        System.out.println(rawString2);
                         String[] rawStrings=rawString2.split(",");
-                        for (String str:rawStrings)
-                            allPossibleMoves.add(Integer.parseInt(str));
-                        CanvasUtils.highLight(allPossibleMoves);
+                        for (int i=1;i<rawStrings.length;++i) {
+                            String str=rawStrings[i];
+                            CanvasUtils.moveRe(Integer.parseInt(str)/10,Integer.parseInt(str)%10,i);
+                        }
+//                        for (String str:rawStrings)
+//                            allPossibleMoves.add(Integer.parseInt(str));
+
+//                        CanvasUtils.highLight(allPossibleMoves);
+//                        CanvasUtils.moveRe();
                     }
                     else if (actionType == 5)
                     {
                         //cancel high light
-                        CanvasUtils.cancelHighLight();
+                        CanvasUtils.removeRe();
                     }
                     else if (actionType == 6)
                     {

@@ -380,6 +380,7 @@ public class Board
                 @Override
                 public void handle(ActionEvent actionEvent)
                 {
+                    CanvasUtils.reRec();
                     try {
                         SaveGame.writeUserFile();
                     } catch (IOException ioException) {
@@ -513,6 +514,7 @@ public class Board
 
             EventHandler<ActionEvent> eventHandler7 = e ->
             {
+                CanvasUtils.reRec();
                 CanvasUtils.cancelHighLight();
                 if (Preference.soundSwitch)
                     InitializationApplication.mediaPlayerFirst.play();
@@ -578,6 +580,7 @@ public class Board
 
             EventHandler<ActionEvent> eventHandler = e ->
             {
+                CanvasUtils.reRec();
                 if (Preference.chessSound)
                     InitializationApplication.mediaPlayerFirst.play();
                 for (ChessPiece c : chessPieceArrayList)
@@ -1227,6 +1230,7 @@ public class Board
 
     public static void online(Group group)
     {
+        CanvasUtils.setRec();
         r.setText("玩家A");
         r.setFill(Color.BLACK);
         b.setText("玩家B");
