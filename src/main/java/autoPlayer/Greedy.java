@@ -14,6 +14,8 @@ public class Greedy {
 	//dep is the counter of remaining steps, including itself
 	public static int greedy(int dep,boolean directUse,int level) throws GameEndsException, MalformedURLException
 	{
+		int alpha=-1028;
+		int beta=622;
 		int[] modulo=new int[]{1,10,100,1000};
 		int[] randomSteps=new int[]{10000,10,5,0};
 		int[][] val=new int[10][7];
@@ -63,9 +65,10 @@ public class Greedy {
 					int curVal=(dep%2==1?UserStatus.scorePerChessGreedyB[ChessBoardInit.indexToChess[chessStatus%50]%10]:UserStatus.scorePerChessGreedyA[ChessBoardInit.indexToChess[chessStatus%50]%10])
 							-(dep>1?Greedy.greedy(dep-1,false,level):0);
 					if (val[i][j]<curVal) {
-						val[i][j]=curVal;
+						alpha=val[i][j]=curVal;
 						nxt[i][j]=posX*10+posY;
 					}
+					if (beta>curVal) beta=curVal;
 					ChessBoardStatus.moveChess(posX,posY,i,j);
 					ChessBoardStatus.chessInit(posX,posY,posStatus%50,posStatus>49);
 				}
@@ -81,6 +84,7 @@ public class Greedy {
 			}
 		}
 		if (!directUse) return ans;
+		if (ans<beta||ans>alpha) return ans;
 		Random rand=new Random(System.currentTimeMillis());
 		cnt=rand.nextInt(36);//guess why it is 36 :)
 		for (int i=1;i<=8;i=(i==8?1:i+1))

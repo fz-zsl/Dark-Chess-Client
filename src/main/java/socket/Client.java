@@ -50,6 +50,7 @@ public class Client
         }
     }
 
+    ArrayList<JSONObject> setChessQueue=new ArrayList<>();
 
     class ClientThread implements Runnable
     {
@@ -131,8 +132,26 @@ public class Client
                         curX = info.getInt("curX");
                         curY = info.getInt("curY");
                         System.out.println(curX + " " + curY);
-                        chessPieceArrayList.get(objectIndex).setTranslateX(ChessPiece.getChessXFx(curY));
-                        chessPieceArrayList.get(objectIndex).setTranslateY(ChessPiece.getChessYFx(curX));
+                        if (setChessQueue.size()==32) {
+                            System.out.println("Prints now!");
+                            chessPieceArrayList.get(objectIndex).setTranslateX(ChessPiece.getChessXFx(curY));
+                            chessPieceArrayList.get(objectIndex).setTranslateY(ChessPiece.getChessYFx(curX));
+                        }
+                        else {
+                            JSONObject curChess=new JSONObject();
+                            curChess.put("objectIndex",objectIndex);
+                            curChess.put("curX",curX);
+                            curChess.put("curY",curY);
+                            setChessQueue.add(curChess);
+                            if (setChessQueue.size()==32)
+                                for (JSONObject tmpChess:setChessQueue) {
+                                    objectIndex=curChess.getInt("objectIndex");
+                                    curX=curChess.getInt("curX");
+                                    curY=curChess.getInt("curY");
+                                    chessPieceArrayList.get(objectIndex).setTranslateX(ChessPiece.getChessXFx(curY));
+                                    chessPieceArrayList.get(objectIndex).setTranslateY(ChessPiece.getChessYFx(curX));
+                                }
+                        }
                     }
                 }
                 else if (signalType == 3)
