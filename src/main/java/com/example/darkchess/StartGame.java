@@ -191,6 +191,11 @@ public class StartGame
     void cOnline(MouseEvent event) throws IOException
     {
         CanvasUtils.cancelHighLight();
+        r.setText("玩家A");
+        r.setFill(Color.BLACK);
+        b.setText("玩家B");
+        rText.setFill(Color.BLACK);
+        bTurn.setText("请翻棋");
         if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();
         modeOfAll = 2;

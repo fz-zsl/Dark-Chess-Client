@@ -111,7 +111,6 @@ public class LogIn
     void onKeyTypedAccount(KeyEvent event)
     {
         account = textFieldUser.getText();
-        //Showing.Info(account);
     }
 
     @FXML

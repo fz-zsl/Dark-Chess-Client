@@ -85,7 +85,7 @@ public class Board
         public static double rY = 250;
         public static double rTextY = 380;
         public static double irY = 100;
-        public static double rNameX = 9+0;
+        public static double rNameX = 90;
         public static double rNameY = 310;
         public static double rProgressBarX = 80;
         public static double rProgressBarY = 70;
