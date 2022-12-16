@@ -133,7 +133,7 @@ public class Client
                         curY = info.getInt("curY");
                         System.out.println(curX + " " + curY);
                         if (setChessQueue.size()==32) {
-                            System.out.println("Prints now!");
+//                            System.out.println("Prints now!");
                             chessPieceArrayList.get(objectIndex).setTranslateX(ChessPiece.getChessXFx(curY));
                             chessPieceArrayList.get(objectIndex).setTranslateY(ChessPiece.getChessYFx(curX));
                         }
@@ -145,9 +145,9 @@ public class Client
                             setChessQueue.add(curChess);
                             if (setChessQueue.size()==32)
                                 for (JSONObject tmpChess:setChessQueue) {
-                                    objectIndex=curChess.getInt("objectIndex");
-                                    curX=curChess.getInt("curX");
-                                    curY=curChess.getInt("curY");
+                                    objectIndex=tmpChess.getInt("objectIndex");
+                                    curX=tmpChess.getInt("curX");
+                                    curY=tmpChess.getInt("curY");
                                     chessPieceArrayList.get(objectIndex).setTranslateX(ChessPiece.getChessXFx(curY));
                                     chessPieceArrayList.get(objectIndex).setTranslateY(ChessPiece.getChessYFx(curX));
                                 }

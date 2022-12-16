@@ -81,7 +81,7 @@ public abstract class ChessPiece extends ImageView
 
     public void transportAChess(double initialX, double initialY, double destinationX, double destinationY)
     {
-//        this.toFront();
+        this.toFront();
         TranslateTransition tt = new TranslateTransition();
         tt.setNode(this);
         tt.setDuration(Duration.seconds(0.5));
@@ -159,8 +159,8 @@ public abstract class ChessPiece extends ImageView
         timeline.getKeyFrames().addAll(keyFrame, keyFrame1,keyFrame2,keyFrame3,keyFrame4,keyFrame5);
         timeline.setDelay(Duration.seconds(0.8));
         timeline.play();
-//        this.getCircle().toFront();
-//        this.getText().toFront();
+        this.getCircle().toFront();
+        this.getText().toFront();
         if(Preference.chessSound)
             eatenSound();
     }

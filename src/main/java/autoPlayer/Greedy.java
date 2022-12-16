@@ -84,7 +84,7 @@ public class Greedy {
 			}
 		}
 		if (!directUse) return ans;
-		if (ans<beta||ans>alpha) return ans;
+//		if (ans<beta||ans>alpha) return ans;
 		Random rand=new Random(System.currentTimeMillis());
 		cnt=rand.nextInt(36);//guess why it is 36 :)
 		for (int i=1;i<=8;i=(i==8?1:i+1))
