@@ -77,7 +77,8 @@ public class Client
                     if (actionType == 1)
                     {
                         objectIndex = info.getInt("objectIndex");
-                        chessPieceArrayList.get(objectIndex).flipAChess();
+                        if(objectIndex>=0)
+                            chessPieceArrayList.get(objectIndex).flipAChess();
                     }
                     else if (actionType == 2)
                     {
@@ -86,7 +87,8 @@ public class Client
                         curY = info.getInt("curY");
                         preX = info.getInt("preX");
                         preY = info.getInt("preY");
-                        chessPieceArrayList.get(objectIndex).transportAChess(ChessPiece.getChessXFx(preY), ChessPiece.getChessYFx(preX), ChessPiece.getChessXFx(curY), ChessPiece.getChessYFx(curX));
+                        if(objectIndex>=0)
+                            chessPieceArrayList.get(objectIndex).transportAChess(ChessPiece.getChessXFx(preY), ChessPiece.getChessYFx(preX), ChessPiece.getChessXFx(curY), ChessPiece.getChessYFx(curX));
                     }
                     else if (actionType == 3)
                     {
@@ -94,13 +96,12 @@ public class Client
                         objectIndex = info.getInt("objectIndex");
                         curX = info.getInt("curX");
                         curY = info.getInt("curY");
-                        try
-                        {
-                            chessPieceArrayList.get(objectIndex).removeAChess(ChessPiece.getChessXFx(curX), ChessPiece.getChessYFx(curY));
-                        }
-                        catch (MalformedURLException e)
-                        {
-                            throw new RuntimeException(e);
+                        if(objectIndex>=0) {
+                            try {
+                                chessPieceArrayList.get(objectIndex).removeAChess(ChessPiece.getChessXFx(curX), ChessPiece.getChessYFx(curY));
+                            } catch (MalformedURLException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
                     else if (actionType == 4)
@@ -168,7 +169,8 @@ public class Client
                         curX = info.getInt("curX");
                         curY = info.getInt("curY");
                         //reRemoveAChess
-                        chessPieceArrayList.get(objectIndex).reRemoveAChess(ChessPiece.getChessXFx(curY), ChessPiece.getChessYFx(curX));
+                        if(objectIndex>=0)
+                            chessPieceArrayList.get(objectIndex).reRemoveAChess(ChessPiece.getChessXFx(curY), ChessPiece.getChessYFx(curX));
                     }
                 }
                 else if(signalType == 1)

@@ -15,7 +15,7 @@ public class Greedy {
 	public static int greedy(int dep,boolean directUse,int level) throws GameEndsException, MalformedURLException
 	{
 		int alpha=-1028;
-		int beta=622;
+		int beta=1028;
 		int[] modulo=new int[]{1,10,100,1000};
 		int[] randomSteps=new int[]{10000,10,5,0};
 		int[][] val=new int[10][7];
@@ -57,6 +57,7 @@ public class Greedy {
 							val[i][j]=curVal;
 							nxt[i][j]=posX*10+posY;
 						}
+						if (beta>curVal) beta=curVal;
 						ChessBoardStatus.moveChess(posX,posY,i,j);
 						continue;
 					}
