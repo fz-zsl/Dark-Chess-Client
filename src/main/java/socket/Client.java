@@ -88,7 +88,7 @@ public class Client
                         preX = info.getInt("preX");
                         preY = info.getInt("preY");
                         if(objectIndex>=0)
-                            chessPieceArrayList.get(objectIndex).transportAChess(ChessPiece.getChessXFx(preY), ChessPiece.getChessYFx(preX), ChessPiece.getChessXFx(curY), ChessPiece.getChessYFx(curX));
+                            chessPieceArrayList.get(objectIndex).transportAChess2(ChessPiece.getChessXFx(preY), ChessPiece.getChessYFx(preX), ChessPiece.getChessXFx(curY), ChessPiece.getChessYFx(curX));
                     }
                     else if (actionType == 3)
                     {
@@ -98,7 +98,8 @@ public class Client
                         curY = info.getInt("curY");
                         if(objectIndex>=0) {
                             try {
-                                chessPieceArrayList.get(objectIndex).removeAChess(ChessPiece.getChessXFx(curX), ChessPiece.getChessYFx(curY));
+                                chessPieceArrayList.get(objectIndex).setEatenNumber();
+                                chessPieceArrayList.get(objectIndex).removeAChess2(ChessPiece.getChessXFx(curX), ChessPiece.getChessYFx(curY));
                             } catch (MalformedURLException e) {
                                 throw new RuntimeException(e);
                             }

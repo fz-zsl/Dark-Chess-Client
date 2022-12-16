@@ -81,7 +81,21 @@ public abstract class ChessPiece extends ImageView
 
     public void transportAChess(double initialX, double initialY, double destinationX, double destinationY)
     {
-//        this.toFront();
+        this.toFront();
+        TranslateTransition tt = new TranslateTransition();
+        tt.setNode(this);
+        tt.setDuration(Duration.seconds(0.5));
+        tt.setFromX(initialX);
+        tt.setFromY(initialY);
+        tt.setToX(destinationX);
+        tt.setToY(destinationY);
+        tt.play();
+        if(Preference.chessSound)
+            flipSound(this.getPieceType().getAudio());
+    }
+
+    public void transportAChess2(double initialX, double initialY, double destinationX, double destinationY)
+    {
         TranslateTransition tt = new TranslateTransition();
         tt.setNode(this);
         tt.setDuration(Duration.seconds(0.5));
@@ -157,6 +171,76 @@ public abstract class ChessPiece extends ImageView
 
         timeline.getKeyFrames().addAll(keyFrame, keyFrame1,keyFrame2,keyFrame3,keyFrame4,keyFrame5);
         timeline.setDelay(Duration.seconds(0.8));
+        timeline.play();
+//        this.getCircle().toFront();
+//        this.getText().toFront();
+        if(Preference.chessSound)
+            eatenSound();
+    }
+
+    public void removeAChess2(double initialX, double initialY) throws MalformedURLException
+    {
+        ChessPiece chessPiece = this;
+        Timeline timeline = new Timeline();
+        KeyValue keyValue1 = new KeyValue(this.translateXProperty(),this.getEatenX());
+        KeyValue keyValue2 = new KeyValue(this.translateYProperty(),this.getEatenY());
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3), "move", new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {}
+        },keyValue1, keyValue2);
+
+        KeyValue keyValue3 = new KeyValue(this.scaleXProperty(),1.2);
+        KeyValue keyValue4 = new KeyValue(this.scaleYProperty(),1.2);
+        KeyFrame keyFrame1 = new KeyFrame(Duration.seconds(0.4), "flip", new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+                chessPiece.setImage(new Image(chessPiece.pieceType.getAddress()));
+            }
+        }, keyValue3,keyValue4);//放大
+
+        KeyValue keyValue5 = new KeyValue(this.scaleXProperty(), 1.1);
+        KeyValue keyValue6 = new KeyValue(this.scaleYProperty(), 1.1);
+        KeyFrame keyFrame2 = new KeyFrame(Duration.seconds(0.4 + time), "reaction", new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+            }
+        },keyValue5, keyValue6);//显示
+
+        KeyValue keyValue7 = new KeyValue(this.scaleXProperty(), 1);
+        KeyValue keyValue8 = new KeyValue(this.scaleYProperty(), 1);
+        KeyFrame keyFrame3 = new KeyFrame(Duration.seconds(0.5 + time), "flip2", new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+            }
+        }, keyValue7,keyValue8);//缩小
+
+        KeyValue keyValue9 = new KeyValue(this.getCircle().fillProperty(),Color.RED);
+        KeyFrame keyFrame4 = new KeyFrame(Duration.seconds(0.5 + time), "cirlce", new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+            }
+        },keyValue9);
+        KeyValue keyValue10 = new KeyValue(this.getText().fillProperty(),Color.GREEN);
+        KeyFrame keyFrame5 = new KeyFrame(Duration.seconds(0.51 + time), "text", new EventHandler<ActionEvent>()
+        {
+            @Override
+            public void handle(ActionEvent actionEvent)
+            {
+            }
+        },keyValue10);
+
+        timeline.getKeyFrames().addAll(keyFrame, keyFrame1,keyFrame2,keyFrame3,keyFrame4,keyFrame5);
+        timeline.setDelay(Duration.seconds(0.3));
         timeline.play();
 //        this.getCircle().toFront();
 //        this.getText().toFront();
@@ -311,6 +395,14 @@ public abstract class ChessPiece extends ImageView
     public void getEatenNumber(int x)
     {
         i = x;
+        this.getText().setText(i.toString());
+    }
+
+    public void setEatenNumber()
+    {
+        if(i == -1)
+            i = 0;
+        i ++;
         this.getText().setText(i.toString());
     }
 
