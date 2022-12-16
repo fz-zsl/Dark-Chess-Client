@@ -10,14 +10,16 @@ public class BChariot extends ChessPiece
     public static Circle circle = new Circle();
     public static Text text = new Text();
     private static boolean judge = true;
+
     public void setJudge(boolean judge1)
     {
         judge = judge1;
     }
+
     public BChariot(PieceType pieceType)
     {
         super(pieceType);
-        if(judge)
+        if (judge)
         {
             circle.setFill(null);
             text.setFill(null);
@@ -28,11 +30,12 @@ public class BChariot extends ChessPiece
         text.toFront();
         judge = false;
     }
+
     public void re()
     {
-        if(!status)
+        if (!status)
             this.reFlipAChess();
-        if(i <= 0)
+        if (i <= 0)
         {
             circle.setFill(null);
             text.setFill(null);
@@ -42,6 +45,7 @@ public class BChariot extends ChessPiece
             text.setText(i.toString());
         }
     }
+
     public Circle getCircle()
     {
         return circle;
@@ -50,5 +54,16 @@ public class BChariot extends ChessPiece
     public Text getText()
     {
         return text;
+    }
+
+    public static Integer i2 = 0;
+
+    public void setEatenNumber()
+    {
+        if (i2 == -1)
+            i2 = 0;
+        i2++;
+        this.getText().setText(i2.toString());
+        System.out.println(i2);
     }
 }

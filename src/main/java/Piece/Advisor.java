@@ -54,4 +54,13 @@ public class Advisor extends ChessPiece
     {
         return text;
     }
+    public static Integer i2 = 0;
+    public void setEatenNumber()
+    {
+        if(i2 == -1)
+            i2 = 0;
+        i2++;
+        this.getText().setText(i2.toString());
+        System.out.println(i2);
+    }
 }

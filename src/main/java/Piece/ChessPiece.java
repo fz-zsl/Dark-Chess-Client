@@ -398,13 +398,8 @@ public abstract class ChessPiece extends ImageView
         this.getText().setText(i.toString());
     }
 
-    public void setEatenNumber()
-    {
-        if(i == -1)
-            i = 0;
-        i ++;
-        this.getText().setText(i.toString());
-    }
+    public abstract void setEatenNumber();
+
 
     public abstract Circle getCircle();
     public abstract Text getText();//小心！没有{}
