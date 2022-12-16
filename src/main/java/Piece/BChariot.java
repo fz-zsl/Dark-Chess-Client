@@ -24,6 +24,8 @@ public class BChariot extends ChessPiece
             anchorPane.getChildren().add(circle);
             anchorPane.getChildren().add(text);
         }
+        circle.toFront();
+        text.toFront();
         judge = false;
     }
     public void re()

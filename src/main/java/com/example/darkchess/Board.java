@@ -85,7 +85,7 @@ public class Board
         public static double rY = 250;
         public static double rTextY = 380;
         public static double irY = 100;
-        public static double rNameX = 115;
+        public static double rNameX = 9+0;
         public static double rNameY = 310;
         public static double rProgressBarX = 80;
         public static double rProgressBarY = 70;
@@ -1274,7 +1274,7 @@ public class Board
                     message.put("clickX",x);
                     message.put("clickY",y);
                     Client.sendMessage(message);
-                    System.out.println(message);
+
                 }
                 //重新设定计分板
                 Integer redScore = UserStatus.getRedScore();

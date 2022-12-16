@@ -5,6 +5,7 @@ import com.example.darkchess.Preference;
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
@@ -58,8 +59,7 @@ public abstract class ChessPiece extends ImageView
     protected Boolean status = false;//false代表没有翻开
     static private ImageView blackG = new ImageView("file:D://DarkChess//ChessImages//吃将.png");
     static private ImageView redG = new ImageView("file:D://DarkChess//ChessImages//吃帅.png");
-
-
+    static public int timeScale = 60;
 
     public ChessPiece(PieceType pieceType)
     {
@@ -81,7 +81,7 @@ public abstract class ChessPiece extends ImageView
 
     public void transportAChess(double initialX, double initialY, double destinationX, double destinationY)
     {
-        this.toFront();
+//        this.toFront();
         TranslateTransition tt = new TranslateTransition();
         tt.setNode(this);
         tt.setDuration(Duration.seconds(0.5));
@@ -152,15 +152,14 @@ public abstract class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
-
             }
         },keyValue10);
 
         timeline.getKeyFrames().addAll(keyFrame, keyFrame1,keyFrame2,keyFrame3,keyFrame4,keyFrame5);
         timeline.setDelay(Duration.seconds(0.8));
         timeline.play();
-        this.getCircle().toFront();
-        this.getText().toFront();
+//        this.getCircle().toFront();
+//        this.getText().toFront();
         if(Preference.chessSound)
             eatenSound();
     }
@@ -441,6 +440,18 @@ public abstract class ChessPiece extends ImageView
             }
         }, keyValue3,keyValue4);//缩小
         timeline.getKeyFrames().addAll(keyFrame1,keyFrame2);
+        timeline.play();
+    }
+
+    public static void countingTime(ProgressBar progressBar)
+    {
+        Timeline timeline = new Timeline();
+        for (int i = 0; i < timeScale; i++)
+        {
+            KeyValue keyValue = new KeyValue(progressBar.progressProperty(),i / timeScale);
+            KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), "k",keyValue);
+            timeline.getKeyFrames().add(keyFrame);
+        }
         timeline.play();
     }
 }
