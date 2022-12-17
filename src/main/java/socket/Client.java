@@ -214,8 +214,8 @@ public class Client
                         rText.setText("分数 " + Client.rScore);
                         bText.setText("分数 " + Client.bScore);
 
-                        rProgressBar.setProgress(rScore / 60f);
-                        bProgressBar.setProgress(bScore / 60f);
+                        rProgressBar.setProgress(1 - rScore / 60f);
+                        bProgressBar.setProgress(1 - bScore / 60f);
 
                         if(rScore >= 60)
                         {
@@ -236,7 +236,7 @@ public class Client
                             JFrame jFrame = new JFrame("游戏结束");
                             jFrame.setLocation(300, 300);
                             jFrame.setSize(320,240);
-                            jFrame.setVisible( true);
+                            jFrame.setVisible(true);
                             winOrLose = true;
                             jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
                             JTextField jTextArea = new JTextField("你输了！");
