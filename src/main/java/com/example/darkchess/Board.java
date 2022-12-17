@@ -1254,7 +1254,7 @@ public class Board
         anchorPane.getChildren().addAll(ib, ir);
         //玩家在左边，r代表玩家而非颜色
         rName.setText(LogIn.account);
-        bName.setText("网友");
+        bName.setText(Client.oName);
 
         //设置棋盘，画出棋子
         CanvasUtils.set(1);
@@ -1273,8 +1273,8 @@ public class Board
                 message.put("actionType",1);
                 message.put("clickX",x);
                 message.put("clickY",y);
+                message.put("headPic", Preference.headAddressUse);
                 Client.sendMessage(message);
-
             }
             //重新设定计分板
             rText.setText("分数 " + Client.rScore);
@@ -1293,9 +1293,9 @@ public class Board
             if(flag.get())
                 CanvasUtils.set(2);
             if (Client.currSide == onSide)
-                bTurn.setText("轮到" + LogIn.account);
+                bTurn.setText("轮到你了");
             else
-                bTurn.setText("轮到" + Client.oName);
+                bTurn.setText("等待对方");
         };
         group.setOnMouseClicked(eventHandler);
     }

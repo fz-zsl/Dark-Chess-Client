@@ -95,11 +95,11 @@ public class StartGame
         CanvasUtils.reRec();
         //下一步的按钮
         nextButton = new Button("下一步");
-        nextButton.setTranslateX(380.04);
-        nextButton.setTranslateY(525.40515);
+        nextButton.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 25));
+        nextButton.setTranslateX(375.04);
+        nextButton.setTranslateY(515.40515);
         nextButton.setPrefWidth(180);
-        nextButton.setPrefHeight(50);
-        nextButton.setFont(Board.font);
+        nextButton.setPrefHeight(30);
 
         if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();

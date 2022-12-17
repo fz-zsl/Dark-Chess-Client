@@ -97,20 +97,19 @@ public class Preference
     void setHead(KeyEvent event)
     {
         headAddressUseS = headAddress.getText().trim();
-        if(headAddressUseS.isEmpty())
-            headAddressUseS = "D:/backgrounds/hb2.jpg";
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < headAddressUseS.length(); i++)
-        {
-            if(headAddressUseS.charAt(i) == '\\')
-                sb.append('/');
-            else if(headAddressUseS.charAt(i) == '\"')
-                continue;
-            else
-                sb.append(headAddressUseS.charAt(i));
-        }
-        headAddressUseS = sb.toString();
-        // TODO: 2022/12/11
+//        if(headAddressUseS.isEmpty())
+//            headAddressUseS = "D:/backgrounds/hb2.jpg";
+//        StringBuilder sb = new StringBuilder();
+//        for (int i = 0; i < headAddressUseS.length(); i++)
+//        {
+//            if(headAddressUseS.charAt(i) == '\\')
+//                sb.append('/');
+//            else if(headAddressUseS.charAt(i) == '\"')
+//                continue;
+//            else
+//                sb.append(headAddressUseS.charAt(i));
+//        }
+//        headAddressUseS = sb.toString();
     }
 
     @FXML

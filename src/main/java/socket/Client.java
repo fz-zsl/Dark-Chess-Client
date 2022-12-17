@@ -8,9 +8,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import static com.example.darkchess.Board.chessPieceArrayList;
+import static com.example.darkchess.Board.ib;
 
 import Piece.ChessPiece;
 import com.example.darkchess.CanvasUtils;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import net.sf.json.JSONObject;
 
 public class Client
@@ -23,6 +26,7 @@ public class Client
     public static Integer bScore = 0;
     public static int currSide = -1;
     public static String oName = null;
+    public static String oPic = null;
 
     public Client()
     {
@@ -191,6 +195,7 @@ public class Client
                         {
                             System.out.println("匹配成功！");
                             oName = info.getString("partnerName");
+                            System.out.println("test");
                         }
                     }
                 }
@@ -204,6 +209,11 @@ public class Client
                     {
                         rScore = info.getInt("redScore");
                         bScore = info.getInt("blackScore");
+                    }
+                    else if(actionType == 5)
+                    {
+                        oPic = info.getString("headPic");
+                        ib.setImage(new Image(oPic));
                     }
                 }
                 //接受来自服务端的信息并做出反映
