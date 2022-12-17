@@ -1061,9 +1061,6 @@ public class Board
                                 Integer blackScore = UserStatus.getBlackScore();
                                 bText.setText("分数 " + blackScore.toString());
                             }
-
-
-
                             if (UserStatus.AISide == UserStatus.currentSide)
                                 bTurn.setText("轮到机器");
                             else
@@ -1230,7 +1227,6 @@ public class Board
         yourRank.setText(a.toString());
     }
 
-    public static int onSide = -1;
     public static boolean onFlag = true;
     public static void online(Group group)
     {
@@ -1273,29 +1269,10 @@ public class Board
                 message.put("headPic", Preference.headAddressUse);
                 Client.sendMessage(message);
             }
-
             JSONObject message1 = new JSONObject();
             message1.put("signalType", 3);
             message1.put("actionType",2);
             Client.sendMessage(message1);
-//            if(Client.currSide == 0 && flag.get())
-//            {
-//                onSide = 0;
-//                flag.set(false);
-//            }
-//            else if(Client.currSide == 1 && flag.get())
-//            {
-//                onSide = 1;
-//                flag.set(false);
-//            }
-//            if(flag.get())
-//                CanvasUtils.set(2);
-//            if (Client.currSide == onSide)
-//                bTurn.setText("轮到你了");
-//            else
-//               bTurn.setText("等待对方");
-//            rText.setText("分数 " + Client.rScore);
-//            bText.setText("分数 " + Client.bScore);
         };
         group.setOnMouseClicked(eventHandler);
     }

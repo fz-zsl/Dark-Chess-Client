@@ -8,6 +8,7 @@ import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 
 import static com.example.darkchess.Board.*;
+import static socket.Client.onSide;
 
 public class CanvasUtils
 {

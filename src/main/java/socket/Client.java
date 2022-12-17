@@ -8,11 +8,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import Piece.ChessPiece;
-import com.example.darkchess.Board;
 import com.example.darkchess.CanvasUtils;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import net.sf.json.JSONObject;
+
+import javax.swing.*;
 
 import static com.example.darkchess.Board.*;
 
@@ -27,7 +27,8 @@ public class Client
     public static int currSide = -1;
     public static String oName = null;
     public static String oPic = null;
-
+    public static boolean winOrLose = false;
+    public static int onSide = -1;
     public Client()
     {
         try
@@ -201,15 +202,6 @@ public class Client
                 }
                 else if(signalType == 4)
                 {
-//                    if(actionType == 3)
-//                    {
-//                        currSide = info.getInt("currentSide");
-//                    }
-//                    else if(actionType == 4)
-//                    {
-//                        rScore = info.getInt("redScore");
-//                        bScore = info.getInt("blackScore");
-//                    }
                     if(actionType == 5)
                     {
                         oPic = info.getString("headPic");
@@ -217,20 +209,10 @@ public class Client
                     }
                     else if(actionType == 6)
                     {
-                        currSide = info.getInt("currentSide");
-                        if(Client.currSide == 0 && onFlag)
-                        {
-                            onSide = 0;
-                            onFlag = false;
-                        }
-                        else if(Client.currSide == 1 && onFlag)
-                        {
-                            onSide = 1;
-                            onFlag = false;
-                        }
-                        if(onFlag)
-                            CanvasUtils.set(2);
-                        if (Client.currSide == onSide)
+                        onSide = info.getInt("yourSide");
+                        CanvasUtils.set(2);
+                        boolean side = info.getBoolean("infoSide");
+                        if (side)
                             bTurn.setText("轮到你了");
                         else
                             bTurn.setText("等待对方");
@@ -238,8 +220,35 @@ public class Client
                         bScore = info.getInt("blackScore");
                         rText.setText("分数 " + Client.rScore);
                         bText.setText("分数 " + Client.bScore);
+                        if(rScore >= 60)
+                        {
+                            JFrame jFrame = new JFrame("游戏结束");
+                            jFrame.setLocation(300, 300);
+                            jFrame.setSize(320,240);
+                            jFrame.setVisible( true);
+                            winOrLose = true;
+                            jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
+                            JTextField jTextArea = new JTextField("你赢了！");
+                            jFrame.add(jTextArea);
+                            jTextArea.setLocation(140,100);
+                            System.out.println("你赢了！");
+                        }
+                        else if(bScore >= 60)
+                        {
+                            JFrame jFrame = new JFrame("游戏结束");
+                            jFrame.setLocation(300, 300);
+                            jFrame.setSize(320,240);
+                            jFrame.setVisible( true);
+                            winOrLose = true;
+                            jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
+                            JTextField jTextArea = new JTextField("你输了！");
+                            jFrame.add(jTextArea);
+                            jTextArea.setLocation(140,100);
+                            System.out.println("你输了！");
+                        }
                     }
                 }
+
                 //接受来自服务端的信息并做出反映
                 //各方法中调用算法部分的接口全部搞成发送信息
             }
