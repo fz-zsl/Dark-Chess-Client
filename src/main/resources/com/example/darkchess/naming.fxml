@@ -6,11 +6,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.darkchess.Naming">
    <children>
       <TextField fx:id="name" layoutX="79.0" layoutY="120.0" onKeyPressed="#keyPressed" />
-      <Text layoutX="80.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name Your Game!">
+      <Text layoutX="80.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="给你的游戏命名">
          <font>
             <Font size="23.0" />
          </font>
