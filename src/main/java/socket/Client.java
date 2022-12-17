@@ -214,20 +214,21 @@ public class Client
                         {
                             rText.setText("分数 " + Client.rScore);
                             bText.setText("分数 " + Client.bScore);
-                            if(1 - rScore / 60f < 0 || 1 - bScore / 60f < 0)
-                                return;
-                            rProgressBar.setProgress(1 - bScore / 60f);
-                            bProgressBar.setProgress(1 - rScore / 60f);
-
+                            if(1 - rScore / 60f >= 0 && 1 - bScore / 60f >= 0)
+                            {
+                                rProgressBar.setProgress(1 - bScore / 60f);
+                                bProgressBar.setProgress(1 - rScore / 60f);
+                            }
                         }
                         else if(onSide == 1)
                         {
                             rText.setText("分数 " + Client.bScore);
                             bText.setText("分数 " + Client.rScore);
-                            if(1 - rScore / 60f < 0 || 1 - bScore / 60f < 0)
-                                return;
-                            rProgressBar.setProgress(1 - rScore / 60f);
-                            bProgressBar.setProgress(1 - bScore / 60f);
+                            if(1 - rScore / 60f >= 0 && 1 - bScore / 60f >= 0)
+                            {
+                                rProgressBar.setProgress(1 - rScore / 60f);
+                                bProgressBar.setProgress(1 - bScore / 60f);
+                            }
                         }
 
                         if(onSide == 0)

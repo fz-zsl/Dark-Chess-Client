@@ -196,10 +196,12 @@ public class StartGame
         r.setText("玩家A");
         r.setFill(Color.BLACK);
         b.setText("玩家B");
-        rText.setFill(Color.BLACK);
+        b.setFill(Color.BLACK);
         bTurn.setText("请翻棋");
-        Board.rText.setText("分数 " + 0);
-        Board.bText.setText("分数 " + 0);
+        rText.setText("分数 " + 0);
+        rText.setFill(Color.BLACK);
+        bText.setText("分数 " + 0);
+        bText.setFill(Color.BLACK);
         bName.setText(null);
         ib.setImage(null);
         if(Preference.gamingSwitch)
