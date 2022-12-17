@@ -1262,7 +1262,6 @@ public class Board
                 message.put("actionType",1);
                 message.put("clickX",x);
                 message.put("clickY",y);
-                message.put("headPic", headAddressUse);
                 Client.sendMessage(message);
             }
             JSONObject message1 = new JSONObject();

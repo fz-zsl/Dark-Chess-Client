@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import static com.example.darkchess.Board.*;
+import static com.example.darkchess.Preference.headAddressUse;
 import static com.example.darkchess.StartPage.preferenceBoolean;
 import static com.example.darkchess.StartPage.thePreferenceStage;
 
@@ -210,6 +211,7 @@ public class StartGame
         message.put("actionType",2);
         message.put("password", LogIn.password);
         message.put("userName", LogIn.account);
+        message.put("headPic", headAddressUse);
         Client.sendMessage(message);
 
         if(judge)
