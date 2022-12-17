@@ -214,15 +214,18 @@ public class Client
                         {
                             rText.setText("分数 " + Client.rScore);
                             bText.setText("分数 " + Client.bScore);
+                            rProgressBar.setProgress(1 - rScore / 60f);
+                            bProgressBar.setProgress(1 - bScore / 60f);
                         }
                         else if(onSide == 1)
                         {
                             rText.setText("分数 " + Client.bScore);
                             bText.setText("分数 " + Client.rScore);
+                            rProgressBar.setProgress(1 - bScore / 60f);
+                            bProgressBar.setProgress(1 - rScore / 60f);
                         }
 
-                        rProgressBar.setProgress(1 - rScore / 60f);
-                        bProgressBar.setProgress(1 - bScore / 60f);
+
 
                         if(rScore >= 60)
                         {
