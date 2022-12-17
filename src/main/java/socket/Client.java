@@ -214,6 +214,8 @@ public class Client
                         {
                             rText.setText("分数 " + Client.rScore);
                             bText.setText("分数 " + Client.bScore);
+                            if(1 - rScore / 60f < 0 || 1 - bScore / 60f < 0)
+                                return;
                             rProgressBar.setProgress(1 - bScore / 60f);
                             bProgressBar.setProgress(1 - rScore / 60f);
 
@@ -222,39 +224,34 @@ public class Client
                         {
                             rText.setText("分数 " + Client.bScore);
                             bText.setText("分数 " + Client.rScore);
+                            if(1 - rScore / 60f < 0 || 1 - bScore / 60f < 0)
+                                return;
                             rProgressBar.setProgress(1 - rScore / 60f);
                             bProgressBar.setProgress(1 - bScore / 60f);
                         }
 
-
-
-                        if(rScore >= 60)
+                        if(onSide == 0)
                         {
-                            JFrame jFrame = new JFrame("游戏结束");
-                            jFrame.setLocation(300, 300);
-                            jFrame.setSize(320,240);
-                            jFrame.setVisible( true);
-                            winOrLose = true;
-                            jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
-                            JTextField jTextArea = new JTextField("你赢了！");
-                            jFrame.add(jTextArea);
-                            jTextArea.setLocation(140,100);
-                            System.out.println("你赢了！");
-                            rProgressBar.setProgress(0);
+                            if(rScore >= 60)
+                            {
+                                bTurn.setText("你赢了！！！");
+                            }
+                            else if(bScore >= 60)
+                            {
+                                bTurn.setText("你输了！！！");
+                            }
+
                         }
-                        else if(bScore >= 60)
+                        else if(onSide == 1)
                         {
-                            JFrame jFrame = new JFrame("游戏结束");
-                            jFrame.setLocation(300, 300);
-                            jFrame.setSize(320,240);
-                            jFrame.setVisible(true);
-                            winOrLose = true;
-                            jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
-                            JTextField jTextArea = new JTextField("你输了！");
-                            jFrame.add(jTextArea);
-                            jTextArea.setLocation(140,100);
-                            System.out.println("你输了！");
-                            bProgressBar.setProgress(0);
+                            if(rScore >= 60)
+                            {
+                                bTurn.setText("你输了！！！");
+                            }
+                            else if(bScore >= 60)
+                            {
+                                bTurn.setText("你赢了！！！");
+                            }
                         }
                     }
                 }
