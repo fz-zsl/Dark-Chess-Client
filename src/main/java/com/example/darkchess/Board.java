@@ -753,13 +753,12 @@ public class Board
         CanvasUtils.set(1);
         GeneralInit.generalInit();
         //头像
-        ir = new ImageView("D:/backgrounds/hb3.png");
+        ir = new ImageView(Preference.headAddressUse);
         ir.setTranslateX(irX);
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
         ir.setFitWidth(100);
-        //ib = new ImageView("file:/D:/backgrounds/hb1.jpg");
-        ib = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F9f%2F6b%2F59%2F9f6b59e3c4e2f9abd632e6f73143d65b.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673610777&t=2b5744ba74d57757f46369d242ec900c");
+        ib = new ImageView("file:/D:/backgrounds/hb2.jpg");
         ib.setTranslateX(irX + 600);
         ib.setTranslateY(irY);
         ib.setFitHeight(100);
@@ -828,7 +827,7 @@ public class Board
         b.setText("机器");
         rText.setFill(Color.BLACK);
         bTurn.setText("玩家翻棋");
-        ir = new ImageView("file:/" + Preference.headAddressUse);
+        ir = new ImageView(Preference.headAddressUse);
         ir.setTranslateX(irX);
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
@@ -958,7 +957,7 @@ public class Board
         b.setText("对手");
         rText.setFill(Color.BLACK);
         bTurn.setText("点击回顾");
-        ir = new ImageView("file:/" + Preference.headAddressUse);
+        ir = new ImageView(Preference.headAddressUse);
         ir.setTranslateX(irX);
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
@@ -1241,7 +1240,7 @@ public class Board
         b.setText("玩家B");
         rText.setFill(Color.BLACK);
         bTurn.setText("请翻棋");
-        ir = new ImageView("file:/" + Preference.headAddressUse);
+        ir = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Flmg.jj20.com%2Fup%2Fallimg%2F1114%2F040221103339%2F210402103339-8-1200.jpg&refer=http%3A%2F%2Flmg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673833782&t=870002705e1561496b076bf962d12d22");
         ir.setTranslateX(irX);
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
@@ -1263,9 +1262,6 @@ public class Board
         {
             int y = (int) ((mouseEvent.getX() - 341.65 - 1f / 6 * gird) / gird + 1);
             int x = (int) ((mouseEvent.getY() - 41.65 - 1f / 6 * gird) / gird + 1);
-
-            MouseButton button = mouseEvent.getButton();
-            //调用控制程序，判断棋子的类型
             if (x > 0 && x < 9 && y > 0 && y < 9)
             {
                 JSONObject message = new JSONObject();
@@ -1276,15 +1272,15 @@ public class Board
                 message.put("headPic", Preference.headAddressUse);
                 Client.sendMessage(message);
             }
-            //重新设定计分板
-            rText.setText("分数 " + Client.rScore);
-            bText.setText("分数 " + Client.bScore);
+            JSONObject message1 = new JSONObject();
+            message1.put("signalType", 3);
+            message1.put("actionType",2);
+            Client.sendMessage(message1);
             if(Client.currSide == 0 && flag.get())
             {
                 onSide = 0;
                 flag.set(false);
             }
-
             else if(Client.currSide == 1 && flag.get())
             {
                 onSide = 1;
@@ -1296,6 +1292,8 @@ public class Board
                 bTurn.setText("轮到你了");
             else
                 bTurn.setText("等待对方");
+            rText.setText("分数 " + Client.rScore);
+            bText.setText("分数 " + Client.bScore);
         };
         group.setOnMouseClicked(eventHandler);
     }

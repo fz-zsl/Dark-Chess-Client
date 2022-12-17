@@ -7,14 +7,13 @@ import java.net.MalformedURLException;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import static com.example.darkchess.Board.chessPieceArrayList;
-import static com.example.darkchess.Board.ib;
-
 import Piece.ChessPiece;
 import com.example.darkchess.CanvasUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import net.sf.json.JSONObject;
+
+import static com.example.darkchess.Board.*;
 
 public class Client
 {
@@ -201,19 +200,25 @@ public class Client
                 }
                 else if(signalType == 4)
                 {
-                    if(actionType == 3)
-                    {
-                        currSide = info.getInt("currentSide");
-                    }
-                    else if(actionType == 4)
-                    {
-                        rScore = info.getInt("redScore");
-                        bScore = info.getInt("blackScore");
-                    }
-                    else if(actionType == 5)
+//                    if(actionType == 3)
+//                    {
+//                        currSide = info.getInt("currentSide");
+//                    }
+//                    else if(actionType == 4)
+//                    {
+//                        rScore = info.getInt("redScore");
+//                        bScore = info.getInt("blackScore");
+//                    }
+                    if(actionType == 5)
                     {
                         oPic = info.getString("headPic");
                         ib.setImage(new Image(oPic));
+                    }
+                    else if(actionType == 6)
+                    {
+                        currSide = info.getInt("currentSide");
+                        rScore = info.getInt("redScore");
+                        bScore = info.getInt("blackScore");
                     }
                 }
                 //接受来自服务端的信息并做出反映

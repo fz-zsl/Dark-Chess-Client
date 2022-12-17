@@ -196,6 +196,9 @@ public class StartGame
         b.setText("玩家B");
         rText.setFill(Color.BLACK);
         bTurn.setText("请翻棋");
+        Board.rText.setText("分数 " + 0);
+        Board.bText.setText("分数 " + 0);
+        bName.setText(null);
         if(Preference.gamingSwitch)
             InitializationApplication.mediaPlayerFirst.pause();
         modeOfAll = 2;

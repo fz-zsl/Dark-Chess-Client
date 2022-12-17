@@ -23,7 +23,7 @@ public class Preference
     public Boolean gamingSwitchS = false;
     public static String pictureAddressUse = "D:/backgrounds/1.jpg";
     private String pictureAddressUseS = "D:/backgrounds/1.jpg";
-    public static String headAddressUse = "D:/backgrounds/hb2.jpg";
+    public static String headAddressUse = "file:/D:/backgrounds/hb2.jpg";
     private String headAddressUseS = "D:/backgrounds/hb2.jpg";
 
     @FXML
