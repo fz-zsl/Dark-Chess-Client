@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import Piece.ChessPiece;
+import com.example.darkchess.Board;
 import com.example.darkchess.CanvasUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -217,6 +218,22 @@ public class Client
                     else if(actionType == 6)
                     {
                         currSide = info.getInt("currentSide");
+                        if(Client.currSide == 0 && onFlag)
+                        {
+                            onSide = 0;
+                            onFlag = false;
+                        }
+                        else if(Client.currSide == 1 && onFlag)
+                        {
+                            onSide = 1;
+                            onFlag = false;
+                        }
+                        if(onFlag)
+                            CanvasUtils.set(2);
+                        if (Client.currSide == onSide)
+                            bTurn.setText("轮到你了");
+                        else
+                            bTurn.setText("等待对方");
                         rScore = info.getInt("redScore");
                         bScore = info.getInt("blackScore");
                     }

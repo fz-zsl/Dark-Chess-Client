@@ -56,7 +56,7 @@ public class Board
         static Canvas canvas = new Canvas(boardW + 2 * 41.65, boardH + 41.65);
         static public AnchorPane anchorPane = new AnchorPane();
         static public GraphicsContext gc = canvas.getGraphicsContext2D();
-        static protected Text bTurn = new Text("先手翻棋");
+        static public Text bTurn = new Text("先手翻棋");
         static public ArrayList<ChessPiece> chessPieceArrayList;
         static protected Text r = new Text("红方");
         static protected Text b = new Text("黑方");
@@ -1231,9 +1231,10 @@ public class Board
     }
 
     public static int onSide = -1;
+    public static boolean onFlag = true;
     public static void online(Group group)
     {
-        AtomicReference<Boolean> flag = new AtomicReference<>(true);
+        onFlag = true;
         CanvasUtils.setRec();
         r.setText("玩家A");
         r.setFill(Color.BLACK);
@@ -1272,28 +1273,29 @@ public class Board
                 message.put("headPic", Preference.headAddressUse);
                 Client.sendMessage(message);
             }
+
             JSONObject message1 = new JSONObject();
             message1.put("signalType", 3);
             message1.put("actionType",2);
             Client.sendMessage(message1);
-            if(Client.currSide == 0 && flag.get())
-            {
-                onSide = 0;
-                flag.set(false);
-            }
-            else if(Client.currSide == 1 && flag.get())
-            {
-                onSide = 1;
-                flag.set(false);
-            }
-            if(flag.get())
-                CanvasUtils.set(2);
-            if (Client.currSide == onSide)
-                bTurn.setText("轮到你了");
-            else
-                bTurn.setText("等待对方");
-            rText.setText("分数 " + Client.rScore);
-            bText.setText("分数 " + Client.bScore);
+//            if(Client.currSide == 0 && flag.get())
+//            {
+//                onSide = 0;
+//                flag.set(false);
+//            }
+//            else if(Client.currSide == 1 && flag.get())
+//            {
+//                onSide = 1;
+//                flag.set(false);
+//            }
+//            if(flag.get())
+//                CanvasUtils.set(2);
+//            if (Client.currSide == onSide)
+//                bTurn.setText("轮到你了");
+//            else
+//               bTurn.setText("等待对方");
+//            rText.setText("分数 " + Client.rScore);
+//            bText.setText("分数 " + Client.bScore);
         };
         group.setOnMouseClicked(eventHandler);
     }
