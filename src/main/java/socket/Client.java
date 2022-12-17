@@ -190,17 +190,21 @@ public class Client
                             oName = info.getString("partnerName");
                             bName.setText(oName);
                             System.out.println("test");
+                            rProgressBar.setProgress(1 - rScore / 60f);
+                            bProgressBar.setProgress(1 - bScore / 60f);
+                            oPic = info.getString("headPic");
+                            ib.setImage(new Image(oPic));
                         }
                     }
                 }
                 else if(signalType == 4)
                 {
-                    if(actionType == 5)
-                    {
-                        oPic = info.getString("headPic");
-                        ib.setImage(new Image(oPic));
-                    }
-                    else if(actionType == 6)
+//                    if(actionType == 5)
+//                    {
+//                        oPic = info.getString("headPic");
+//                        ib.setImage(new Image(oPic));
+//                    }
+                    if(actionType == 6)
                     {
                         onSide = info.getInt("yourSide");
                         CanvasUtils.set(2);
@@ -213,9 +217,6 @@ public class Client
                         bScore = info.getInt("blackScore");
                         rText.setText("分数 " + Client.rScore);
                         bText.setText("分数 " + Client.bScore);
-
-                        rProgressBar.setProgress(1 - rScore / 60f);
-                        bProgressBar.setProgress(1 - bScore / 60f);
 
                         if(rScore >= 60)
                         {

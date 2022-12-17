@@ -204,12 +204,14 @@ public class StartGame
         modeOfAll = 2;
         chessPieceArrayList = CanvasUtils.setAllChess();
         new Client();
+
         JSONObject message = new JSONObject();
         message.put("signalType",1);
         message.put("actionType",2);
         message.put("password", LogIn.password);
         message.put("userName", LogIn.account);
         Client.sendMessage(message);
+
         if(judge)
         {
             Board.startGame(2);

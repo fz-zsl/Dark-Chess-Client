@@ -1251,10 +1251,6 @@ public class Board
         anchorPane.getChildren().addAll(ib, ir);
         //玩家在左边，r代表玩家而非颜色
         rName.setText(LogIn.account);
-
-        //设置棋盘，画出棋子
-        CanvasUtils.set(1);
-
         EventHandler<MouseEvent> eventHandler = mouseEvent ->
         {
             int y = (int) ((mouseEvent.getX() - 341.65 - 1f / 6 * gird) / gird + 1);
