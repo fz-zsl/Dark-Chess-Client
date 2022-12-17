@@ -40,8 +40,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
-import static Properties.Property.version;
 import static com.example.darkchess.StartGame.modeOfAll;
 import static com.example.darkchess.StartPage.preferenceBoolean;
 import static com.example.darkchess.StartPage.thePreferenceStage;
@@ -172,6 +172,7 @@ public class Board
                         stage22.setScene(scene);
                         stage22.show();
                         thePreferenceStage = stage22;
+                        preferenceBoolean = false;
                     }
                     else
                         thePreferenceStage.show();
@@ -396,12 +397,13 @@ public class Board
 
             EventHandler<ActionEvent> eventHandler4 = e ->
             {
-                Showing.Info(version);
+                Showing.Info(Preference.version);
             };
 
             EventHandler<ActionEvent> eventHandler5 = e ->
             {
-                System.out.println("按下了悔棋按钮");
+                if(modeOfAll == 2)
+                    return;
                 CanvasUtils.cancelHighLight();
                 if (Preference.soundSwitch)
                     InitializationApplication.mediaPlayerFirst.play();
@@ -498,6 +500,8 @@ public class Board
 
             EventHandler<ActionEvent> eventHandler6 = e ->
             {
+                if(modeOfAll == 2)
+                    return;
                 if (!cheatingFlag)
                 {
                     Showing.Info("已开启作弊模式，鼠标右击翻看棋子");
@@ -514,6 +518,8 @@ public class Board
 
             EventHandler<ActionEvent> eventHandler7 = e ->
             {
+                if(modeOfAll == 2)
+                    return;
                 CanvasUtils.reRec();
                 CanvasUtils.cancelHighLight();
                 if (Preference.soundSwitch)
@@ -549,7 +555,7 @@ public class Board
                 else if (modeOfAll == 3)
                 {
                     anchorPane.getChildren().remove(nextButton);
-                    System.out.println("mode3");
+//                  System.out.println("mode3");
                     r.setText("玩家");
                     r.setFill(Color.BLACK);
                     b.setText("机器");
@@ -560,16 +566,10 @@ public class Board
                 }
                 else if (modeOfAll == 4)
                 {
-                    for (ChessPiece c : chessPieceArrayList)
-                    {
-                        anchorPane.getChildren().removeAll(c.getCircle(), c.getText());
-                        c.setJudge(true);
-                    }
-                    anchorPane.getChildren().removeAll(chessPieceArrayList);
-                    System.out.println("mode4");
+//                  System.out.println("mode4");
                     r.setText("玩家");
                     r.setFill(Color.BLACK);
-                    b.setText("机器");
+                    b.setText("对手");
                     b.setFill(Color.BLACK);
                     rText.setFill(Color.BLACK);
                     bText.setFill(Color.BLACK);
@@ -1231,8 +1231,10 @@ public class Board
         yourRank.setText(a.toString());
     }
 
+    public static int onSide = -1;
     public static void online(Group group)
     {
+        AtomicReference<Boolean> flag = new AtomicReference<>(true);
         CanvasUtils.setRec();
         r.setText("玩家A");
         r.setFill(Color.BLACK);
@@ -1263,40 +1265,44 @@ public class Board
             int x = (int) ((mouseEvent.getY() - 41.65 - 1f / 6 * gird) / gird + 1);
 
             MouseButton button = mouseEvent.getButton();
-            if (button == MouseButton.PRIMARY)//左击
+            //调用控制程序，判断棋子的类型
+            if (x > 0 && x < 9 && y > 0 && y < 9)
             {
-                //调用控制程序，判断棋子的类型
-                if (x > 0 && x < 9 && y > 0 && y < 9)
-                {
-                    JSONObject message = new JSONObject();
-                    message.put("signalType", 2);
-                    message.put("actionType",1);
-                    message.put("clickX",x);
-                    message.put("clickY",y);
-                    Client.sendMessage(message);
+                JSONObject message = new JSONObject();
+                message.put("signalType", 2);
+                message.put("actionType",1);
+                message.put("clickX",x);
+                message.put("clickY",y);
+                Client.sendMessage(message);
 
-                }
-                //重新设定计分板
-                Integer redScore = UserStatus.getRedScore();
-                rText.setText("分数 " + redScore.toString());
-                Integer blackScore = UserStatus.getBlackScore();
-                bText.setText("分数 " + blackScore.toString());
-                if (UserStatus.currentSide == 0)
-                    bTurn.setText("轮到红方");
-                else if (UserStatus.currentSide == 1)
-                    bTurn.setText("轮到黑方");
             }
-            else if (button == MouseButton.SECONDARY)
-                chessPieceArrayList.get(ChessBoardStatus.getObjectIndex(x, y)).cheatingFlip();
+            //重新设定计分板
+            rText.setText("分数 " + Client.rScore);
+            bText.setText("分数 " + Client.bScore);
+            if(Client.currSide == 0 && flag.get())
+            {
+                onSide = 0;
+                flag.set(false);
+            }
+
+            else if(Client.currSide == 1 && flag.get())
+            {
+                onSide = 1;
+                flag.set(false);
+            }
+            if(flag.get())
+                CanvasUtils.set(2);
+            if (Client.currSide == onSide)
+                bTurn.setText("轮到" + LogIn.account);
+            else
+                bTurn.setText("轮到" + Client.oName);
         };
         group.setOnMouseClicked(eventHandler);
     }
 
     public static Font setFont() throws FileNotFoundException
     {
-        Font font = Font.loadFont(
-                new FileInputStream("fonts/font.ttf"),
-                40);
+        Font font = Font.loadFont(new FileInputStream("fonts/font.ttf"), 40);
         return font;
     }
 

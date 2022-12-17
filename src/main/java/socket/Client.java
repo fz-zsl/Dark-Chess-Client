@@ -3,7 +3,6 @@ package socket;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -20,6 +19,10 @@ public class Client
     static Socket serverSocket;
     DataInputStream inputStream;
     DataOutputStream outputStream;
+    public static Integer rScore = 0;
+    public static Integer bScore = 0;
+    public static int currSide = -1;
+    public static String oName = null;
 
     public Client()
     {
@@ -42,7 +45,7 @@ public class Client
         {
             DataOutputStream outputStream = new DataOutputStream(serverSocket.getOutputStream());
             outputStream.writeUTF(messageInfo.toString());
-            System.out.println("包装完毕");
+//            System.out.println("包装完毕");
         }
         catch (IOException ioException)
         {
@@ -92,7 +95,7 @@ public class Client
                     }
                     else if (actionType == 3)
                     {
-                        System.out.println("棋子被吃掉了");
+//                        System.out.println("棋子被吃掉了");
                         objectIndex = info.getInt("objectIndex");
                         curX = info.getInt("curX");
                         curY = info.getInt("curY");
@@ -111,7 +114,7 @@ public class Client
                         //show all possible moves
                         String rawString1=info.getString("APM");
                         String rawString2=rawString1.substring(1,rawString1.length()-1);
-                        System.out.println(rawString2);
+//                        System.out.println(rawString2);
                         String[] rawStrings=rawString2.split(",");
                         for (int i=1;i<rawStrings.length;++i) {
                             String str=rawStrings[i];
@@ -133,7 +136,7 @@ public class Client
                         objectIndex = info.getInt("objectIndex");
                         curX = info.getInt("curX");
                         curY = info.getInt("curY");
-                        System.out.println(curX + " " + curY);
+//                        System.out.println(curX + " " + curY);
                         if (setChessQueue.size()==32) {
 //                            System.out.println("Prints now!");
                             chessPieceArrayList.get(objectIndex).setTranslateX(ChessPiece.getChessXFx(curY));
@@ -187,7 +190,20 @@ public class Client
                         if(flag)
                         {
                             System.out.println("匹配成功！");
+                            oName = info.getString("partnerName");
                         }
+                    }
+                }
+                else if(signalType == 4)
+                {
+                    if(actionType == 3)
+                    {
+                        currSide = info.getInt("currentSide");
+                    }
+                    else if(actionType == 4)
+                    {
+                        rScore = info.getInt("redScore");
+                        bScore = info.getInt("blackScore");
                     }
                 }
                 //接受来自服务端的信息并做出反映

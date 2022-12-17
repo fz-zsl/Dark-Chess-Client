@@ -65,6 +65,7 @@ public class LogIn
             stage22.setScene(scene);
             stage22.show();
             thePreferenceStage = stage22;
+            preferenceBoolean = false;
         }
         else
             thePreferenceStage.show();
@@ -102,7 +103,7 @@ public class LogIn
         stage.show();
         LogIn.theStartGameStage = stage;
         StartPage.theLogInStage.close();
-
+        Showing.Info("欢迎回来！");
     }
 
 
