@@ -42,6 +42,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.example.darkchess.Preference.headAddressUse;
 import static com.example.darkchess.StartGame.modeOfAll;
 import static com.example.darkchess.StartPage.preferenceBoolean;
 import static com.example.darkchess.StartPage.thePreferenceStage;
@@ -753,7 +754,7 @@ public class Board
         CanvasUtils.set(1);
         GeneralInit.generalInit();
         //头像
-        ir = new ImageView(Preference.headAddressUse);
+        ir = new ImageView(headAddressUse);
         ir.setTranslateX(irX);
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
@@ -827,7 +828,7 @@ public class Board
         b.setText("机器");
         rText.setFill(Color.BLACK);
         bTurn.setText("玩家翻棋");
-        ir = new ImageView(Preference.headAddressUse);
+        ir = new ImageView(headAddressUse);
         ir.setTranslateX(irX);
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
@@ -957,7 +958,7 @@ public class Board
         b.setText("对手");
         rText.setFill(Color.BLACK);
         bTurn.setText("点击回顾");
-        ir = new ImageView(Preference.headAddressUse);
+        ir = new ImageView(headAddressUse);
         ir.setTranslateX(irX);
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
@@ -1237,7 +1238,7 @@ public class Board
         b.setText("玩家B");
         rText.setFill(Color.BLACK);
         bTurn.setText("请翻棋");
-        ir = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Flmg.jj20.com%2Fup%2Fallimg%2F1114%2F040221103339%2F210402103339-8-1200.jpg&refer=http%3A%2F%2Flmg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673833782&t=870002705e1561496b076bf962d12d22");
+        ir = new ImageView(headAddressUse);
         ir.setTranslateX(irX);
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
@@ -1265,7 +1266,7 @@ public class Board
                 message.put("actionType",1);
                 message.put("clickX",x);
                 message.put("clickY",y);
-                message.put("headPic", Preference.headAddressUse);
+                message.put("headPic", headAddressUse);
                 Client.sendMessage(message);
             }
             JSONObject message1 = new JSONObject();
