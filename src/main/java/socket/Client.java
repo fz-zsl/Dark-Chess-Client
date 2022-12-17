@@ -190,8 +190,8 @@ public class Client
                             oName = info.getString("partnerName");
                             bName.setText(oName);
                             System.out.println("test");
-                            rProgressBar.setProgress(1 - rScore / 60f);
-                            bProgressBar.setProgress(1 - bScore / 60f);
+                            rProgressBar.setProgress(1);
+                            bProgressBar.setProgress(1);
                             oPic = info.getString("headPic");
                             ib.setImage(new Image(oPic));
                         }
@@ -210,8 +210,19 @@ public class Client
                             bTurn.setText("等待对方");
                         rScore = info.getInt("redScore");
                         bScore = info.getInt("blackScore");
-                        rText.setText("分数 " + Client.rScore);
-                        bText.setText("分数 " + Client.bScore);
+                        if(onSide == 0)
+                        {
+                            rText.setText("分数 " + Client.rScore);
+                            bText.setText("分数 " + Client.bScore);
+                        }
+                        else if(onSide == 1)
+                        {
+                            rText.setText("分数 " + Client.bScore);
+                            bText.setText("分数 " + Client.rScore);
+                        }
+
+                        rProgressBar.setProgress(1 - rScore / 60f);
+                        bProgressBar.setProgress(1 - bScore / 60f);
 
                         if(rScore >= 60)
                         {
