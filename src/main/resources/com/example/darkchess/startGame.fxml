@@ -27,22 +27,22 @@
             <Font size="59.0" />
          </font>
       </Text>
-      <Button layoutX="354.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#cOffline" text="单人模式">
+      <Button layoutX="354.0" layoutY="178.0" mnemonicParsing="false" onMouseClicked="#cOffline" text="单机模式">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button layoutX="354.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#cOnline" text="联机模式">
+      <Button layoutX="354.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#cOnline" text="联机游戏">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button layoutX="354.0" layoutY="366.0" mnemonicParsing="false" onMouseClicked="#cComputer" text="人机模式">
+      <Button layoutX="354.0" layoutY="366.0" mnemonicParsing="false" onMouseClicked="#cComputer" text="人机对战">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button layoutX="354.0" layoutY="457.0" mnemonicParsing="false" onMouseClicked="#cHalf" text="残局模式">
+      <Button layoutX="354.0" layoutY="457.0" mnemonicParsing="false" onMouseClicked="#cHalf" text="导入残局">
          <font>
             <Font size="36.0" />
          </font>

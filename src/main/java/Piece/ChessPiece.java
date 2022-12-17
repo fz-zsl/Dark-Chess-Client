@@ -530,15 +530,4 @@ public abstract class ChessPiece extends ImageView
         timeline.play();
     }
 
-    public static void countingTime(ProgressBar progressBar)
-    {
-        Timeline timeline = new Timeline();
-        for (int i = 0; i < timeScale; i++)
-        {
-            KeyValue keyValue = new KeyValue(progressBar.progressProperty(),i / timeScale);
-            KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), "k",keyValue);
-            timeline.getKeyFrames().add(keyFrame);
-        }
-        timeline.play();
-    }
 }
