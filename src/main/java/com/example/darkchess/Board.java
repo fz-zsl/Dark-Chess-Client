@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -72,7 +73,7 @@ public class Board
         public static boolean namingStageFlag = true;
 
         public static ImageView ir;
-        public static ImageView ib;
+        public static ImageView ib  = new ImageView();
         public static Button nextButton;
 
         public static ImageView imageView1;
@@ -591,6 +592,8 @@ public class Board
                 }
                 anchorPane.getChildren().removeAll(chessPieceArrayList);
                 anchorPane.getChildren().removeAll(ir, ib, nextButton);
+                rProgressBar.setProgress(0);
+                bProgressBar.setProgress(0);
                 LogIn.theStartGameStage.show();
                 theBoardStage.close();
             };
@@ -1243,7 +1246,8 @@ public class Board
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
         ir.setFitWidth(100);
-        ib = new ImageView();
+//        ib = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.soutu123.com%2Felement_origin_min_pic%2F01%2F48%2F82%2F685744412305270.jpg%21%2Ffw%2F700%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue&refer=http%3A%2F%2Fpic.soutu123.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673840080&t=5bc59178c370da09a45a86787a476a27");
+//        ib.setImage(new Image(Client.oPic));
         ib.setTranslateX(irX + 600);
         ib.setTranslateY(irY);
         ib.setFitHeight(100);

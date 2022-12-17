@@ -199,11 +199,6 @@ public class Client
                 }
                 else if(signalType == 4)
                 {
-//                    if(actionType == 5)
-//                    {
-//                        oPic = info.getString("headPic");
-//                        ib.setImage(new Image(oPic));
-//                    }
                     if(actionType == 6)
                     {
                         onSide = info.getInt("yourSide");
