@@ -103,7 +103,6 @@ public class LogIn
         stage.show();
         LogIn.theStartGameStage = stage;
         StartPage.theLogInStage.close();
-        Showing.Info("欢迎回来！");
     }
 
 

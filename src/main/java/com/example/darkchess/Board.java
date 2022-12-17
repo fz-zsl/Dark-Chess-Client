@@ -391,7 +391,7 @@ public class Board
                     theBoardStage.close();
                     InitializationApplication.theStartPage.show();
                     rName.setText("用户一");
-                    bName.setText("深蓝一号");
+                    bName.setText("深蓝");
                 }
             };
 
@@ -840,7 +840,7 @@ public class Board
         anchorPane.getChildren().addAll(ib, ir);
         //玩家在左边，r代表玩家而非颜色
         rName.setText(LogIn.account);
-        bName.setText("深蓝一号");
+        bName.setText("深蓝");
 
         //设置棋盘，画出棋子
         GeneralInit.generalInit();
@@ -988,7 +988,7 @@ public class Board
                         if(Choice.modeOfHalf == 2)
                         {
                             b.setText("机器");
-                            bName.setText("深蓝一号");
+                            bName.setText("深蓝");
                             if(UserStatus.currentSide == UserStatus.AISide)
                             {
                                 try
@@ -1250,7 +1250,6 @@ public class Board
         anchorPane.getChildren().addAll(ib, ir);
         //玩家在左边，r代表玩家而非颜色
         rName.setText(LogIn.account);
-        bName.setText(Client.oName);
 
         //设置棋盘，画出棋子
         CanvasUtils.set(1);

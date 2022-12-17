@@ -100,7 +100,6 @@ public class Client
                     }
                     else if (actionType == 3)
                     {
-//                        System.out.println("棋子被吃掉了");
                         objectIndex = info.getInt("objectIndex");
                         curX = info.getInt("curX");
                         curY = info.getInt("curY");
@@ -116,20 +115,13 @@ public class Client
                     else if (actionType == 4)
                     {
                         ArrayList<Integer> allPossibleMoves = new ArrayList<>();
-                        //show all possible moves
                         String rawString1=info.getString("APM");
                         String rawString2=rawString1.substring(1,rawString1.length()-1);
-//                        System.out.println(rawString2);
                         String[] rawStrings=rawString2.split(",");
                         for (int i=1;i<rawStrings.length;++i) {
                             String str=rawStrings[i];
                             CanvasUtils.moveRe(Integer.parseInt(str)/10,Integer.parseInt(str)%10,i);
                         }
-//                        for (String str:rawStrings)
-//                            allPossibleMoves.add(Integer.parseInt(str));
-
-//                        CanvasUtils.highLight(allPossibleMoves);
-//                        CanvasUtils.moveRe();
                     }
                     else if (actionType == 5)
                     {
@@ -196,6 +188,7 @@ public class Client
                         {
                             System.out.println("匹配成功！");
                             oName = info.getString("partnerName");
+                            bName.setText(oName);
                             System.out.println("test");
                         }
                     }
@@ -220,6 +213,10 @@ public class Client
                         bScore = info.getInt("blackScore");
                         rText.setText("分数 " + Client.rScore);
                         bText.setText("分数 " + Client.bScore);
+
+                        rProgressBar.setProgress(rScore / 60f);
+                        bProgressBar.setProgress(bScore / 60f);
+
                         if(rScore >= 60)
                         {
                             JFrame jFrame = new JFrame("游戏结束");
@@ -232,6 +229,7 @@ public class Client
                             jFrame.add(jTextArea);
                             jTextArea.setLocation(140,100);
                             System.out.println("你赢了！");
+                            rProgressBar.setProgress(0);
                         }
                         else if(bScore >= 60)
                         {
@@ -245,6 +243,7 @@ public class Client
                             jFrame.add(jTextArea);
                             jTextArea.setLocation(140,100);
                             System.out.println("你输了！");
+                            bProgressBar.setProgress(0);
                         }
                     }
                 }
