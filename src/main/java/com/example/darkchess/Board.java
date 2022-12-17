@@ -62,8 +62,8 @@ public class Board
         static protected Text b = new Text("黑方");
         public static Text rName = new Text("用户一 ");
         public static Text bName = new Text("用户二 ");
-        static protected Text rText = new Text("分数 0");
-        static protected Text bText = new Text("分数 0");
+        static public Text rText = new Text("分数 0");
+        static public Text bText = new Text("分数 0");
         static Stage theBoardStage;
         public static Group group = new Group();
         public static boolean cheatingFlag = false;

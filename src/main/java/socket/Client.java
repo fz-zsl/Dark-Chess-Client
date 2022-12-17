@@ -236,6 +236,8 @@ public class Client
                             bTurn.setText("等待对方");
                         rScore = info.getInt("redScore");
                         bScore = info.getInt("blackScore");
+                        rText.setText("分数 " + Client.rScore);
+                        bText.setText("分数 " + Client.bScore);
                     }
                 }
                 //接受来自服务端的信息并做出反映
