@@ -475,7 +475,7 @@ public abstract class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                blackG.toFront();
+               redG.toFront();
             }
         }, keyValue1,keyValue2);//放大
 
@@ -511,7 +511,7 @@ public abstract class ChessPiece extends ImageView
             @Override
             public void handle(ActionEvent actionEvent)
             {
-                redG.toFront();
+                blackG.toFront();
             }
         }, keyValue1,keyValue2);//放大
 

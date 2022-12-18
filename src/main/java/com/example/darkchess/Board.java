@@ -908,7 +908,7 @@ public class Board
                             Showing.Info("菜狗，回去多积淀积淀再来挑战爷！");
                             if (Preference.chessSound)
                                 ChessPiece.mediaPlayerEnd.pause();
-                            if (Preference.endSound)
+                            if (Preference.chessSound)
                                 youDied();
                         }
                         else
@@ -916,7 +916,7 @@ public class Board
                             Showing.Info("厉害啊，小子！居然把爷战胜了？！");
                             if (Preference.chessSound)
                                 ChessPiece.mediaPlayerEnd.pause();
-                            if (Preference.endSound)
+                            if (Preference.chessSound)
                                 youWin();
                         }
 
@@ -1143,7 +1143,7 @@ public class Board
 
     private static void youWin()
     {
-        String path = "D:/arkChess/audio/WIN.mp3";
+        String path = "D:/DarkChess/audio/WIN.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
