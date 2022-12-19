@@ -81,13 +81,13 @@ public class Board
         public static int right = 0;
         public static Menu menu5;
 
-        public static double rX = 100;
-        public static double rTextX = 85;
+        public static double rX = 95;
+        public static double rTextX = 75;
         public static double irX = 80;
         public static double rY = 250;
         public static double rTextY = 380;
-        public static double irY = 100;
-        public static double rNameX = 90;
+        public static double irY = 80;
+        public static double rNameX = 85;
         public static double rNameY = 310;
         public static double rProgressBarX = 80;
         public static double rProgressBarY = 70;
@@ -715,7 +715,7 @@ public class Board
 
         //轮到提示
         bTurn.setFill(Color.BLACK);
-        bTurn.setTranslateX(393.04);
+        bTurn.setTranslateX(383.04);
         bTurn.setTranslateY(505.40515);
         bTurn.setFont(font);
         anchorPane.getChildren().add(bTurn);
@@ -757,18 +757,20 @@ public class Board
         CanvasUtils.set(1);
         GeneralInit.generalInit();
         //头像
-        ir = new ImageView(headAddressUse);
+        ir = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fzkres1.myzaker.com%2F201904%2F5cbedda0b15ec058f76b4711_raw.gif&refer=http%3A%2F%2Fzkres1.myzaker.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1674050238&t=7f391568a8a2c2a5b4eda4b186f83cac");
         ir.setTranslateX(irX);
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
         ir.setFitWidth(100);
-        ib = new ImageView("file:/D:/backgrounds/hb2.jpg");
+        //ib = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimages11.app.happyjuzi.com%2Fcontent%2F201703%2F09%2F58c0e86a4402c.gif%21ac1.nw.gif&refer=http%3A%2F%2Fimages11.app.happyjuzi.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1674052169&t=4fa2e9cf09756a1268889c59efe68a6a");
+        ib = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx3.sinaimg.cn%2Fmw690%2F005KJcKwly1h92b945hz8j30hk0ilgmp.jpg&refer=http%3A%2F%2Fwx3.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1674050272&t=adf930df05df895ebf9c62c41314bf34");
         ib.setTranslateX(irX + 600);
         ib.setTranslateY(irY);
         ib.setFitHeight(100);
         ib.setFitWidth(100);
-        rName.setText(LogIn.account);
+        //rName.setText(LogIn.account);
         bName.setText(null);
+        rName.setText(null);
         if (!anchorPane.getChildren().contains(ir))
         {
             anchorPane.getChildren().add(ir);
@@ -836,7 +838,7 @@ public class Board
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
         ir.setFitWidth(100);
-        ib = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F9f%2F6b%2F59%2F9f6b59e3c4e2f9abd632e6f73143d65b.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673610777&t=2b5744ba74d57757f46369d242ec900c");
+        ib = new ImageView("https://img0.baidu.com/it/u=4094260,1980918028&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=551");
         ib.setTranslateX(irX + 600);
         ib.setTranslateY(irY);
         ib.setFitHeight(100);

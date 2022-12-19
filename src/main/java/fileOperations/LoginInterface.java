@@ -41,12 +41,12 @@ public class LoginInterface {
 	public static void userLogIn(String userName,String plainPassword) throws Exception {
 		userFile=new File("database/",userName+".user.txt");
 		//System.out.println(userFile.getPath()+" "+userFile.getName()+" "+userFile.getAbsolutePath());
-		if (!userFile.exists()) throw new LoadUserException("User does not exist.");
+		if (!userFile.exists()) throw new LoadUserException("用户不存在！");
 		Scanner sc=new Scanner(userFile);
 		encryptedCorrectPassword=sc.next();
 //		Showing.Info("Check Point1050");
 		if (!encryptedCorrectPassword.equals(Encrypt.encryptByMD5(plainPassword)))
-			throw new LoadUserException("User name or password error!");
+			throw new LoadUserException("用户名或密码错误！");
 		UserStatus.setGameKey(Encrypt.encryptByMD5(userName+"vit"+Encrypt.encryptByMD5(plainPassword)));
 		for (int i=0;i<8;++i) gameCounter[i]=sc.nextInt();
 		sc.close();

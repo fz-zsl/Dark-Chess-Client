@@ -97,19 +97,6 @@ public class Preference
     void setHead(KeyEvent event)
     {
         headAddressUseS = headAddress.getText().trim();
-//        if(headAddressUseS.isEmpty())
-//            headAddressUseS = "D:/backgrounds/hb2.jpg";
-//        StringBuilder sb = new StringBuilder();
-//        for (int i = 0; i < headAddressUseS.length(); i++)
-//        {
-//            if(headAddressUseS.charAt(i) == '\\')
-//                sb.append('/');
-//            else if(headAddressUseS.charAt(i) == '\"')
-//                continue;
-//            else
-//                sb.append(headAddressUseS.charAt(i));
-//        }
-//        headAddressUseS = sb.toString();
     }
 
     @FXML
@@ -156,6 +143,7 @@ public class Preference
         }
         StartPage.thePreferenceStage.close();
         firstDet = true;
+
     }
     private static boolean firstDet = true;
     @FXML

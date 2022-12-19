@@ -40,7 +40,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <CheckBox fx:id="gamingSwitchButton" layoutX="444.0" layoutY="214.0" mnemonicParsing="false" onMousePressed="#setSwitch" prefHeight="23.0" prefWidth="92.0" text="是">
+      <CheckBox fx:id="gamingSwitchButton" layoutX="444.0" layoutY="214.0" mnemonicParsing="false" onMousePressed="#setSwitch" prefHeight="23.0" prefWidth="92.0" text="不关闭">
          <font>
             <Font size="16.0" />
          </font>

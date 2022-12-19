@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -20,11 +21,17 @@
          <font>
             <Font name="KaiTi" size="42.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Button fx:id="register" layoutX="560.0" layoutY="451.0" mnemonicParsing="false" onMouseClicked="#cRegister" prefHeight="87.0" prefWidth="178.0" style="-fx-background-color: null;">
          <font>
             <Font size="34.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <MenuBar prefHeight="26.0" prefWidth="900.0">
         <menus>
