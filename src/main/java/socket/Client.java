@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import Piece.ChessPiece;
+import com.example.darkchess.Board;
 import com.example.darkchess.CanvasUtils;
 import javafx.scene.image.Image;
 import net.sf.json.JSONObject;
@@ -236,10 +237,12 @@ public class Client
                             if(rScore >= 60)
                             {
                                 bTurn.setText("你赢了！！！");
+                                Board.flip();
                             }
                             else if(bScore >= 60)
                             {
                                 bTurn.setText("你输了！！！");
+                                Board.flip();
                             }
 
                         }

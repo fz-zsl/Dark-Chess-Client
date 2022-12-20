@@ -360,14 +360,14 @@ public class Board
                 UserStatus.AIMode = 2;
                 Showing.Info("已设置为初中二年级难度");
             };
-            menuItem9.setOnAction(eventHandler10);
+            menuItem10.setOnAction(eventHandler10);
 
             EventHandler<ActionEvent> eventHandler11 = e ->
             {
                 UserStatus.AIMode = 3;
                 Showing.Info("已设置为量子力学难度");
             };
-            menuItem9.setOnAction(eventHandler11);
+            menuItem11.setOnAction(eventHandler11);
 
             menu1.getItems().addAll(menuItem14,menu5, menuItem1,menuItem, menuItem2);
             menu3.getItems().addAll(menuItem3, menuItem4);
@@ -393,7 +393,7 @@ public class Board
                     theBoardStage.close();
                     InitializationApplication.theStartPage.show();
                     rName.setText("用户一");
-                    bName.setText("深蓝");
+                    bName.setText("薛校长");
                 }
             };
 
@@ -846,7 +846,7 @@ public class Board
         anchorPane.getChildren().addAll(ib, ir);
         //玩家在左边，r代表玩家而非颜色
         rName.setText(LogIn.account);
-        bName.setText("深蓝");
+        bName.setText("薛校长");
 
         //设置棋盘，画出棋子
         GeneralInit.generalInit();
@@ -968,7 +968,7 @@ public class Board
         ir.setTranslateY(irY);
         ir.setFitHeight(100);
         ir.setFitWidth(100);
-        ib = new ImageView("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fedpic_source%2F9f%2F6b%2F59%2F9f6b59e3c4e2f9abd632e6f73143d65b.jpg&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1673610777&t=2b5744ba74d57757f46369d242ec900c");
+        ib = new ImageView("https://img0.baidu.com/it/u=4094260,1980918028&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=551");
         ib.setTranslateX(irX + 600);
         ib.setTranslateY(irY);
         ib.setFitHeight(100);
@@ -994,7 +994,7 @@ public class Board
                         if(Choice.modeOfHalf == 2)
                         {
                             b.setText("机器");
-                            bName.setText("深蓝");
+                            bName.setText("薛校长");
                             if(UserStatus.currentSide == UserStatus.AISide)
                             {
                                 try
@@ -1126,7 +1126,7 @@ public class Board
         group.setOnMouseClicked(eventHandler);
     }
 
-    private static void flip()
+    public static void flip()
     {
         for (ChessPiece c : chessPieceArrayList)
             c.flipAChess();
@@ -1138,7 +1138,7 @@ public class Board
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setVolume(Preference.volume);
+        mediaPlayer.setVolume(3);
         mediaPlayer.setCycleCount(1);
         System.out.println("you died");
     }
@@ -1149,7 +1149,7 @@ public class Board
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setVolume(Preference.volume);
+        mediaPlayer.setVolume(3);
         mediaPlayer.setCycleCount(1);
         System.out.println("you win");
     }
@@ -1219,14 +1219,14 @@ public class Board
 
     public static void setRank()
     {
-        System.out.println(RankList.getRankList().size());
-        System.out.println(RankList.getRankList().get(0).userName + " " + RankList.getRankList().get(0).credit);
-        first.setText("bwgg");
+//        System.out.println(RankList.getRankList().size());
+//        System.out.println(RankList.getRankList().get(0).userName + " " + RankList.getRankList().get(0).credit);
+        first.setText("slgg");
         first.setText(RankList.getRankList().get(0).userName + " " + RankList.getRankList().get(0).credit);
-        second.setText(RankList.getRankList().get(1).userName + " " + RankList.getRankList().get(0).credit);
-        third.setText(RankList.getRankList().get(2).userName + " " + RankList.getRankList().get(0).credit);
-        forth.setText(RankList.getRankList().get(3).userName + " " + RankList.getRankList().get(0).credit);
-        fifth.setText(RankList.getRankList().get(4).userName + " " + RankList.getRankList().get(0).credit);
+        second.setText(RankList.getRankList().get(1).userName + " " + RankList.getRankList().get(1).credit);
+        third.setText(RankList.getRankList().get(2).userName + " " + RankList.getRankList().get(2).credit);
+        forth.setText(RankList.getRankList().get(3).userName + " " + RankList.getRankList().get(3).credit);
+        fifth.setText(RankList.getRankList().get(4).userName + " " + RankList.getRankList().get(4).credit);
         Integer a = RankList.getRankList().get(RankList.findUserRank()).credit;
         yourScore.setText(a.toString());
         a = RankList.findUserRank() + 1;

@@ -449,7 +449,7 @@ public abstract class ChessPiece extends ImageView
 
     public static void geSound()
     {
-        String path = "D:/CloudMusic/Gothic Storm - Chemical Slam.mp3";
+        String path = "D:/DarkChess/audio/ge.mp3";
         Media media = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(true);

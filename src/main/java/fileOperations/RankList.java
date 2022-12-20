@@ -1,5 +1,7 @@
 package fileOperations;
 
+import datum.UserStatus;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,7 +12,7 @@ public class RankList {
 
 	private static int calcCredit(ArrayList<Integer> userGameCounter) {
 		//Todo
-		return 1500
+		return 15
 				+userGameCounter.get(0)*2
 				-userGameCounter.get(1)
 				+userGameCounter.get(2)*10
@@ -37,6 +39,7 @@ public class RankList {
 
 	public static ArrayList<UserAndCredit> getRankList() {
 		File[] files=(new File("database/")).listFiles();
+		result.clear();
 		for (File file: files) {
 			if (!file.isFile()) continue;
 			String fileName=file.getName();
@@ -45,6 +48,19 @@ public class RankList {
 			result.add(new UserAndCredit(userName,getUserCredit(fileName)));
 		}
 		result.sort(Comparator.naturalOrder());
+		String lastName=null;
+		for (int i=0;i<result.size();++i) {
+			UserAndCredit cur=result.get(i);
+			if (cur.userName.equals(lastName)) {
+				result.remove(cur);
+				--i;
+			}
+			else lastName=cur.userName;
+		}
+		System.out.println(result.size());
+		for (UserAndCredit cur:result) {
+			System.out.println(cur);
+		}
 		return result;
 	}
 
